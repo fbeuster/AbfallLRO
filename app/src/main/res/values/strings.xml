@@ -17,7 +17,7 @@
     <string name="check_can_black">graue</string>
     <string name="check_can_blue">blaue</string>
     <string name="check_can_green">grüne</string>
-    <string name="check_can_none">Heute keine Abhohlung.</string>
+    <string name="check_can_none">Heute keine Abholung.</string>
     <plurals name="check_can_sentence">
         <item quantity="one">Heute wird die %s Tonne abgeholt.</item>
         <item quantity="other">Heute werden die %s Tonne abgeholt.</item>
