@@ -1,0 +1,38 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_title_location"
+        android:key="pref_group_location">
+        <ListPreference
+            android:key="pref_location"
+            android:title="@string/pref_location"
+            android:dialogTitle="@string/pref_location"
+            android:entries="@array/pref_locations"
+            android:entryValues="@array/pref_locations"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
+        <ListPreference
+            android:enabled="false"
+            android:key="pref_location_street"
+            android:title="@string/pref_location_street"
+            android:dialogTitle="@string/pref_location_street"
+            android:entries="@array/pref_location_streets"
+            android:entryValues="@array/pref_location_streets"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_title_cans_monthly"
+        android:key="pref_cans_monthly">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_can_black_monthly"
+            android:title="@string/pref_title_can_black_monthly" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_can_green_monthly"
+            android:title="@string/pref_title_can_green_monthly" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

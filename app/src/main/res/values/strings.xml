@@ -1,0 +1,997 @@
+<resources>
+    <string name="app_name">Abfall LRO</string>
+    <string name="author">Felix Beuster</string>
+    <string name="version">1.2</string>
+
+    <string name="action_settings">Einstellungen</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="location_select_button">Festlegen</string>
+
+    <string name="setup_sreen_title">Erstmalige Einstellungen</string>
+    <string name="location_select_title">Wähle einen Ort aus</string>
+    <string name="location_street_select_title">Wähle eine Straße aus (nur Güstrow)</string>
+    <string name="plan_select_title">Monatlich Abfuhr (statt alle zwei Wochen)</string>
+    <string name="select_monthly_black">graue Tonne</string>
+    <string name="select_monthly_green">grüne Tonne</string>
+
+    <string name="check_can_black">graue</string>
+    <string name="check_can_blue">blaue</string>
+    <string name="check_can_green">grüne</string>
+    <string name="check_can_none">Heute keine Abhohlung.</string>
+    <plurals name="check_can_sentence">
+        <item quantity="one">Heute wird die %s Tonne abgeholt.</item>
+        <item quantity="other">Heute werden die %s Tonne abgeholt.</item>
+    </plurals>
+    <string name="check_can_yellow">gelbe</string>
+
+    <string name="check_invalid_city">Keine Stadt ausgewählt.</string>
+    <string name="check_invalid_code">Ungültige Abholdaten gelesen.</string>
+    <string name="check_invalid_street">Keine Straße ausgewählt.</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="pref_header_infos">Über die App</string>
+    <string name="pref_title_author">Autor</string>
+    <string name="pref_title_version">Version</string>
+    <string name="pref_title_website">Webseite</string>
+    <string name="pref_url_website_short">beusterse.de</string>
+    <string name="pref_url_website_long">http://beusterse.de</string>
+
+    <string name="pref_header_general">Abfuhreinstellungen</string>
+
+    <string name="pref_title_cans_monthly">Monatliche Abholung</string>
+    <string name="pref_title_can_black_monthly">Graue Tonne</string>
+    <string name="pref_title_can_green_monthly">Grüne Tonne</string>
+
+    <string name="pref_title_location">Abholort</string>
+    <string name="pref_location">Ort</string>
+    <string-array name="pref_locations">
+        <item>Admannshagen</item>
+        <item>Ahrenshagen</item>
+        <item>Albertdorf</item>
+        <item>Allershagen</item>
+        <item>Alt Bukow</item>
+        <item>Alt Diekhof</item>
+        <item>Altenhagen (Kröpelin)</item>
+        <item>Altenhagen (Lohmen)</item>
+        <item>Althof</item>
+        <item>Alt Kätwin</item>
+        <item>Alt Karin</item>
+        <item>Alt Krassow</item>
+        <item>Alt Pannekow</item>
+        <item>Alt Quitzenow</item>
+        <item>Alt Rossewitz</item>
+        <item>Alt Sammit</item>
+        <item>Alt Stassow</item>
+        <item>Alt Sührkow</item>
+        <item>Alt Vorwerk</item>
+        <item>Altenhagen (Lohmen)</item>
+        <item>Altenhagen (Kröpelin)</item>
+        <item>Altkalen</item>
+        <item>Amalienhof</item>
+        <item>Anna Luisenhof</item>
+        <item>Appelhagen</item>
+        <item>Augustenberg</item>
+        <item>Augustenruh</item>
+        <item>Bäbelitz</item>
+        <item>Bad Doberan </item>
+        <item>Badendiek</item>
+        <item>Badenmühle</item>
+        <item>Bahrenhorst</item>
+        <item>Bandelstorf</item>
+        <item>Bandow </item>
+        <item>Bansow</item>
+        <item>Bantow</item>
+        <item>Bargeshagen</item>
+        <item>Barkvieren</item>
+        <item>Bartelshagen</item>
+        <item>Bartenshagen</item>
+        <item>Barz</item>
+        <item>Basse</item>
+        <item>Bastorf</item>
+        <item>Baumgarten</item>
+        <item>Behnkenhagen</item>
+        <item>Behren-Lübchin</item>
+        <item>Belitz</item>
+        <item>Bellin</item>
+        <item>Benitz</item>
+        <item>Bentwisch</item>
+        <item>Berendshagen</item>
+        <item>Bergfeld</item>
+        <item>Berghausen</item>
+        <item>Bernitt</item>
+        <item>Beselin</item>
+        <item>Biendorf</item>
+        <item>Billenhagen</item>
+        <item>Blankenhagen</item>
+        <item>Blengow</item>
+        <item>Bliesekow</item>
+        <item>Bobbin</item>
+        <item>Bockholt</item>
+        <item>Boddin</item>
+        <item>Boitin</item>
+        <item>Boldebuck</item>
+        <item>Boldenshagen</item>
+        <item>Boldenstorf</item>
+        <item>Bölkow</item>
+        <item>Bolland</item>
+        <item>Bollbrücke</item>
+        <item>Börgerende</item>
+        <item>Bornkrug</item>
+        <item>Bossow</item>
+        <item>Braunsberg</item>
+        <item>Bredentin</item>
+        <item>Breesen</item>
+        <item>Bristow</item>
+        <item>Broderstorf</item>
+        <item>Brodhagen</item>
+        <item>Bröbberow</item>
+        <item>Brookhusen</item>
+        <item>Brusow </item>
+        <item>Buchenhof</item>
+        <item>Buchholz</item>
+        <item>Bukow</item>
+        <item>Bülow (Güstrow)</item>
+        <item>Bülow (Schorssow)</item>
+        <item>Bülower Burg</item>
+        <item>Büttelkow</item>
+        <item>Burg-Schlitz</item>
+        <item>Buschmühlen</item>
+        <item>Bussewitz</item>
+        <item>Bützow-Stadt</item>
+        <item>Cammin</item>
+        <item>Carlsdorf</item>
+        <item>Carlshof</item>
+        <item>Charlottenthal</item>
+        <item>Clausdorf (Kirch Mulsow)</item>
+        <item>Clausdorf (Satow) </item>
+        <item>Cordshagen</item>
+        <item>Dahmen</item>
+        <item>Dalkendorf</item>
+        <item>Dalwitz</item>
+        <item>Damm (Altkalen)</item>
+        <item>Damm (Dummerstorf) </item>
+        <item>Danneborth</item>
+        <item>Dehmen</item>
+        <item>Dersentin</item>
+        <item>Detershagen</item>
+        <item>Diedrichshagen</item>
+        <item>Diedrichshof</item>
+        <item>Diekhof</item>
+        <item>Dishley</item>
+        <item>Dobbin</item>
+        <item>Dolgen</item>
+        <item>Dolglas</item>
+        <item>Dölitz</item>
+        <item>Dorf Jörnstorf</item>
+        <item>Dorf Taschow </item>
+        <item>Dreetz</item>
+        <item>Drölitz</item>
+        <item>Drüsewitz</item>
+        <item>Duckwitz</item>
+        <item>Dudinghausen</item>
+        <item>Dummerstorf</item>
+        <item>Ehmkendorf</item>
+        <item>Eickelberg</item>
+        <item>Eickhof (Warnow)</item>
+        <item>Eickhof (Cammin)</item>
+        <item>Einhusen</item>
+        <item>Elmenhorst</item>
+        <item>Eschenhörn</item>
+        <item>Fahrenholz</item>
+        <item>Fienstorf</item>
+        <item>Finkenthal</item>
+        <item>Forsthof</item>
+        <item>Fresendorf</item>
+        <item>Friedrichshagen</item>
+        <item>Friedrichshof (Dolgen) </item>
+        <item>Friedrichshof (Klein Belitz)</item>
+        <item>Friedrichshof (Wasdow)</item>
+        <item>Fulgenkoppel</item>
+        <item>Fürstenhof</item>
+        <item>Ganschow</item>
+        <item>Gaarzer Hof </item>
+        <item>Garden</item>
+        <item>Garvensdorf</item>
+        <item>Garvsmühlen</item>
+        <item>Gelbensande</item>
+        <item>Gerdshagen (Lohmen)</item>
+        <item>Gerdshagen (Satow) </item>
+        <item>Gehmkendorf</item>
+        <item>Gersdorf</item>
+        <item>Glambeck</item>
+        <item>Glasewitz</item>
+        <item>Glashagen</item>
+        <item>Glasow</item>
+        <item>Glave</item>
+        <item>Gnemern</item>
+        <item>Gnewitz</item>
+        <item>Gnoien</item>
+        <item>Godow</item>
+        <item>Göldenitz (Dummerstorf)</item>
+        <item>Göldenitz (Rukieten) </item>
+        <item>Goldewin</item>
+        <item>Göllin</item>
+        <item>Goorstorf</item>
+        <item>Goritz</item>
+        <item>Gorow</item>
+        <item>Görzhausen</item>
+        <item>Gottesgabe</item>
+        <item>Gottin</item>
+        <item>Graal-Müritz</item>
+        <item>Gragetopshof</item>
+        <item>Gralow</item>
+        <item>Grambzow</item>
+        <item>Grammow</item>
+        <item>Granzow</item>
+        <item>Gremmelin</item>
+        <item>Griebnitz</item>
+        <item>Grieve</item>
+        <item>Groß Bäbelin</item>
+        <item>Groß Belitz</item>
+        <item>Groß Bölkow</item>
+        <item>Groß Breesen</item>
+        <item>Groß Bützin</item>
+        <item>Groß Freienholz</item>
+        <item>Groß Gischow</item>
+        <item>Groß Grabow</item>
+        <item>Groß Grenz</item>
+        <item>Groß Köthel</item>
+        <item>Groß Kussewitz</item>
+        <item>Groß Lantow</item>
+        <item>Großen Luckow </item>
+        <item>Groß Lüsewitz</item>
+        <item>Groß Lunow</item>
+        <item>Groß Markow</item>
+        <item>Groß Nieköhr</item>
+        <item>Groß Nienhagen</item>
+        <item>Groß Potrems</item>
+        <item>Groß Ridsenow</item>
+        <item>Groß Roge</item>
+        <item>Groß Schwaß </item>
+        <item>Groß Schwiesow</item>
+        <item>Groß Siemen</item>
+        <item>Groß Stove</item>
+        <item>Groß Tessin</item>
+        <item>Groß Upahl</item>
+        <item>Groß Viegeln</item>
+        <item>Groß Wokern</item>
+        <item>Groß Wüstenfelde</item>
+        <item>Grube</item>
+        <item>Grünenhagen</item>
+        <item>Grünenhof</item>
+        <item>Gubkow</item>
+        <item>Gülzow</item>
+        <item>Güstrow</item>
+        <item>Gutow</item>
+        <item>Hägerfelde</item>
+        <item>Hanshagen</item>
+        <item>Hanstorf</item>
+        <item>Harmstorf</item>
+        <item>Häschendorf</item>
+        <item>Hastorf</item>
+        <item>Helmstorf</item>
+        <item>Heiligendamm</item>
+        <item>Heiligenhagen </item>
+        <item>Hermannshagen</item>
+        <item>Hessenstein</item>
+        <item>Hinrichshof</item>
+        <item>Hinter Bollhagen</item>
+        <item>Hinzenhagen</item>
+        <item>Hohen Gubkow</item>
+        <item>Hohen Schwarfs</item>
+        <item>Hof Jörnstorf</item>
+        <item>Hof Rühn</item>
+        <item>Hof Tatschow </item>
+        <item>Hohen Demzin</item>
+        <item>Hohen Luckow </item>
+        <item>Hohen Mistorf</item>
+        <item>Hohen Niendorf</item>
+        <item>Hohenfelde (Bad Doberan)</item>
+        <item>Hohenfelde (Thulendorf)</item>
+        <item>Hohen Sprenz</item>
+        <item>Hohen Tutow</item>
+        <item>Hooge Liedt</item>
+        <item>Hoppenhof</item>
+        <item>Hoppenrade</item>
+        <item>Horst (Bützow)</item>
+        <item>Horst (Kröpelin</item>
+        <item>Horst (Sanitz)</item>
+        <item>Horst (Satow) </item>
+        <item>Huckstorf</item>
+        <item>Hütten</item>
+        <item>Hüttenkoppel</item>
+        <item>Hundehagen </item>
+        <item>Ivendorf </item>
+        <item>Ikendorf</item>
+        <item>Jabelitz</item>
+        <item>Jahmen</item>
+        <item>Jennewitz</item>
+        <item>Jördenstorf</item>
+        <item>Jürgenshagen</item>
+        <item>Kägsdorf</item>
+        <item>Kambs</item>
+        <item>Kamin </item>
+        <item>Kämmerich</item>
+        <item>Kankel</item>
+        <item>Karcheez</item>
+        <item>Karow (Lüssow)</item>
+        <item>Karstorf</item>
+        <item>Käselow</item>
+        <item>Kassow </item>
+        <item>Katelbogen</item>
+        <item>Käterhagen</item>
+        <item>Kavelstorf</item>
+        <item>Kessin</item>
+        <item>Kirch Kogel</item>
+        <item>Kirch Mulsow</item>
+        <item>Kirch Rosin</item>
+        <item>Klaber</item>
+        <item>Klein Bäbelin</item>
+        <item>Klein Bartelstorf</item>
+        <item>Klein Belitz</item>
+        <item>Klein Bentwisch</item>
+        <item>Klein Bölkow</item>
+        <item>Klein Bollhagen </item>
+        <item>Klein Breesen</item>
+        <item>Klein Freienholz</item>
+        <item>Klein Gischow</item>
+        <item>Klein Grabow</item>
+        <item>Klein Grenz</item>
+        <item>Klein Köthel</item>
+        <item>Klein Kussewitz</item>
+        <item>Klein Lantow</item>
+        <item>Klein Lüsewitz</item>
+        <item>Klein Lunow</item>
+        <item>Klein Markow</item>
+        <item>Klein Mulsow </item>
+        <item>Klein Nieköhr</item>
+        <item>Klein Nienhagen</item>
+        <item>Klein Potrems</item>
+        <item>Klein Raden</item>
+        <item>Klein Ridsenow</item>
+        <item>Klein Roge</item>
+        <item>Klein Schwaß </item>
+        <item>Klein Schwiesow</item>
+        <item>Klein Siemen</item>
+        <item>Klein Sien</item>
+        <item>Klein Sprenz</item>
+        <item>Klein Stove</item>
+        <item>Klein Strömkendorf</item>
+        <item>Klein Tessin</item>
+        <item>Klein Upahl</item>
+        <item>Klein Viegeln</item>
+        <item>Klein Wehnendorf</item>
+        <item>Klein Wokern</item>
+        <item>Klein Wüstenfelde</item>
+        <item>Klenz</item>
+        <item>Kleverhof</item>
+        <item>Klingendorf</item>
+        <item>Klueß</item>
+        <item>Knegendorf</item>
+        <item>Kobrow</item>
+        <item>Koitendorf</item>
+        <item>Kölln</item>
+        <item>Koppelow</item>
+        <item>Körchow</item>
+        <item>Konow </item>
+        <item>Korleput</item>
+        <item>Kossow</item>
+        <item>Kösterbeck</item>
+        <item>Kowalz</item>
+        <item>Krakow am See</item>
+        <item>Kranichshof</item>
+        <item>Krempin</item>
+        <item>Krevtsee</item>
+        <item>Kritzmow</item>
+        <item>Kritzkow</item>
+        <item>Kröpelin</item>
+        <item>Kronskamp</item>
+        <item>Kuchelmiß</item>
+        <item>Kühlungsborn</item>
+        <item>Kuhs</item>
+        <item>Kurzen Trechow</item>
+        <item>Küsserow</item>
+        <item>Kussow</item>
+        <item>Laage</item>
+        <item>Laase</item>
+        <item>Lähnwitz</item>
+        <item>Lalendorf</item>
+        <item>Lambrechtshagen</item>
+        <item>Langen Trechow</item>
+        <item>Langensee</item>
+        <item>Langhagen</item>
+        <item>Lehnenhof </item>
+        <item>Lelkendorf</item>
+        <item>Letschow </item>
+        <item>Levitzow</item>
+        <item>Lichtenhagen</item>
+        <item>Lieblingshof</item>
+        <item>Liepen</item>
+        <item>Liessow</item>
+        <item>Linstow</item>
+        <item>Lissow</item>
+        <item>Lohmen</item>
+        <item>Lübsee</item>
+        <item>Lübzin</item>
+        <item>Lüchow</item>
+        <item>Lüdershagen</item>
+        <item>Ludwigsdorf</item>
+        <item>Lühburg</item>
+        <item>Lüningsdorf</item>
+        <item>Lüningshagen</item>
+        <item>Lüssow</item>
+        <item>Malpendorf</item>
+        <item>Mamerow</item>
+        <item>Mandelshagen</item>
+        <item>Marienhof</item>
+        <item>Matersen</item>
+        <item>Matgendorf</item>
+        <item>Mechelsdorf</item>
+        <item>Meschendorf </item>
+        <item>Mieckow</item>
+        <item>Miekenhagen</item>
+        <item>Mierendorf</item>
+        <item>Mistorf</item>
+        <item>Moisall</item>
+        <item>Moitin</item>
+        <item>Möllen</item>
+        <item>Mönchhagen</item>
+        <item>Mönkweden</item>
+        <item>Moltenow</item>
+        <item>Mühl Rosin</item>
+        <item>Mühlengeez</item>
+        <item>Mühlenhof</item>
+        <item>Neu Bartelstorf</item>
+        <item>Neu Bernitt</item>
+        <item>Neu Boddin</item>
+        <item>Neu Broderstorf</item>
+        <item>Neu Dobbin</item>
+        <item>Neu Fienstorf</item>
+        <item>Neu Gaarz</item>
+        <item>Neu Gramstorf</item>
+        <item>Neu Griebnitz</item>
+        <item>Neu Harmstorf</item>
+        <item>Neu Heinde</item>
+        <item>Neu Hohenfelde</item>
+        <item>Neu Karin</item>
+        <item>Neu Käterhagen</item>
+        <item>Neu Kassow</item>
+        <item>Neu Kokendorf</item>
+        <item>Neu Krassow</item>
+        <item>Neu Kätwin</item>
+        <item>Neu Mierendorf </item>
+        <item>Neu Mistorf</item>
+        <item>Neu Mühle</item>
+        <item>Neu Nieköhr</item>
+        <item>Neu Pannekow</item>
+        <item>Neu Pastow</item>
+        <item>Neu Poorstorf</item>
+        <item>Neu Quitzenow</item>
+        <item>Neu Rachow</item>
+        <item>Neu Remlin</item>
+        <item>Neu Rethwisch</item>
+        <item>Neu Roggentin (+ N.R.Str.) </item>
+        <item>Neu Sammit</item>
+        <item>Neu Satow</item>
+        <item>Neu Stassow</item>
+        <item>Neu Sührkow</item>
+        <item>Neu Tenze</item>
+        <item>Neu Teschow (Alt Bu.)</item>
+        <item>Neu Tessenow</item>
+        <item>Neu Thulendorf</item>
+        <item>Neu Vorwerk</item>
+        <item>Neu Wendorf (Sanitz)</item>
+        <item>Neu Wiendorf </item>
+        <item>Neu Wokern</item>
+        <item>Neu Zierhagen</item>
+        <item>Neu Ziddorf</item>
+        <item>Neubukow</item>
+        <item>Neuendorf (Steinhagen)</item>
+        <item>Neuendorf (Broderstorf) </item>
+        <item>Neuhof (Zehna) </item>
+        <item>Neuhof (Grammow) </item>
+        <item>Neuhof (Parkentin) </item>
+        <item>Neukirchen</item>
+        <item>Niederhagen</item>
+        <item>Niegleve</item>
+        <item>Niekrenz</item>
+        <item>Niendorf (Teterow)</item>
+        <item>Niendorf (Wiendorf) </item>
+        <item>Niendorf (Papendorf)</item>
+        <item>Nienhagen (Groß Wokern)</item>
+        <item>Nienhagen (Lalendorf)</item>
+        <item>Nienhagen (Lohmen)</item>
+        <item>Nienhagen (Ostseebad)</item>
+        <item>Nienhusen</item>
+        <item>Niex</item>
+        <item>Nustrow</item>
+        <item>Oberhagen</item>
+        <item>Oberhof</item>
+        <item>Oettelin</item>
+        <item>öftenhäven</item>
+        <item>Oldenstorf</item>
+        <item>Pampow</item>
+        <item>Pankelow</item>
+        <item>Panzow</item>
+        <item>Papendorf</item>
+        <item>Parchow</item>
+        <item>Parchow Ausbau</item>
+        <item>Parkentin</item>
+        <item>Parkow</item>
+        <item>Parum</item>
+        <item>Pastow</item>
+        <item>Passin</item>
+        <item>Peetsch</item>
+        <item>Pepelow</item>
+        <item>Penzin</item>
+        <item>Perow</item>
+        <item>Petschow</item>
+        <item>Pinnow </item>
+        <item>Plaaz</item>
+        <item>Poggelow</item>
+        <item>Pohnstorf </item>
+        <item>Polchow</item>
+        <item>Pölchow</item>
+        <item>Pölitz</item>
+        <item>Poppendorf</item>
+        <item>Prangendorf</item>
+        <item>Prebberede</item>
+        <item>Prisannewitz</item>
+        <item>Prüzen</item>
+        <item>Purkshof</item>
+        <item>Püschow</item>
+        <item>Pustohl (Rühn)</item>
+        <item>Pustohl (Satow)</item>
+        <item>Qualitz</item>
+        <item>Questin</item>
+        <item>Rabenhorst (Admannshagen)</item>
+        <item>Rabenhorst (Prebberede)</item>
+        <item>Rachow</item>
+        <item>Radegast</item>
+        <item>Raden</item>
+        <item>Rakow</item>
+        <item>Ravensberg </item>
+        <item>Recknitz</item>
+        <item>Reddelich</item>
+        <item>Reddershof</item>
+        <item>Rederank</item>
+        <item>Reez</item>
+        <item>Reimershagen</item>
+        <item>Reinshagen (Lalendorf)</item>
+        <item>Reinshagen (Satow) </item>
+        <item>Reinstorf</item>
+        <item>Remlin</item>
+        <item>Rensow</item>
+        <item>Repnitz</item>
+        <item>Reppelin</item>
+        <item>Rerik</item>
+        <item>Rethwisch</item>
+        <item>Retschow</item>
+        <item>Rey</item>
+        <item>Roggentin</item>
+        <item>Roggow (Lalendorf)</item>
+        <item>Roggow (Rerik)</item>
+        <item>Rosenhagen</item>
+        <item>Rosenow</item>
+        <item>Rothbeck (Broderstorf)</item>
+        <item>Rothbeck (Lohmen)</item>
+        <item>Rothenmoor</item>
+        <item>Rothspalk</item>
+        <item>Rövershagen</item>
+        <item>Rühn</item>
+        <item>Rukieten</item>
+        <item>Rum Kogel</item>
+        <item>Russow</item>
+        <item>Sabel</item>
+        <item>Sagerheide</item>
+        <item>Samow</item>
+        <item>Sandhagen</item>
+        <item>Sanitz</item>
+        <item>Sarmstorf (Güstrow)</item>
+        <item>Sarmstorf (Lelkendorf)</item>
+        <item>Satow</item>
+        <item>Scharstorf</item>
+        <item>Schependorf</item>
+        <item>Schlage</item>
+        <item>Schlemmin</item>
+        <item>Schlieffenberg</item>
+        <item>Schlockow</item>
+        <item>Schlutow</item>
+        <item>Schmadebeck</item>
+        <item>Schönwolde</item>
+        <item>Schorssow</item>
+        <item>Schrödershof</item>
+        <item>Schwaan</item>
+        <item>Schwarzenpfost</item>
+        <item>Schwasdorf</item>
+        <item>Schweez</item>
+        <item>Schwetzin</item>
+        <item>Schwiessel</item>
+        <item>Schwiggerow</item>
+        <item>Seegrube</item>
+        <item>Seeland</item>
+        <item>Selow</item>
+        <item>Selpin</item>
+        <item>Serrahn</item>
+        <item>Siemitz</item>
+        <item>Sievershagen</item>
+        <item>Sildemow</item>
+        <item>Sophienhof</item>
+        <item>Sophienholz</item>
+        <item>Sperlingshof</item>
+        <item>Spoitgendorf</item>
+        <item>Spotendorf</item>
+        <item>Spriehusen </item>
+        <item>Stäbelow</item>
+        <item>Starkow</item>
+        <item>Stechow</item>
+        <item>Steffenshagen</item>
+        <item>Steinbeck (Admannshagen)</item>
+        <item>Steinbeck (Krakow)</item>
+        <item>Steinbrinck</item>
+        <item>Steinfeld</item>
+        <item>Steinhagen (Bützow)</item>
+        <item>Steinhagen (Kirch Mulsow)</item>
+        <item>Steinhagen (Satow) </item>
+        <item>Stierow</item>
+        <item>Stormstorf</item>
+        <item>Strenz</item>
+        <item>Striesdorf</item>
+        <item>Striesenow</item>
+        <item>Strietfeld</item>
+        <item>Striggow</item>
+        <item>Stubbendorf</item>
+        <item>Stülow</item>
+        <item>Subzin</item>
+        <item>Suckow</item>
+        <item>Suckwitz</item>
+        <item>Sukow-Marienhof </item>
+        <item>Tarnow</item>
+        <item>Tellow</item>
+        <item>Tenze</item>
+        <item>Teschendorf</item>
+        <item>Teschow (Alt Bukow)</item>
+        <item>Teschow (Teterow)</item>
+        <item>Teschow (Wardow)</item>
+        <item>Tessenow</item>
+        <item>Tessin</item>
+        <item>Teßmannsdorf</item>
+        <item>Teterow (ohne Ortsteile)</item>
+        <item>Teutendorf</item>
+        <item>Thelkow</item>
+        <item>Thulendorf</item>
+        <item>Thürkow</item>
+        <item>Tieplitz</item>
+        <item>Todendorf</item>
+        <item>Tolzin</item>
+        <item>Uhlenbrook </item>
+        <item>Uhlenhof</item>
+        <item>Ulrikenhof</item>
+        <item>Viecheln</item>
+        <item>Vietgest</item>
+        <item>Vietow</item>
+        <item>Vietschow</item>
+        <item>Viezen</item>
+        <item>Vilz</item>
+        <item>Vipernitz</item>
+        <item>Vogelsang (Lalendorf)</item>
+        <item>Vogelsang (Selpin) </item>
+        <item>Vogtshagen</item>
+        <item>Volkenshagen</item>
+        <item>Vorbeck</item>
+        <item>Vorder Bollhagen</item>
+        <item>Vorweden</item>
+        <item>Waldschmidt</item>
+        <item>Walkendorf</item>
+        <item>Wahrstorf</item>
+        <item>Waldeck</item>
+        <item>Warbelow</item>
+        <item>Wardow</item>
+        <item>Warnkenhagen</item>
+        <item>Warnow</item>
+        <item>Wasdow</item>
+        <item>Wattmannshagen</item>
+        <item>Weitendorf (Laage)</item>
+        <item>Weitendorf (Cammin)</item>
+        <item>Wendelstorf </item>
+        <item>Wendfeld</item>
+        <item>Wendorf (Baumgarten)</item>
+        <item>Wendorf (Plaaz)</item>
+        <item>Wendorf (Sanitz)</item>
+        <item>Wendorf (Groß Potrems)</item>
+        <item>Werle </item>
+        <item>Wesselstorf</item>
+        <item>Westenbrügge</item>
+        <item>Westhof</item>
+        <item>Wichmannsdorf</item>
+        <item>Wiendorf </item>
+        <item>Wilhelminenhof</item>
+        <item>Willershagen</item>
+        <item>Wilsen (Kuchelmiß)</item>
+        <item>Wilsen (Stäbelow)</item>
+        <item>Wilsen Ausbau (Lambrechtshagen)</item>
+        <item>Wischuer</item>
+        <item>Wittenbeck </item>
+        <item>Wohrenstorf</item>
+        <item>Wokrent</item>
+        <item>Woland</item>
+        <item>Wolken</item>
+        <item>Wolfsberg</item>
+        <item>Woltow</item>
+        <item>Wotrum</item>
+        <item>Wozeten</item>
+        <item>Wustrow</item>
+        <item>Zapkendorf</item>
+        <item>Zarfzow</item>
+        <item>Zarnewanz</item>
+        <item>Zeez</item>
+        <item>Zehlendorf</item>
+        <item>Zehna</item>
+        <item>Zepelin</item>
+        <item>Zernin</item>
+        <item>Zibühl</item>
+        <item>Ziddorf</item>
+        <item>Ziesendorf</item>
+        <item>Zierstorf</item>
+        <item>Zietlitz</item>
+        <item>Zweedorf</item>
+    </string-array>
+    <string name="pref_location_default">Bützow-Stadt</string>
+
+    <string name="pref_location_street">Straße</string>
+    <string-array name="pref_location_streets">
+        <item>Admannshagen</item>
+        <item>Am Augraben</item>
+        <item>Am Berge</item>
+        <item>Am Brink</item>
+        <item>Am Eicheneck</item>
+        <item>Am Gewerbegrund</item>
+        <item>Am Hasenwald</item>
+        <item>Am Mühlbach</item>
+        <item>Am Mühlenplatz</item>
+        <item>Am Pfaffenbruch</item>
+        <item>Am Sportplatz</item>
+        <item>Am Stettiner Teich</item>
+        <item>Am Suckower Graben</item>
+        <item>Am Wall</item>
+        <item>Am Werder</item>
+        <item>An den Bootshäusern</item>
+        <item>An der Bucht</item>
+        <item>An der Fähre</item>
+        <item>An der Schanze</item>
+        <item>Armesünderstraße</item>
+        <item>August-Bebel-Straße</item>
+        <item>Bachstraße</item>
+        <item>Bahnhofsplatz</item>
+        <item>Barlachweg</item>
+        <item>Bärstämmweg</item>
+        <item>Bauhof</item>
+        <item>Baumschulenweg</item>
+        <item>Baustraße</item>
+        <item>Beim Wasserturm</item>
+        <item>Besserstraße</item>
+        <item>Bgm.-Dahse-Straße</item>
+        <item>Bistede</item>
+        <item>Bleicherstraße</item>
+        <item>Bockhorst</item>
+        <item>Bölkower Straße</item>
+        <item>Bredentiner Straße</item>
+        <item>Bredentiner Weg</item>
+        <item>Brunnenplatz</item>
+        <item>Brunnenstraße</item>
+        <item>Buchenweg</item>
+        <item>Bülower Straße</item>
+        <item>Bützower Straße</item>
+        <item>Burgstraße</item>
+        <item>Clara-Zetkin-Straße</item>
+        <item>Dachssteig</item>
+        <item>Demmlerstraße</item>
+        <item>Distelweg</item>
+        <item>Domplatz</item>
+        <item>Domstraße</item>
+        <item>Dr.-Robert-Külz-Straße</item>
+        <item>Drei Linden</item>
+        <item>Ebereschenweg</item>
+        <item>Eichenweg</item>
+        <item>Eisenbahnstraße</item>
+        <item>Elisabethstraße</item>
+        <item>Enge Straße</item>
+        <item>Ernst-Thälmann-Straße</item>
+        <item>Eschenwinkel</item>
+        <item>Fährdamm</item>
+        <item>Falkenflucht</item>
+        <item>Feldstraße</item>
+        <item>Fischerweg</item>
+        <item>Flethstaken</item>
+        <item>Flotowstraße</item>
+        <item>Fr.-Engels-Straße</item>
+        <item>Franz-Parr-Platz</item>
+        <item>Fr.-Pogge-Weg</item>
+        <item>F.- Trendelenburg-Allee </item>
+        <item>Fritz-Reuter-Straße</item>
+        <item>Fuchssteig</item>
+        <item>Gartenstraße</item>
+        <item>Gartenweg</item>
+        <item>Gertrudenstraße</item>
+        <item>Glasewitzer Burg</item>
+        <item>Glasewitzer Chaussee</item>
+        <item>Glasewitzer Straße</item>
+        <item>Gleviner Burg</item>
+        <item>Gleviner Mauer</item>
+        <item>Gleviner Platz</item>
+        <item>Gleviner Straße</item>
+        <item>Gliner                 Straße</item>
+        <item>Goetheplatz</item>
+        <item>Goldberger Straße</item>
+        <item>Gorkiweg</item>
+        <item>Grabenstraße</item>
+        <item>Grepelstraße</item>
+        <item>Großer Kraul</item>
+        <item>Grüne Straße</item>
+        <item>Grüner Weg</item>
+        <item>Grüner Winkel</item>
+        <item>Gustav-Adolf-Straße</item>
+        <item>Gutower Straße</item>
+        <item>Hafenstraße</item>
+        <item>Hageböcker Mauer</item>
+        <item>Hageböcker Straße</item>
+        <item>Hagemeister Straße</item>
+        <item>Hamburger Straße</item>
+        <item>Hans-Beimler-Straße</item>
+        <item>Hansenstraße</item>
+        <item>Haselstraße</item>
+        <item>Hasenhörn</item>
+        <item>Heidberg</item>
+        <item>Heideweg</item>
+        <item>Heiligengeisthof</item>
+        <item>Heinrich-Borwin-Straße</item>
+        <item>Hengstkoppelweg </item>
+        <item>Hirtenstraße</item>
+        <item>Hollstraße</item>
+        <item>Hopfenweg</item>
+        <item>Igelweg</item>
+        <item>Industriegelände</item>
+        <item>John-Brinckman-Straße</item>
+        <item>Kapellenstraße</item>
+        <item>Karl-Liebknecht-Str.</item>
+        <item>Kastanienstraße</item>
+        <item>Kerstingstraße</item>
+        <item>Kessiner Straße</item>
+        <item>Kiebitzweg</item>
+        <item>Klaus-Grothe-Straße</item>
+        <item>Kleine Wallstraße</item>
+        <item>Kleiner Kraul</item>
+        <item>Klötterpott</item>
+        <item>Klosterhof</item>
+        <item>Klueß</item>
+        <item>Koppelweg</item>
+        <item>Korngasse</item>
+        <item>Kösterstraße</item>
+        <item>Krönchenhagen</item>
+        <item>Krückmannstraße</item>
+        <item>Küsterhörn</item>
+        <item>Kuhlenweg</item>
+        <item>Kurze Straße</item>
+        <item>Lagerstraße</item>
+        <item>Lagerweg</item>
+        <item>Lange Stege</item>
+        <item>Lange Straße</item>
+        <item>Langendamm. Weg</item>
+        <item>Lärchenstraße</item>
+        <item>Liebnitzstraße</item>
+        <item>Lindbruch</item>
+        <item>Lindenallee</item>
+        <item>Lindengarten</item>
+        <item>Lindenstraße</item>
+        <item>Magdalenenlust</item>
+        <item>Magdalenenluster Weg</item>
+        <item>Markt</item>
+        <item>Mittelweg</item>
+        <item>Mühlenstraße</item>
+        <item>Mühlenweg </item>
+        <item>Nebelgang</item>
+        <item>Neue Straße</item>
+        <item>Neue Wallstraße</item>
+        <item>Neukruger Straße</item>
+        <item>Neuwieder Weg</item>
+        <item>Neu Strenz</item>
+        <item>Niklotstraße</item>
+        <item>Parumer Straße</item>
+        <item>Parumer Weg</item>
+        <item>Pfahlweg</item>
+        <item>Pferdemarkt</item>
+        <item>Philipp-Brandin-Str.</item>
+        <item>Platanenstraße</item>
+        <item>Platz der Freundschaft</item>
+        <item>Plauer Chaussee</item>
+        <item>Plauer Straße</item>
+        <item>Prahmstraße</item>
+        <item>Primer Straße</item>
+        <item>Primerburg</item>
+        <item>Prof.-Karsten-Weg</item>
+        <item>Puschkinweg</item>
+        <item>Pustekowstraße</item>
+        <item>Querstraße</item>
+        <item>Robert-Beltz-Straße</item>
+        <item>Ringstraße</item>
+        <item>Rosiner Straße</item>
+        <item>Rostocker Chaussee</item>
+        <item>Rostocker Platz</item>
+        <item>Rostocker Straße</item>
+        <item>Rövertannen</item>
+        <item>Sandberg</item>
+        <item>Sandstraße</item>
+        <item>Sankt-Jürgens-Weg</item>
+        <item>Schabernack</item>
+        <item>Schilfgürtelweg</item>
+        <item>Schliemannstraße</item>
+        <item>Schloßberg</item>
+        <item>Schloßstraße</item>
+        <item>Schnoienstraße</item>
+        <item>Schondorfstraße</item>
+        <item>Schöninseler Weg</item>
+        <item>Schulstraße</item>
+        <item>Schwaaner Straße</item>
+        <item>Schwarzer Weg</item>
+        <item>Schweriner Chaussee</item>
+        <item>Schweriner Straße</item>
+        <item>Seerosensteig</item>
+        <item>Seestraße</item>
+        <item>Seidelstraße</item>
+        <item>Senator-Beyer-Weg </item>
+        <item>Sonnenplatz</item>
+        <item>Spaldingsplatz</item>
+        <item>Spaldingsstraße</item>
+        <item>Speicherstraße</item>
+        <item>Steinstraße</item>
+        <item>Straße der DSF</item>
+        <item>Strenzer Weg</item>
+        <item>Suckow</item>
+        <item>Thünenweg</item>
+        <item>Tiefetal</item>
+        <item>Tivolistraße</item>
+        <item>Tolstoiweg</item>
+        <item>Trotschestraße</item>
+        <item>Ulmenstraße</item>
+        <item>Ulrichplatz</item>
+        <item>Ulrichstraße</item>
+        <item>Verbindungschaussee</item>
+        <item>Voßstraße</item>
+        <item>W.-Griesbach_Platz</item>
+        <item>W.-Seelenbinder-Straße</item>
+        <item>Wachsbleichenstraße</item>
+        <item>Waldweg</item>
+        <item>Walkmühlenstraße</item>
+        <item>Wallensteinstraße</item>
+        <item>Weidenweg</item>
+        <item>Weinbergstraße</item>
+        <item>Wendenstraße</item>
+        <item>Werderstraße</item>
+        <item>Werkweg</item>
+        <item>Werlestraße</item>
+        <item>Wiesenstraße</item>
+        <item>Willi-Schröder-Straße</item>
+        <item>Wilsenstraße</item>
+        <item>Wolfskrögen</item>
+        <item>Wossidlowstraße</item>
+        <item>Ziegeleiweg</item>
+        <item>Ziegeleiwiese</item>
+        <item>Zu den Domwiesen</item>
+        <item>Zu den Wiesen</item>
+        <item>Zum Apfelgarten</item>
+        <item>Zum Hohen Rad</item>
+        <item>Zum Inselseekanal</item>
+        <item>Zum Niklotstadion</item>
+        <item>Zum Schanenhals</item>
+        <item>Zum Steinsitz</item>
+        <item>Zum Ziegenhals</item>
+        <item>Zur Kanalbrücke</item>
+        <item>Zur Molchkuhle</item>
+    </string-array>
+    <string name="pref_location_street_default">Admannshagen</string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="de.beusterse.abfalllro.SetupActivity"
+    tools:showIn="@layout/activity_setup"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/location_select_title"
+            android:id="@+id/locationTitle"
+            android:layout_marginTop="44dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/locationStreetTitle"
+            android:layout_alignStart="@+id/locationStreetTitle" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_select_button"
+            android:id="@+id/locationButton"
+            android:layout_below="@+id/monthlyGreenCheckBox"
+            android:layout_alignParentRight="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationDropdown"
+            android:spinnerMode="dialog"
+            android:layout_below="@+id/locationTitle"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/location_street_select_title"
+            android:id="@+id/locationStreetTitle"
+            android:layout_below="@+id/locationDropdown"
+            android:layout_alignLeft="@+id/monthlyPickupTitle"
+            android:layout_alignStart="@+id/monthlyPickupTitle"
+            android:layout_marginTop="25dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationStreetDropdown"
+            android:spinnerMode="dialog"
+            android:layout_below="@+id/locationStreetTitle"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/plan_select_title"
+            android:id="@+id/monthlyPickupTitle"
+            android:layout_below="@+id/locationStreetDropdown"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_monthly_black"
+            android:id="@+id/monthlyBlackCheckBox"
+            android:layout_below="@+id/monthlyPickupTitle"
+            android:layout_alignLeft="@+id/monthlyGreenCheckBox"
+            android:layout_alignStart="@+id/monthlyGreenCheckBox" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_monthly_green"
+            android:id="@+id/monthlyGreenCheckBox"
+            android:layout_below="@+id/monthlyBlackCheckBox"
+            android:layout_alignLeft="@+id/monthlyPickupTitle"
+            android:layout_alignStart="@+id/monthlyPickupTitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/setup_sreen_title"
+            android:id="@+id/configScreenInfo"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/locationTitle"
+            android:layout_alignStart="@+id/locationTitle"
+            android:textColor="@color/colorAccent" />
+
+    </RelativeLayout>
+</ScrollView>

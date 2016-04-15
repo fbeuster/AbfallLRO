@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#F3F9F9</color>
+    <color name="colorPrimary">#191F1F</color>
+    <color name="colorPrimaryDark">#0e1212</color>
+    <color name="colorAccent">#0EA86C</color>
+    <color name="can_black">#9E9E9E</color>
+    <color name="can_black_dark">#616161</color>
+    <color name="can_blue">#2196F3</color>
+    <color name="can_blue_dark">#1976D2</color>
+    <color name="can_green">#4CAF50</color>
+    <color name="can_green_dark">#388E3C</color>
+    <color name="can_yellow">#FFC107</color>
+    <color name="can_yellow_dark">#FFA000</color>
+</resources>

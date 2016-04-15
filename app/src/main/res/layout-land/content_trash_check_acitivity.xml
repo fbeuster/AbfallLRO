@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".TrashCheckActivity"
+    tools:showIn="@layout/activity_trash_check_acitivity"
+    android:background="@color/background"
+    android:paddingLeft="@dimen/activity_horizontal_margin">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Aktueller Ort"
+            android:id="@+id/curLocationTextView"
+            android:layout_gravity="top|left"
+            android:layout_marginBottom="25dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/check_can_none"
+            android:id="@+id/checkInfoTextView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_marginBottom="15dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/trashCanImageView"
+            android:layout_alignWithParentIfMissing="false"
+            android:src="@drawable/can_none_scale"
+            android:layout_centerInParent="true"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevCanBlackImage"
+                android:src="@drawable/can_black_scale"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:longClickable="false"
+                android:scaleType="fitCenter"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="28"
+                android:id="@+id/prevCanBlackText"
+                android:layout_gravity="bottom"
+                android:layout_weight="25"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:paddingTop="10dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevCanGreenImage"
+                android:src="@drawable/can_green_scale"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:scaleType="fitCenter"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="28"
+                android:id="@+id/prevCanGreenText"
+                android:layout_gravity="bottom"
+                android:layout_weight="25"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:paddingTop="10dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevCanYellowImage"
+                android:src="@drawable/can_yellow_scale"
+                android:scaleType="fitCenter"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="28"
+                android:id="@+id/prevCanYellowText"
+                android:layout_gravity="bottom"
+                android:layout_weight="25"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:paddingTop="10dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevCanBlueImage"
+                android:src="@drawable/can_blue_scale"
+                android:scaleType="fitCenter"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="28"
+                android:id="@+id/prevCanBlueText"
+                android:layout_gravity="bottom"
+                android:layout_weight="25"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:paddingTop="10dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
