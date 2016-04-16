@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
@@ -14,7 +17,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -25,4 +28,33 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
+}
+
+/**
+ * loading signing data (keystore, passwords, alias) if the
+ * keystore.properties file in the root directory can be read
+ */
+def Properties localProps = new Properties()
+localProps.load(new FileInputStream(file('../local.properties')))
+
+def Properties props = new Properties()
+assert localProps['keystore.props.file'];
+
+if (file(localProps['keystore.props.file']).exists()) {
+    props.load(new FileInputStream(file(localProps['keystore.props.file'])))
+
+    if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD')
+            && props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+
+    } else {
+        println 'keystore.properties found, but some entries are missing'
+        android.buildTypes.release.signingConfig = null
+    }
+} else {
+    println 'keystore.properties not found'
+    android.buildTypes.release.signingConfig = null
 }
