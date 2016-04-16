@@ -13,6 +13,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
@@ -35,6 +36,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public static final String KEY_PREF_LOCATION_STREET = "pref_location_street";
     public static final String KEY_PREF_BLACK_MONTHLY = "pref_can_black_monthly";
     public static final String KEY_PREF_GREEN_MONTHLY = "pref_can_green_monthly";
+    public static final String KEY_PREF_NOTIFICATIONS_ACTIVE = "pref_notifications_active";
+    public static final String KEY_PREF_NOTIFICATIONS_TIME = "pref_notifications_time";
+    public static final String KEY_PREF_NOTIFICATIONS_VIBRATE = "pref_notifications_vibrate";
     public static final String CITY_WITH_STREETS = "Güstrow";
 
     /**
@@ -57,6 +61,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
+
+            } else if (preference instanceof TimePreference) {
+                TimePreference timePreference = (TimePreference) preference;
+                preference.setSummary(timePreference.getSummary());
 
             } else {
                 // For all other preferences, set the summary to the value's
@@ -148,11 +156,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || PickupPreferenceFragment.class.getName().equals(fragmentName)
-                || InfoPreferenceFragment.class.getName().equals(fragmentName);
+                || InfoPreferenceFragment.class.getName().equals(fragmentName)
+                || NotificationsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
-     * This fragment shows general preferences only. It is used when the
+     * This fragment shows pickup preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -170,7 +179,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference(KEY_PREF_LOCATION_STREET) );
+            bindPreferenceSummaryToValue(findPreference(KEY_PREF_LOCATION_STREET));
             updateStreetSummary(findPreference(KEY_PREF_LOCATION), cityName);
             updateStreetLocationPref(cityName);
 
@@ -209,15 +218,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         public void updateStreetLocationPref(String cityName) {
-            ListPreference street   = (ListPreference) findPreference(KEY_PREF_LOCATION_STREET);
+            ListPreference street = (ListPreference) findPreference(KEY_PREF_LOCATION_STREET);
 
             boolean needsStreet = cityName.equals(CITY_WITH_STREETS);
-            street.setEnabled( needsStreet );
+            street.setEnabled(needsStreet);
         }
     }
 
     /**
-     * This fragment shows notification preferences only. It is used when the
+     * This fragment shows information preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -237,6 +246,64 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * This fragment shows notification preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class NotificationsPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_notifications);
+            setHasOptionsMenu(true);
+
+            SwitchPreference active = (SwitchPreference) findPreference(KEY_PREF_NOTIFICATIONS_ACTIVE);
+            TimePreference time     = (TimePreference) findPreference(KEY_PREF_NOTIFICATIONS_TIME);
+
+            updatePreferencesEnabled(active.isEnabled());
+            updateTimePreferenceSummary(time);
+
+            active.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object enabled) {
+                    updatePreferencesEnabled((boolean) enabled);
+                    return true;
+                }
+            });
+            time.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    updateTimePreferenceSummary(preference);
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        private void updatePreferencesEnabled(boolean enabled) {
+            Preference preference = findPreference(KEY_PREF_NOTIFICATIONS_TIME);
+            preference.setEnabled(enabled);
+
+            preference = findPreference(KEY_PREF_NOTIFICATIONS_VIBRATE);
+            preference.setEnabled(enabled);
+        }
+
+        private void updateTimePreferenceSummary(Preference preference) {
+            TimePreference timePreference = (TimePreference) preference;
+            preference.setSummary(timePreference.getSummary());
         }
     }
 }

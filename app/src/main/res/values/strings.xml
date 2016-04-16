@@ -3,6 +3,9 @@
     <string name="author">Felix Beuster</string>
     <string name="version">1.3</string>
 
+    <string name="dialog_button_positive">OK</string>
+    <string name="dialog_button_negative">Abbrechen</string>
+
     <string name="action_settings">Einstellungen</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="location_select_button">Festlegen</string>
@@ -37,8 +40,13 @@
     <string name="pref_url_website_short">beusterse.de</string>
     <string name="pref_url_website_long">http://beusterse.de</string>
 
-    <string name="pref_header_general">Abfuhreinstellungen</string>
+    <string name="pref_header_notifications">Erinnerungen</string>
+    <string name="pref_notifications_active">Erinnerungen</string>
+    <string name="pref_notifications_time">Uhrzeit</string>
+    <string name="pref_notifications_title">Erinnerungen am Vortag</string>
+    <string name="pref_notifications_vibrate">Vibration</string>
 
+    <string name="pref_header_general">Abfuhreinstellungen</string>
     <string name="pref_title_cans_monthly">Monatliche Abholung</string>
     <string name="pref_title_can_black_monthly">Graue Tonne</string>
     <string name="pref_title_can_green_monthly">Grüne Tonne</string>
