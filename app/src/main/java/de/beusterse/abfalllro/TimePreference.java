@@ -48,7 +48,7 @@ public class TimePreference extends DialogPreference {
         String format;
 
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR, lastHour);
+        cal.set(Calendar.HOUR_OF_DAY, lastHour);
         cal.set(Calendar.MINUTE, lastMinute);
 
         if (DateFormat.is24HourFormat(getContext())) {
@@ -118,7 +118,7 @@ public class TimePreference extends DialogPreference {
 
         if (restoreValue) {
             if (defaultValue == null) {
-                time = getPersistedString("18:00");
+                time = getPersistedString("00:00");
 
             } else {
                 time = getPersistedString(defaultValue.toString());

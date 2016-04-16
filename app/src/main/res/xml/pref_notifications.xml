@@ -18,7 +18,8 @@
             android:key="pref_notifications_time"
             android:title="@string/pref_notifications_time"
             android:positiveButtonText="@string/dialog_button_positive"
-            android:negativeButtonText="@string/dialog_button_negative" />
+            android:negativeButtonText="@string/dialog_button_negative"
+            android:defaultValue="@string/pref_notifications_default_time" />
 
     </PreferenceCategory>
 
