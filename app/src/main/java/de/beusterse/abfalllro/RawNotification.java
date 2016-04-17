@@ -40,10 +40,14 @@ public class RawNotification {
         return colors[can];
     }
 
-    public int getIcon() {
-        int[] icons = { R.drawable.can_black_scale, R.drawable.can_blue_scale,
-                        R.drawable.can_green_scale, R.drawable.can_yellow_scale};
+    public int getColoredIcon() {
+        int[] icons = { R.drawable.can_black_notification, R.drawable.can_blue_notification,
+                        R.drawable.can_green_notification, R.drawable.can_yellow_notification};
         return icons[can];
+    }
+
+    public int getIcon() {
+        return R.drawable.can_material_notification;
     }
 
     public int getUniqueId() {

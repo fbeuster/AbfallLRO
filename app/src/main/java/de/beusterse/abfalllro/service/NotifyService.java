@@ -42,7 +42,7 @@ public class NotifyService extends Service {
             showNotification(intent.getIntExtra(NOTIFY_CAN, RawNotification.INVALID_CAN));
         }
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -62,15 +62,10 @@ public class NotifyService extends Service {
                     .setContentIntent(rawNotification.getIntent())
                     .setContentTitle(rawNotification.getTitle())
                     .setContentText(rawNotification.getText())
-                    .setSmallIcon(rawNotification.getIcon());
+                    .setSmallIcon(getNotificationIcon(rawNotification));
 
-            if (Build.VERSION.SDK_INT >= 23) {
-                notificationBuilder.setColor(getResources().getColor(rawNotification.getColor(), getTheme()));
-
-            } else if (Build.VERSION.SDK_INT >= 21) {
-                notificationBuilder.setColor(getResources().getColor(rawNotification.getColor()));
-
-            } else {
+            if (Build.VERSION.SDK_INT >= 21) {
+                notificationBuilder.setColor(getNotificationColor(rawNotification));
             }
 
             if (Build.VERSION.SDK_INT >= 16) {
@@ -84,5 +79,22 @@ public class NotifyService extends Service {
         }
 
         stopSelf();
+    }
+
+    private int getNotificationColor(RawNotification rawNotification) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return getResources().getColor(rawNotification.getColor(), getTheme());
+
+        } else {
+            return getResources().getColor(rawNotification.getColor());
+        }
+    }
+
+    private int getNotificationIcon(RawNotification rawNotification) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return rawNotification.getIcon();
+        } else {
+            return rawNotification.getColoredIcon();
+        }
     }
 }
