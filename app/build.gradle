@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
 
-def debugsuffix = System.
-        getProperty('debugsuffix', project.getProperties().get('debugsuffix', null))
-
+/**
+ * basic settings to have different flavors
+ */
+def debugsuffix = System.getProperty('debugsuffix', project.getProperties().get('debugsuffix', null))
 def final theApplicationId = "de.beusterse.abfallkalenderlandkreisrostock"
 
 android {
@@ -28,16 +29,6 @@ android {
     productFlavors {
         dev {
             applicationId = theApplicationId + ".dev" + debugsuffix
-//            minSdkVersion 14
-//            targetSdkVersion 23
-//            versionCode 4
-//            versionName "1.3"
-
-//            buildConfigField "String", "ACCOUNT_TYPE", "\"${applicationId}.account\""
-//            buildConfigField "String", "AUTHORITY", "\"${applicationId}.provider\""
-//
-//            resValue "string", "account_type", "${applicationId}.account"
-//            resValue "string", "authority", "${applicationId}.provider"
         }
         full {
 
