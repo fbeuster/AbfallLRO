@@ -30,6 +30,9 @@
         <activity
             android:name="de.beusterse.abfalllro.SettingsActivity"
             android:label="@string/title_activity_settings" />
+
+        <service android:name=".service.NotifyService" />
+        <service android:name=".service.ScheduleService" />
     </application>
 
 </manifest>

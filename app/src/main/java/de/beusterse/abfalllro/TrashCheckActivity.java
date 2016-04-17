@@ -3,11 +3,16 @@ package de.beusterse.abfalllro;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Calendar;
+
+import de.beusterse.abfalllro.service.ScheduleClient;
 
 /**
  * Main info activity, presents processed data as trash cans
@@ -17,6 +22,7 @@ import android.view.MenuItem;
 public class TrashCheckActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private DataLoader loader;
+    private ScheduleClient scheduleClient;
     private TrashController controller;
     private UIUpdater updater;
 
@@ -37,8 +43,13 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        scheduleClient = new ScheduleClient(this);
+        scheduleClient.doBindService();
+
         updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
         updater.update();
+
+        setAlarms();
     }
 
     @Override
@@ -74,5 +85,32 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         recreate();
+    }
+
+    @Override
+    protected void onStop() {
+        if (scheduleClient != null) {
+            scheduleClient.doUnbindService();
+        }
+        super.onStop();
+    }
+
+    private void setAlarms() {
+        if (scheduleClient.isBound()) {
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.SECOND, 5);
+            scheduleClient.setAlarmForNotification(cal, RawNotification.BLACK_CAN);
+            scheduleClient.setAlarmForNotification(cal, RawNotification.BLUE_CAN);
+            scheduleClient.setAlarmForNotification(cal, RawNotification.GREEN_CAN);
+            scheduleClient.setAlarmForNotification(cal, RawNotification.YELLOW_CAN);
+
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setAlarms();
+                }
+            }, 50);
+        }
     }
 }
