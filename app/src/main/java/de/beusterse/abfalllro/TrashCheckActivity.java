@@ -3,16 +3,13 @@ package de.beusterse.abfalllro;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Calendar;
-
-import de.beusterse.abfalllro.service.ScheduleClient;
+import de.beusterse.abfalllro.service.ServiceManager;
 
 /**
  * Main info activity, presents processed data as trash cans
@@ -22,7 +19,7 @@ import de.beusterse.abfalllro.service.ScheduleClient;
 public class TrashCheckActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private DataLoader loader;
-    private ScheduleClient scheduleClient;
+    private ServiceManager serviceManager;
     private TrashController controller;
     private UIUpdater updater;
 
@@ -31,9 +28,10 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
 
-        loader = new DataLoader(this, pref);
-        controller = new TrashController(pref, loader.getCode(), loader.getSchedule());
-        updater = new UIUpdater(this, pref);
+        loader          = new DataLoader(this, pref);
+        controller      = new TrashController(pref, loader.getCode(), loader.getSchedule());
+        serviceManager  = new ServiceManager(this, pref);
+        updater         = new UIUpdater(this, pref);
 
         setTheme( controller.getTheme() );
 
@@ -43,20 +41,17 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        scheduleClient = new ScheduleClient(this);
-        scheduleClient.doBindService();
+        serviceManager.bind();
 
         updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
         updater.update();
 
-        setAlarms();
+        serviceManager.run();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
-//        updater.updateTrashMainDisplay();
     }
 
     @Override
@@ -89,28 +84,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
     @Override
     protected void onStop() {
-        if (scheduleClient != null) {
-            scheduleClient.doUnbindService();
-        }
+        serviceManager.unbind();
         super.onStop();
-    }
-
-    private void setAlarms() {
-        if (scheduleClient.isBound()) {
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.SECOND, 5);
-            scheduleClient.setAlarmForNotification(cal, RawNotification.BLACK_CAN);
-            scheduleClient.setAlarmForNotification(cal, RawNotification.BLUE_CAN);
-            scheduleClient.setAlarmForNotification(cal, RawNotification.GREEN_CAN);
-            scheduleClient.setAlarmForNotification(cal, RawNotification.YELLOW_CAN);
-
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setAlarms();
-                }
-            }, 50);
-        }
     }
 }
