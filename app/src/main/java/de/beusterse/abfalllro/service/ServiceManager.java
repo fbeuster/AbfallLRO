@@ -64,9 +64,13 @@ public class ServiceManager {
 
     private void setScheduledAlarms(Calendar cal) {
         for (int i = 0; i < scheduledAlarms.length; i++) {
-            if (!scheduleClient.hasAlarmForNotification(cal, scheduledAlarms[i])) {
-                scheduleClient.setAlarmForNotification(cal, scheduledAlarms[i]);
+
+            /* cancel alarm to make sure all current settings are applied */
+            if (scheduleClient.hasAlarmForNotification(cal, scheduledAlarms[i])) {
+                scheduleClient.cancelAlarmForNotification(cal, scheduledAlarms[i]);
             }
+
+            scheduleClient.setAlarmForNotification(cal, scheduledAlarms[i]);
         }
     }
 
