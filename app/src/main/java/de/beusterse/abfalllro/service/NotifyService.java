@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.util.Calendar;
+
 import de.beusterse.abfalllro.MainActivity;
 import de.beusterse.abfalllro.RawNotification;
 
@@ -39,7 +41,10 @@ public class NotifyService extends Service {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
         if (intent.getBooleanExtra(INTENT_NOTIFY, false)) {
-            showNotification(intent.getIntExtra(NOTIFY_CAN, RawNotification.INVALID_CAN));
+            int can = intent.getIntExtra(NOTIFY_CAN, RawNotification.INVALID_CAN);
+            showNotification(can);
+
+            new AlarmTask(this, Calendar.getInstance(),can).cancel();
         }
 
         return START_NOT_STICKY;
