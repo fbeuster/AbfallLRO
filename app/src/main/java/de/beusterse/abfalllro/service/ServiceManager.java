@@ -31,10 +31,10 @@ public class ServiceManager {
         scheduleClient.doBindService();
     }
 
-    private void cancelAlarms(Calendar cal) {
+    private void cancelScheduledAlarms() {
         for (int i = 0; i < scheduledAlarms.length; i++) {
-            if (scheduleClient.hasAlarmForNotification(cal, scheduledAlarms[i])) {
-                scheduleClient.cancelAlarmForNotification(cal, scheduledAlarms[i]);
+            if (scheduleClient.hasAlarmForNotification(scheduledAlarms[i])) {
+                scheduleClient.cancelAlarmForNotification(scheduledAlarms[i]);
             }
         }
     }
@@ -44,13 +44,11 @@ public class ServiceManager {
     }
 
     private void scheduleAlarms() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 10);
         if (scheduleClient.isBound()) {
             if (pref.getBoolean("pref_notifications_active", false)) {
-                setScheduledAlarms(cal);
+                setScheduledAlarms();
             } else {
-                cancelAlarms(cal);
+                cancelScheduledAlarms();
             }
         } else {
             new Handler().postDelayed(new Runnable() {
@@ -62,12 +60,14 @@ public class ServiceManager {
         }
     }
 
-    private void setScheduledAlarms(Calendar cal) {
+    private void setScheduledAlarms() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 10);
         for (int i = 0; i < scheduledAlarms.length; i++) {
 
             /* cancel alarm to make sure all current settings are applied */
-            if (scheduleClient.hasAlarmForNotification(cal, scheduledAlarms[i])) {
-                scheduleClient.cancelAlarmForNotification(cal, scheduledAlarms[i]);
+            if (scheduleClient.hasAlarmForNotification(scheduledAlarms[i])) {
+                scheduleClient.cancelAlarmForNotification(scheduledAlarms[i]);
             }
 
             scheduleClient.setAlarmForNotification(cal, scheduledAlarms[i]);

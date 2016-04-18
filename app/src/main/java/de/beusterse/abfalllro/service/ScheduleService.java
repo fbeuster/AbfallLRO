@@ -34,12 +34,12 @@ public class ScheduleService extends Service {
 
     private final IBinder binder = new ServiceBinder();
 
-    public void cancelAlarm(Calendar cal, int can) {
-        new AlarmTask(this, cal, can).cancel();
+    public void cancelAlarm(int can) {
+        new AlarmTask(this, Calendar.getInstance(), can).cancel();
     }
 
-    public boolean hasAlarm(Calendar cal, int can) {
-        return new AlarmTask(this, cal, can).exists();
+    public boolean hasAlarm(int can) {
+        return new AlarmTask(this, Calendar.getInstance(), can).exists();
     }
 
     public void setAlarm(Calendar cal, int can) {
