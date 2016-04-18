@@ -9,6 +9,8 @@ import android.os.IBinder;
 import java.util.Calendar;
 
 /**
+ * Creates and binds the scheduling service.
+ *
  * Created by Felix Beuster
  */
 public class ScheduleClient {
@@ -38,8 +40,16 @@ public class ScheduleClient {
         }
     };
 
+    public void cancelAlarmForNotification(Calendar cal, int can) {
+        boundService.cancelAlarm(cal, can);
+    }
+
     public boolean isBound() {
         return isBound && boundService != null;
+    }
+
+    public boolean hasAlarmForNotification(Calendar cal, int can) {
+        return boundService.hasAlarm(cal, can);
     }
 
     public void setAlarmForNotification(Calendar cal, int can) {

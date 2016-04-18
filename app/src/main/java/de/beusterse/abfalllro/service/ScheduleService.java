@@ -9,6 +9,8 @@ import android.util.Log;
 import java.util.Calendar;
 
 /**
+ * Service that creates tasks for the alarm manager in AlarmTask.
+ *
  * Created by Felix Beuster
  */
 public class ScheduleService extends Service {
@@ -31,6 +33,14 @@ public class ScheduleService extends Service {
     }
 
     private final IBinder binder = new ServiceBinder();
+
+    public void cancelAlarm(Calendar cal, int can) {
+        new AlarmTask(this, cal, can).cancel();
+    }
+
+    public boolean hasAlarm(Calendar cal, int can) {
+        return new AlarmTask(this, cal, can).exists();
+    }
 
     public void setAlarm(Calendar cal, int can) {
         new AlarmTask(this, cal, can).run();

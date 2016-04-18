@@ -8,6 +8,8 @@ import android.content.Intent;
 import java.util.Calendar;
 
 /**
+ * Sets or cancels induvidual alarms for notifications.
+ *
  * Created by Felix Beuster
  */
 public class AlarmTask implements Runnable {
@@ -24,13 +26,25 @@ public class AlarmTask implements Runnable {
         this.can = can;
     }
 
-    @Override
-    public void run() {
+    public void cancel() {
+        PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+    }
+
+    public boolean exists() {
+        return getPendingIntent(PendingIntent.FLAG_NO_CREATE) != null;
+    }
+
+    private PendingIntent getPendingIntent(int flags) {
         Intent intent = new Intent(context, NotifyService.class);
         intent.putExtra(NotifyService.INTENT_NOTIFY, true);
         intent.putExtra(NotifyService.NOTIFY_CAN, can);
-        PendingIntent pendingIntent = PendingIntent.getService(context, can, intent, 0);
+        return PendingIntent.getService(context, can, intent, flags);
+    }
 
-        alarmManager.set(AlarmManager.RTC, date.getTimeInMillis(), pendingIntent);
+    @Override
+    public void run() {
+        alarmManager.set(AlarmManager.RTC, date.getTimeInMillis(), getPendingIntent(0));
     }
 }

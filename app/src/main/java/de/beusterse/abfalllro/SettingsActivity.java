@@ -264,7 +264,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SwitchPreference active = (SwitchPreference) findPreference(KEY_PREF_NOTIFICATIONS_ACTIVE);
             TimePreference time     = (TimePreference) findPreference(KEY_PREF_NOTIFICATIONS_TIME);
 
-            updatePreferencesEnabled(active.isEnabled());
+            updatePreferencesEnabled(active.isChecked());
             updateTimePreferenceSummary(time);
 
             active.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
