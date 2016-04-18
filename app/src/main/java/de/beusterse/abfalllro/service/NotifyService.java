@@ -1,13 +1,17 @@
 package de.beusterse.abfalllro.service;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -71,6 +75,13 @@ public class NotifyService extends Service {
 
             if (Build.VERSION.SDK_INT >= 21) {
                 notificationBuilder.setColor(getNotificationColor(rawNotification));
+            }
+
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_notifications_vibrate", true)) {
+                int vibratePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE);
+                if (vibratePermission == PackageManager.PERMISSION_GRANTED) {
+                    notificationBuilder.setVibrate(new long[] {31, 415, 92, 653});
+                }
             }
 
             if (Build.VERSION.SDK_INT >= 16) {
