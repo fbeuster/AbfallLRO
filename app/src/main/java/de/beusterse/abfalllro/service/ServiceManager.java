@@ -7,6 +7,7 @@ import android.os.Handler;
 import java.util.Calendar;
 
 import de.beusterse.abfalllro.RawNotification;
+import de.beusterse.abfalllro.TimePreference;
 
 /**
  * Manages connections to services and service classes.
@@ -16,8 +17,9 @@ import de.beusterse.abfalllro.RawNotification;
 public class ServiceManager {
 
     private Context context;
-    private int[] scheduledAlarms = {   RawNotification.BLACK_CAN, RawNotification.BLUE_CAN,
-                                        RawNotification.GREEN_CAN, RawNotification.YELLOW_CAN};
+    private int[] canAlarmTimes = null;
+    private int[] canAlarmTypes = { RawNotification.BLACK_CAN, RawNotification.BLUE_CAN,
+                                    RawNotification.GREEN_CAN, RawNotification.YELLOW_CAN};
     private ScheduleClient scheduleClient;
     private SharedPreferences pref;
 
@@ -32,15 +34,17 @@ public class ServiceManager {
     }
 
     private void cancelScheduledAlarms() {
-        for (int i = 0; i < scheduledAlarms.length; i++) {
-            if (scheduleClient.hasAlarmForNotification(scheduledAlarms[i])) {
-                scheduleClient.cancelAlarmForNotification(scheduledAlarms[i]);
+        for (int i = 0; i < canAlarmTypes.length; i++) {
+            if (scheduleClient.hasAlarmForNotification(canAlarmTypes[i])) {
+                scheduleClient.cancelAlarmForNotification(canAlarmTypes[i]);
             }
         }
     }
 
     public void run() {
-        scheduleAlarms();
+        if (canAlarmTimes != null) {
+            scheduleAlarms();
+        }
     }
 
     private void scheduleAlarms() {
@@ -60,17 +64,27 @@ public class ServiceManager {
         }
     }
 
+    public void setAlarmTimes(int[] daysUntil) {
+        canAlarmTimes = daysUntil;
+    }
+
     private void setScheduledAlarms() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 10);
-        for (int i = 0; i < scheduledAlarms.length; i++) {
+        String alarmTime    = pref.getString("pref_notifications_time", "18:00");
+        int alarmHour       = TimePreference.getHour(alarmTime);
+        int alarmMinute     = TimePreference.getMinute(alarmTime);
+
+        for (int i = 0; i < canAlarmTypes.length; i++) {
 
             /* cancel alarm to make sure all current settings are applied */
-            if (scheduleClient.hasAlarmForNotification(scheduledAlarms[i])) {
-                scheduleClient.cancelAlarmForNotification(scheduledAlarms[i]);
+            if (scheduleClient.hasAlarmForNotification(canAlarmTypes[i])) {
+                scheduleClient.cancelAlarmForNotification(canAlarmTypes[i]);
             }
 
-            scheduleClient.setAlarmForNotification(cal, scheduledAlarms[i]);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
+            cal.set(Calendar.HOUR_OF_DAY, alarmHour);
+            cal.set(Calendar.MINUTE, alarmMinute);
+            scheduleClient.setAlarmForNotification(cal, canAlarmTypes[i]);
         }
     }
 

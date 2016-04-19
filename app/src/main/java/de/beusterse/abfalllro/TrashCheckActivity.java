@@ -42,6 +42,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         setSupportActionBar(toolbar);
 
         serviceManager.bind();
+        serviceManager.setAlarmTimes(controller.getPreview());
 
         updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
         updater.update();
