@@ -20,10 +20,10 @@ public class AlarmTask implements Runnable {
     private int can;
 
     public AlarmTask(Context context, Calendar date, int can) {
-        this.context = context;
-        this.alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        this.date = date;
-        this.can = can;
+        this.context        = context;
+        this.alarmManager   = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        this.date           = date;
+        this.can            = can;
     }
 
     public void cancel() {
@@ -38,8 +38,9 @@ public class AlarmTask implements Runnable {
 
     private PendingIntent getPendingIntent(int flags) {
         Intent intent = new Intent(context, NotifyService.class);
-        intent.putExtra(NotifyService.INTENT_NOTIFY, true);
-        intent.putExtra(NotifyService.NOTIFY_CAN, can);
+        intent.putExtra(NotifyService.EXTRA_INTENT_NOTIFY, true);
+        intent.putExtra(NotifyService.EXTRA_NOTIFY_CAN, can);
+
         return PendingIntent.getService(context, can, intent, flags);
     }
 
