@@ -1,7 +1,7 @@
 package de.beusterse.abfalllro;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import org.json.JSONObject;
 
@@ -24,15 +24,17 @@ public class DataLoader {
     private static final String DATE_FORMAT_NO_DAY = "yyyy-MM-";
     private static final String CITY_WITH_STREETS = "0000";
 
-    private Activity activity;
+    private Resources resources;
     private String code;
+    private String packageName;
     private SharedPreferences pref;
     private HashMap<String, PickupDay> schedule;
 
 
-    public DataLoader(Activity activity, SharedPreferences pref) {
-        this.activity = activity;
-        this.pref = pref;
+    public DataLoader(SharedPreferences pref, Resources resources, String packageName) {
+        this.packageName    = packageName;
+        this.pref           = pref;
+        this.resources      = resources;
 
         code = "";
         schedule = new HashMap<>();
@@ -92,7 +94,7 @@ public class DataLoader {
 
     private void readCodeFromFile(int resourceId, String prefKey) {
         try {
-            InputStream stream = activity.getResources().openRawResource(resourceId);
+            InputStream stream = resources.openRawResource(resourceId);
 
             int size = stream.available();
             byte[] buffer = new byte[size];
@@ -125,9 +127,9 @@ public class DataLoader {
             }
 
             for(Calendar current : dates) {
-                int scheduleId = activity.getResources().getIdentifier("raw/schedule" + df.format(current.getTime()), "raw", activity.getPackageName());
+                int scheduleId = resources.getIdentifier("raw/schedule" + df.format(current.getTime()), "raw", packageName);
 
-                inputStreamReader = new InputStreamReader(activity.getResources().openRawResource(scheduleId));
+                inputStreamReader = new InputStreamReader(resources.openRawResource(scheduleId));
                 Scanner inputStream = new Scanner(inputStreamReader);
 
                 inputStream.nextLine();
