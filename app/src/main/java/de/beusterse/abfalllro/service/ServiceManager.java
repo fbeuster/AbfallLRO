@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import java.util.Calendar;
 
+import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.RawNotification;
 import de.beusterse.abfalllro.TimePreference;
 
@@ -17,11 +18,14 @@ import de.beusterse.abfalllro.TimePreference;
 public class ServiceManager {
 
     private Context context;
-    private int[] canAlarmTimes = null;
-    private int[] canAlarmTypes = { RawNotification.BLACK_CAN, RawNotification.BLUE_CAN,
-                                    RawNotification.GREEN_CAN, RawNotification.YELLOW_CAN};
+    public static final int SCHEDULE_IDLE   = 50;
+    private int[] canAlarmTimes             = null;
+    private int[] canAlarmTypes             = { RawNotification.BLACK_CAN, RawNotification.BLUE_CAN,
+                                                RawNotification.GREEN_CAN, RawNotification.YELLOW_CAN};
     private ScheduleClient scheduleClient;
     private SharedPreferences pref;
+    public static final String PREF_NOTIFICATIONS_TIME      = "pref_notifications_time";
+    public static final String PREF_NOTIFICATIONS_ACTIVE    = "pref_notifications_active";
 
     public ServiceManager(Context context, SharedPreferences pref) {
         this.context    = context;
@@ -49,7 +53,8 @@ public class ServiceManager {
 
     private void scheduleAlarms() {
         if (scheduleClient.isBound()) {
-            if (pref.getBoolean("pref_notifications_active", false)) {
+            if (pref.getBoolean(PREF_NOTIFICATIONS_ACTIVE,
+                                context.getResources().getBoolean(R.bool.notifications_notifications_default))) {
                 setScheduledAlarms();
             } else {
                 cancelScheduledAlarms();
@@ -60,7 +65,7 @@ public class ServiceManager {
                 public void run() {
                     scheduleAlarms();
                 }
-            }, 50);
+            }, SCHEDULE_IDLE);
         }
     }
 
@@ -69,7 +74,8 @@ public class ServiceManager {
     }
 
     private void setScheduledAlarms() {
-        String alarmTime    = pref.getString("pref_notifications_time", "18:00");
+        String alarmTime    = pref.getString(   PREF_NOTIFICATIONS_TIME,
+                                                context.getString(R.string.pref_notifications_default_time));
         int alarmHour       = TimePreference.getHour(alarmTime);
         int alarmMinute     = TimePreference.getMinute(alarmTime);
 
@@ -84,6 +90,7 @@ public class ServiceManager {
             cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
             cal.set(Calendar.HOUR_OF_DAY, alarmHour);
             cal.set(Calendar.MINUTE, alarmMinute);
+
             scheduleClient.setAlarmForNotification(cal, canAlarmTypes[i]);
         }
     }
