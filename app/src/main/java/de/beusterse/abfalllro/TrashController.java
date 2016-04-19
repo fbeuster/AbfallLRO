@@ -24,7 +24,6 @@ public class TrashController {
     private HashMap<String, PickupDay> schedule;
 
     Calendar now;
-    Calendar maxTime;
     SimpleDateFormat dateFormat;
 
     boolean monthly;
@@ -37,11 +36,8 @@ public class TrashController {
 
         cCans = new ArrayList<>();
         cError = -1;
-        cPreview = new int[] {-1, -1, -1, -1};
 
         now     = Calendar.getInstance();
-        maxTime = Calendar.getInstance();
-        maxTime.add(Calendar.MONTH, 1);
 
         dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
@@ -50,12 +46,16 @@ public class TrashController {
         monthly_green   = pref.getBoolean(SettingsActivity.KEY_PREF_GREEN_MONTHLY, false);
 
         calcCurrentCans();
-        calcPreview();
+        cPreview = calcPreview(0);
     }
 
     public ArrayList<int[]> getCans() { return cCans; }
 
     public int getError() { return cError; }
+
+    public int[] getNextPreview(int dayOffset) {
+        return calcPreview(dayOffset);
+    }
 
     public int[] getPreview() { return cPreview; }
 
@@ -125,38 +125,48 @@ public class TrashController {
         }
     }
 
-    private void calcPreview() {
+    private int[] calcPreview(int dayOffset) {
         int found = 0;
         int dayCount = 0;
+        int[] preview = {-1, -1, -1, -1};
 
-        while(found < 4 && now.getTime().before(maxTime.getTime())) {
-            String today    = dateFormat.format(now.getTime());
+        Calendar pNow       = (Calendar) now.clone();
+        Calendar pMaxTime   = (Calendar) now.clone();
+
+        pNow.add(Calendar.DATE, dayOffset);
+        pMaxTime.add(Calendar.DATE, dayOffset);
+        pMaxTime.add(Calendar.MONTH, 1);
+
+        while(found < 4 && pNow.getTime().before(pMaxTime.getTime())) {
+            String today    = dateFormat.format(pNow.getTime());
             PickupDay plan  = schedule.get(today);
 
             if (plan != null) {
-                if (cPreview[0] == -1 && plan.hasCan(monthly_black, Can.COLOR_BLACK, locationCans.charAt(0))) {
-                    cPreview[0] = dayCount;
+                if (preview[0] == -1 && plan.hasCan(monthly_black, Can.COLOR_BLACK, locationCans.charAt(0))) {
+                    preview[0] = dayCount;
                     found++;
                 }
 
-                if (cPreview[2] == -1 && plan.hasCan(monthly_green, Can.COLOR_GREEN, locationCans.charAt(1))) {
-                    cPreview[2] = dayCount;
+                if (preview[2] == -1 && plan.hasCan(monthly_green, Can.COLOR_GREEN, locationCans.charAt(1))) {
+                    preview[2] = dayCount;
                     found++;
                 }
 
-                if (cPreview[3] == -1 && plan.hasCan(!monthly, Can.COLOR_YELLOW, locationCans.charAt(2))) {
-                    cPreview[3] = dayCount;
+                if (preview[3] == -1 && plan.hasCan(!monthly, Can.COLOR_YELLOW, locationCans.charAt(2))) {
+                    preview[3] = dayCount;
                     found++;
                 }
 
-                if (cPreview[1] == -1 && plan.hasCan(monthly, Can.COLOR_BLUE, locationCans.charAt(3))) {
-                    cPreview[1] = dayCount;
+                if (preview[1] == -1 && plan.hasCan(monthly, Can.COLOR_BLUE, locationCans.charAt(3))) {
+                    preview[1] = dayCount;
                     found++;
                 }
             }
 
-            now.add(Calendar.DATE, 1);
+            pNow.add(Calendar.DATE, 1);
             dayCount++;
         }
+
+        return preview;
     }
 }
