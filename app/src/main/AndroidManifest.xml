@@ -4,7 +4,7 @@
     android:versionCode="4"
     android:versionName="@string/version">
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="de.beusterse.abfalllro.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,15 +22,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="de.beusterse.abfalllro.SetupActivity"
+        <activity
+            android:name=".IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"  />
         <activity
-            android:name="de.beusterse.abfalllro.TrashCheckActivity"
+            android:name=".SetupActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="de.beusterse.abfalllro.SettingsActivity"
+            android:name=".TrashCheckActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
 
         <service android:name=".service.NotifyService" />

@@ -10,6 +10,13 @@
     <string name="title_activity_settings">Einstellungen</string>
     <string name="location_select_button">Festlegen</string>
 
+    <string name="intro_button_done">Fertig</string>
+    <string name="intro_button_next">Weiter</string>
+    <string name="intro_button_skip">Überspringen</string>
+    <string name="intro_title">%1$s - %2$s</string>
+    <string name="intro_title_guide">Anleitung</string>
+    <string name="intro_title_setup">Einrichtung</string>
+
     <string name="setup_sreen_title">Erstmalige Einstellungen</string>
     <string name="location_select_title">Wähle einen Ort aus</string>
     <string name="location_street_select_title">Wähle eine Straße aus (nur Güstrow)</string>
