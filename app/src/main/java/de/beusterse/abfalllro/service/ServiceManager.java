@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import java.util.Calendar;
 
-import de.beusterse.abfalllro.Can;
+import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.TimePreference;
 

@@ -13,6 +13,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.capsules.PickupDay;
+
 
 /**
  * Loads raw data and structures them

@@ -1,7 +1,9 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.capsules;
 
 import android.app.PendingIntent;
 import android.content.res.Resources;
+
+import de.beusterse.abfalllro.R;
 
 /**
  * Holds the data to make a notification.

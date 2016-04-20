@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.capsules.PickupDay;
+
 /**
  * Processes structured data and returns results for UI
  *

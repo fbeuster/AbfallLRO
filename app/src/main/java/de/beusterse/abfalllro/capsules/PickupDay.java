@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.capsules;
 
 import java.util.ArrayList;
 

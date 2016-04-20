@@ -16,11 +16,11 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
-import de.beusterse.abfalllro.Can;
+import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.MainActivity;
 import de.beusterse.abfalllro.R;
-import de.beusterse.abfalllro.RawNotification;
+import de.beusterse.abfalllro.capsules.RawNotification;
 import de.beusterse.abfalllro.TimePreference;
 import de.beusterse.abfalllro.TrashController;
 
