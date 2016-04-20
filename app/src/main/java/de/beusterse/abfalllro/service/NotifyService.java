@@ -33,9 +33,6 @@ public class NotifyService extends Service {
     public static final String EXTRA_INTENT_NOTIFY  = "de.beusterse.abfalllro.EXTRA_INTENT_NOTIFY";
     public static final String EXTRA_NOTIFY_CAN     = "de.beusterse.abfalllro.EXTRA_NOTIFY_CAN";
 
-    public static final String PREF_NOTIFICATIONS_TIME      = "pref_notifications_time";
-    public static final String PREF_NOTIFICATIONS_VIBRATE   = "pref_notifications_vibrate";
-
     private long[] vibrate_pattern = new long[]{ 31, 415, 92, 653 };
 
     public class ServiceBinder extends Binder {
@@ -104,7 +101,7 @@ public class NotifyService extends Service {
         new AlarmTask(this, Calendar.getInstance(),can).cancel();
 
         Calendar nextDate   = Calendar.getInstance();
-        String alarmTime    = pref.getString(   PREF_NOTIFICATIONS_TIME,
+        String alarmTime    = pref.getString(   getString(R.string.pref_key_notifications_time),
                                                 getString(R.string.pref_notifications_default_time));
         int alarmHour       = TimePreference.getHour(alarmTime);
         int alarmMinute     = TimePreference.getMinute(alarmTime);
@@ -132,7 +129,7 @@ public class NotifyService extends Service {
                 notificationBuilder.setColor( getNotificationColor(rawNotification) );
             }
 
-            boolean vibrationsActive = pref.getBoolean( PREF_NOTIFICATIONS_VIBRATE,
+            boolean vibrationsActive = pref.getBoolean( getString(R.string.pref_key_notifications_vibrate),
                                                         getResources().getBoolean(R.bool.notifications_vibrate_default) );
 
             if (vibrationsActive) {

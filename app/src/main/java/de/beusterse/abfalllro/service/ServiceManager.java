@@ -24,8 +24,6 @@ public class ServiceManager {
                                                 RawNotification.GREEN_CAN, RawNotification.YELLOW_CAN};
     private ScheduleClient scheduleClient;
     private SharedPreferences pref;
-    public static final String PREF_NOTIFICATIONS_TIME      = "pref_notifications_time";
-    public static final String PREF_NOTIFICATIONS_ACTIVE    = "pref_notifications_active";
 
     public ServiceManager(Context context, SharedPreferences pref) {
         this.context    = context;
@@ -53,8 +51,8 @@ public class ServiceManager {
 
     private void scheduleAlarms() {
         if (scheduleClient.isBound()) {
-            if (pref.getBoolean(PREF_NOTIFICATIONS_ACTIVE,
-                                context.getResources().getBoolean(R.bool.notifications_notifications_default))) {
+            if (pref.getBoolean(context.getString(R.string.pref_key_notifications_active),
+                                context.getResources().getBoolean(R.bool.notifications_active_default))) {
                 setScheduledAlarms();
             } else {
                 cancelScheduledAlarms();
@@ -74,7 +72,7 @@ public class ServiceManager {
     }
 
     private void setScheduledAlarms() {
-        String alarmTime    = pref.getString(   PREF_NOTIFICATIONS_TIME,
+        String alarmTime    = pref.getString(   context.getString(R.string.pref_key_notifications_time),
                                                 context.getString(R.string.pref_notifications_default_time));
         int alarmHour       = TimePreference.getHour(alarmTime);
         int alarmMinute     = TimePreference.getMinute(alarmTime);
