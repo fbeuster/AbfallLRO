@@ -86,7 +86,7 @@ public class TrashController {
                 cError = R.string.check_can_none;
 
             } else {
-                if (plan.hasCan(monthly_black, Can.COLOR_BLACK, locationCans.charAt(0))) {
+                if (plan.hasCan(monthly_black, Can.BLACK, locationCans.charAt(0))) {
                     cCans.add(new int[]{
                             R.string.check_can_black,
                             R.drawable.can_black_scale,
@@ -94,7 +94,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(monthly_green, Can.COLOR_GREEN, locationCans.charAt(1))) {
+                if (plan.hasCan(monthly_green, Can.GREEN, locationCans.charAt(1))) {
                     cCans.add(new int[]{
                             R.string.check_can_green,
                             R.drawable.can_green_scale,
@@ -102,7 +102,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(!monthly, Can.COLOR_YELLOW, locationCans.charAt(2))) {
+                if (plan.hasCan(!monthly, Can.YELLOW, locationCans.charAt(2))) {
                     cCans.add(new int[]{
                             R.string.check_can_yellow,
                             R.drawable.can_yellow_scale,
@@ -110,7 +110,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(monthly, Can.COLOR_BLUE, locationCans.charAt(3))) {
+                if (plan.hasCan(monthly, Can.BLUE, locationCans.charAt(3))) {
                     cCans.add(new int[]{
                             R.string.check_can_blue,
                             R.drawable.can_blue_scale,
@@ -142,23 +142,23 @@ public class TrashController {
             PickupDay plan  = schedule.get(today);
 
             if (plan != null) {
-                if (preview[0] == -1 && plan.hasCan(monthly_black, Can.COLOR_BLACK, locationCans.charAt(0))) {
-                    preview[0] = dayCount;
+                if (preview[Can.BLACK] == -1 && plan.hasCan(monthly_black, Can.BLACK, locationCans.charAt(0))) {
+                    preview[Can.BLACK] = dayCount;
                     found++;
                 }
 
-                if (preview[2] == -1 && plan.hasCan(monthly_green, Can.COLOR_GREEN, locationCans.charAt(1))) {
-                    preview[2] = dayCount;
+                if (preview[Can.GREEN] == -1 && plan.hasCan(monthly_green, Can.GREEN, locationCans.charAt(1))) {
+                    preview[Can.GREEN] = dayCount;
                     found++;
                 }
 
-                if (preview[3] == -1 && plan.hasCan(!monthly, Can.COLOR_YELLOW, locationCans.charAt(2))) {
-                    preview[3] = dayCount;
+                if (preview[Can.YELLOW] == -1 && plan.hasCan(!monthly, Can.YELLOW, locationCans.charAt(2))) {
+                    preview[Can.YELLOW] = dayCount;
                     found++;
                 }
 
-                if (preview[1] == -1 && plan.hasCan(monthly, Can.COLOR_BLUE, locationCans.charAt(3))) {
-                    preview[1] = dayCount;
+                if (preview[Can.BLUE] == -1 && plan.hasCan(monthly, Can.BLUE, locationCans.charAt(3))) {
+                    preview[Can.BLUE] = dayCount;
                     found++;
                 }
             }

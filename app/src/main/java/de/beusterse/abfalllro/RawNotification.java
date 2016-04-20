@@ -9,13 +9,6 @@ import android.app.PendingIntent;
  */
 public class RawNotification {
 
-    public static final int INVALID_CAN = -1;
-
-    public static final int BLACK_CAN   = 0;
-    public static final int BLUE_CAN    = 1;
-    public static final int GREEN_CAN   = 2;
-    public static final int YELLOW_CAN  = 3;
-
     private int can;
     private PendingIntent intent;
 

@@ -8,22 +8,23 @@ package de.beusterse.abfalllro;
  */
 public class Can {
 
-    public static String COLOR_BLACK = "black";
-    public static String COLOR_BLUE = "blue";
-    public static String COLOR_GREEN = "green";
-    public static String COLOR_YELLOW = "yellow";
+    public static final int INVALID = -1;
+    public static final int BLACK   = 0;
+    public static final int BLUE    = 1;
+    public static final int GREEN   = 2;
+    public static final int YELLOW  = 3;
 
     private boolean monthly;
-    private String color;
     private char letter;
+    private int color;
 
-    public Can(boolean monthly, String color, char letter) {
+    public Can(boolean monthly, int color, char letter) {
         this.monthly = monthly;
         this.color = color;
         this.letter = letter;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 

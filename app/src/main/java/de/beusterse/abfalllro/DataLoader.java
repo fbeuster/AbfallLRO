@@ -71,14 +71,14 @@ public class DataLoader {
 
         String date         = df.format(time.getTime()) + line[0];
 
-        String[] colorMap   = { null,
-                Can.COLOR_BLACK, Can.COLOR_GREEN,
-                Can.COLOR_BLACK, Can.COLOR_GREEN,
-                Can.COLOR_YELLOW, Can.COLOR_BLUE };
+        int[] colorMap      = { -1,
+                Can.BLACK, Can.GREEN,
+                Can.BLACK, Can.GREEN,
+                Can.YELLOW, Can.BLUE };
 
         boolean[] monthlyMap = {    false, true, true,
-                false, false, false,
-                true };
+                                    false, false, false,
+                                    true };
 
         if (schedule.get(date) == null) {
             schedule.put(date, new PickupDay());

@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
+import de.beusterse.abfalllro.Can;
 import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.MainActivity;
 import de.beusterse.abfalllro.R;
@@ -50,7 +51,7 @@ public class NotifyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getBooleanExtra(EXTRA_INTENT_NOTIFY, false)) {
-            int can = intent.getIntExtra(EXTRA_NOTIFY_CAN, RawNotification.INVALID_CAN);
+            int can = intent.getIntExtra(EXTRA_NOTIFY_CAN, Can.INVALID);
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
             showNotification(can, pref);
@@ -114,7 +115,7 @@ public class NotifyService extends Service {
     }
 
     private void showNotification(int can, SharedPreferences pref) {
-        if (can != RawNotification.INVALID_CAN) {
+        if (can != Can.INVALID) {
             Notification notification;
             PendingIntent pendingIntent     = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
             RawNotification rawNotification = new RawNotification(can, pendingIntent);

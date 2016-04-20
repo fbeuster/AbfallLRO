@@ -6,8 +6,8 @@ import android.os.Handler;
 
 import java.util.Calendar;
 
+import de.beusterse.abfalllro.Can;
 import de.beusterse.abfalllro.R;
-import de.beusterse.abfalllro.RawNotification;
 import de.beusterse.abfalllro.TimePreference;
 
 /**
@@ -20,8 +20,8 @@ public class ServiceManager {
     private Context context;
     public static final int SCHEDULE_IDLE   = 50;
     private int[] canAlarmTimes             = null;
-    private int[] canAlarmTypes             = { RawNotification.BLACK_CAN, RawNotification.BLUE_CAN,
-                                                RawNotification.GREEN_CAN, RawNotification.YELLOW_CAN};
+    private int[] canAlarmTypes             = { Can.BLACK, Can.BLUE,
+                                                Can.GREEN, Can.YELLOW};
     private ScheduleClient scheduleClient;
     private SharedPreferences pref;
 
