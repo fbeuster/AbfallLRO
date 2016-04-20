@@ -1,6 +1,7 @@
 package de.beusterse.abfalllro;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class TrashController {
     private int[] cPreview;
 
     private String locationCans;
+    private Resources resources;
     private HashMap<String, PickupDay> schedule;
 
     Calendar now;
@@ -33,9 +35,10 @@ public class TrashController {
     boolean monthly_black;
     boolean monthly_green;
 
-    public TrashController(SharedPreferences pref, String locationCans, HashMap<String, PickupDay> schedule) {
-        this.locationCans = locationCans;
-        this.schedule = schedule;
+    public TrashController(SharedPreferences pref, String locationCans, HashMap<String, PickupDay> schedule, Resources resources) {
+        this.locationCans   = locationCans;
+        this.resources      = resources;
+        this.schedule       = schedule;
 
         cCans = new ArrayList<>();
         cError = -1;
@@ -45,8 +48,10 @@ public class TrashController {
         dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
         monthly         = true;
-        monthly_black   = pref.getBoolean(SettingsActivity.KEY_PREF_BLACK_MONTHLY, false);
-        monthly_green   = pref.getBoolean(SettingsActivity.KEY_PREF_GREEN_MONTHLY, false);
+        monthly_black   = pref.getBoolean(  resources.getString(R.string.pref_key_pickup_schedule_black),
+                                            resources.getBoolean(R.bool.pickup_monthly_black));
+        monthly_green   = pref.getBoolean(  resources.getString(R.string.pref_key_pickup_schedule_green),
+                                            resources.getBoolean(R.bool.pickup_monthly_green));
 
         calcCurrentCans();
         cPreview = calcPreview(0);

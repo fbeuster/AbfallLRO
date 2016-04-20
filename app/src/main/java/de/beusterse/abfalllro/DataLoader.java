@@ -44,10 +44,10 @@ public class DataLoader {
 
         readSchedule();
 
-        readCodeFromFile(R.raw.codes, SettingsActivity.KEY_PREF_LOCATION);
+        readCodeFromFile(R.raw.codes, resources.getString(R.string.pref_key_pickup_town));
 
         if (code.equals(CITY_WITH_STREETS)) {
-            readCodeFromFile(R.raw.street_codes, SettingsActivity.KEY_PREF_LOCATION_STREET);
+            readCodeFromFile(R.raw.street_codes, resources.getString(R.string.pref_key_pickup_street));
         }
     }
 

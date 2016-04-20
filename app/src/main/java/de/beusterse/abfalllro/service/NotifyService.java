@@ -70,7 +70,8 @@ public class NotifyService extends Service {
 
     private int getDayOffset(SharedPreferences pref, int can) {
         DataLoader loader           = new DataLoader(pref, getResources(), getPackageName());
-        TrashController controller  = new TrashController(pref, loader.getCode(), loader.getSchedule());
+        TrashController controller  = new TrashController(  pref, loader.getCode(),
+                                                            loader.getSchedule(), getResources());
 
         // getPreview() has the day diff for the current can, for the day this alarm was for.
         // offset is added to get the next batch

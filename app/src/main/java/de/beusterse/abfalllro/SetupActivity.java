@@ -32,7 +32,7 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (pref.getString(SettingsActivity.KEY_PREF_LOCATION, "").equals("") ) {
+        if (pref.getString(getString(R.string.pref_key_pickup_town), "").equals("") ) {
             Button submit = (Button) findViewById(R.id.locationButton);
             submit.setOnClickListener(this);
 
@@ -101,11 +101,11 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = pref.edit();
 
-            editor.putString(SettingsActivity.KEY_PREF_LOCATION, city.getSelectedItem().toString());
-            editor.putString(SettingsActivity.KEY_PREF_LOCATION_STREET, street.getSelectedItem().toString());
+            editor.putString(getString(R.string.pref_key_pickup_town), city.getSelectedItem().toString());
+            editor.putString(getString(R.string.pref_key_pickup_street), street.getSelectedItem().toString());
 
-            editor.putBoolean(SettingsActivity.KEY_PREF_BLACK_MONTHLY, black.isChecked());
-            editor.putBoolean(SettingsActivity.KEY_PREF_GREEN_MONTHLY, green.isChecked());
+            editor.putBoolean(getString(R.string.pref_key_pickup_schedule_black), black.isChecked());
+            editor.putBoolean(getString(R.string.pref_key_pickup_schedule_green), green.isChecked());
 
             editor.commit();
 

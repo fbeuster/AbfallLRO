@@ -32,13 +32,6 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    public static final String KEY_PREF_LOCATION = "pref_location";
-    public static final String KEY_PREF_LOCATION_STREET = "pref_location_street";
-    public static final String KEY_PREF_BLACK_MONTHLY = "pref_can_black_monthly";
-    public static final String KEY_PREF_GREEN_MONTHLY = "pref_can_green_monthly";
-    public static final String KEY_PREF_NOTIFICATIONS_ACTIVE = "pref_notifications_active";
-    public static final String KEY_PREF_NOTIFICATIONS_TIME = "pref_notifications_time";
-    public static final String KEY_PREF_NOTIFICATIONS_VIBRATE = "pref_notifications_vibrate";
     public static final String CITY_WITH_STREETS = "Güstrow";
 
     /**
@@ -173,17 +166,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             SharedPreferences sp = getPreferenceManager().getSharedPreferences();
-            String cityName = sp.getString(KEY_PREF_LOCATION, "");
+            String cityName = sp.getString(getString(R.string.pref_key_pickup_town), "");
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference(KEY_PREF_LOCATION_STREET));
-            updateStreetSummary(findPreference(KEY_PREF_LOCATION), cityName);
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_pickup_street)));
+            updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_town)), cityName);
             updateStreetLocationPref(cityName);
 
-            ListPreference city = (ListPreference) findPreference(KEY_PREF_LOCATION);
+            ListPreference city = (ListPreference) findPreference(getString(R.string.pref_key_pickup_town));
             city.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -218,7 +211,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         public void updateStreetLocationPref(String cityName) {
-            ListPreference street = (ListPreference) findPreference(KEY_PREF_LOCATION_STREET);
+            ListPreference street = (ListPreference) findPreference(getString(R.string.pref_key_pickup_street));
 
             boolean needsStreet = cityName.equals(CITY_WITH_STREETS);
             street.setEnabled(needsStreet);
@@ -261,8 +254,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_notifications);
             setHasOptionsMenu(true);
 
-            SwitchPreference active = (SwitchPreference) findPreference(KEY_PREF_NOTIFICATIONS_ACTIVE);
-            TimePreference time     = (TimePreference) findPreference(KEY_PREF_NOTIFICATIONS_TIME);
+            SwitchPreference active = (SwitchPreference) findPreference(getString(R.string.pref_key_notifications_active));
+            TimePreference time     = (TimePreference) findPreference(getString(R.string.pref_key_notifications_time));
 
             updatePreferencesEnabled(active.isChecked());
             updateTimePreferenceSummary(time);
@@ -294,10 +287,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         private void updatePreferencesEnabled(boolean enabled) {
-            Preference preference = findPreference(KEY_PREF_NOTIFICATIONS_TIME);
+            Preference preference = findPreference(getString(R.string.pref_key_notifications_time));
             preference.setEnabled(enabled);
 
-            preference = findPreference(KEY_PREF_NOTIFICATIONS_VIBRATE);
+            preference = findPreference(getString(R.string.pref_key_notifications_vibrate));
             preference.setEnabled(enabled);
         }
 

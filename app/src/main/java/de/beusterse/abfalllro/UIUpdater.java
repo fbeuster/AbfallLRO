@@ -62,10 +62,10 @@ public class UIUpdater {
 
     private void updateLocationInfo() {
         TextView genInfo = (TextView) activity.findViewById(R.id.curLocationTextView);
-        String location = pref.getString(SettingsActivity.KEY_PREF_LOCATION, "");
+        String location = pref.getString( activity.getString(R.string.pref_key_pickup_town), "" );
 
         if (location.equals(SettingsActivity.CITY_WITH_STREETS)) {
-            location += ", " + pref.getString(SettingsActivity.KEY_PREF_LOCATION_STREET, "");
+            location += ", " + pref.getString( activity.getString(R.string.pref_key_pickup_town), "" );
         }
 
         genInfo.setText(location);

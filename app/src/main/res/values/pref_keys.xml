@@ -4,4 +4,11 @@
     <string name="pref_key_notifications_active">pref_notifications_active</string>
     <string name="pref_key_notifications_vibrate">pref_notifications_vibrate</string>
     <string name="pref_key_notifications_time">pref_notifications_time</string>
+
+    <string name="pref_key_pickup">pref_group_location</string>
+    <string name="pref_key_pickup_town">pref_location</string>
+    <string name="pref_key_pickup_street">pref_location_street</string>
+    <string name="pref_key_pickup_schedule">pref_cans_monthly</string>
+    <string name="pref_key_pickup_schedule_black">pref_can_black_monthly</string>
+    <string name="pref_key_pickup_schedule_green">pref_can_green_monthly</string>
 </resources>
