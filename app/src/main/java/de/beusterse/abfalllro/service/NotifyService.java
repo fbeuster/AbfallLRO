@@ -118,7 +118,7 @@ public class NotifyService extends Service {
         if (can != Can.INVALID) {
             Notification notification;
             PendingIntent pendingIntent     = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
-            RawNotification rawNotification = new RawNotification(can, pendingIntent);
+            RawNotification rawNotification = new RawNotification(can, pendingIntent, getResources());
 
             Notification.Builder notificationBuilder = new Notification.Builder(this)
                     .setContentIntent(rawNotification.getIntent())

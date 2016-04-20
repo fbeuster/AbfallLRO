@@ -1,6 +1,7 @@
 package de.beusterse.abfalllro;
 
 import android.app.PendingIntent;
+import android.content.res.Resources;
 
 /**
  * Holds the data to make a notification.
@@ -11,20 +12,20 @@ public class RawNotification {
 
     private int can;
     private PendingIntent intent;
+    private Resources resources;
 
-    public RawNotification(int can, PendingIntent intent) {
-        this.can    = can;
-        this.intent = intent;
+    public RawNotification(int can, PendingIntent intent, Resources resources) {
+        this.can        = can;
+        this.intent     = intent;
+        this.resources  = resources;
     }
 
     public CharSequence getText() {
-        return "Morgen Abholung.";
+        return resources.getString(R.string.notification_text_line);
     }
 
     public CharSequence getTitle() {
-        String[] titles = { "Graue Tonne", "Blaue Tonne",
-                            "Grüne Tonne", "Gelbe Tonne"};
-        return titles[can];
+        return resources.getStringArray(R.array.can_names_upper)[can];
     }
 
     public int getColor() {

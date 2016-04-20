@@ -31,6 +31,14 @@
     <string name="check_invalid_code">Ungültige Abholdaten gelesen.</string>
     <string name="check_invalid_street">Keine Straße ausgewählt.</string>
 
+    <string-array name="can_names_upper">
+        <item>Graue Tonne</item>
+        <item>Blaue Tonne</item>
+        <item>Grüne Tonne</item>
+        <item>Gelbe Tonne</item>
+    </string-array>
+    <string name="notification_text_line">Morgen Abholung.</string>
+
     <!-- Strings related to Settings -->
 
     <string name="pref_header_infos">Über die App</string>
@@ -999,8 +1007,4 @@
         <item>Zur Molchkuhle</item>
     </string-array>
     <string name="pref_location_street_default">Admannshagen</string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
 </resources>
