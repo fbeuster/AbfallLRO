@@ -55,6 +55,7 @@ public class NotifyService extends Service {
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
             showNotification(can, pref);
+            saveLastAlarmTime(can, pref);
             setNewAlarm(can, pref);
         }
 
@@ -96,6 +97,32 @@ public class NotifyService extends Service {
         } else {
             return rawNotification.getColoredIcon();
         }
+    }
+
+    private void saveLastAlarmTime(int can, SharedPreferences pref) {
+        SharedPreferences.Editor editor = pref.edit();
+
+        Calendar date = Calendar.getInstance();
+        date.getTimeInMillis();
+
+        switch (can) {
+            case Can.BLACK:
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                break;
+            case Can.BLUE:
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                break;
+            case Can.GREEN:
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                break;
+            case Can.YELLOW:
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                break;
+            default:
+                break;
+        }
+
+        editor.apply();
     }
 
     private void setNewAlarm(int can, SharedPreferences pref) {
