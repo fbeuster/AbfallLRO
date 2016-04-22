@@ -26,13 +26,10 @@
         android:theme="@style/SetupThemeBottomOverlay"
         android:background="@color/setupPrimary">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Future indicator"
-            android:id="@+id/textView3"
-            android:layout_gravity="center" />
+        <View android:layout_width="72dp" android:layout_height="24dp"
+            android:background="@drawable/intro_indicator"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/intro_indicator"/>
 
         <LinearLayout
             android:orientation="horizontal"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:right="@dimen/drawable_intro_indicator_distance_4"
+        android:top="@dimen/drawable_intro_indicator_size"
+        android:bottom="@dimen/drawable_intro_indicator_size">
+        <shape android:shape="oval">
+            <solid android:color="@color/setupPrimaryDark"/>
+            <size
+                android:height="@dimen/drawable_intro_indicator_size"
+                android:width="@dimen/drawable_intro_indicator_size"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="@dimen/drawable_intro_indicator_distance_1"
+        android:right="@dimen/drawable_intro_indicator_distance_3"
+        android:top="@dimen/drawable_intro_indicator_size"
+        android:bottom="@dimen/drawable_intro_indicator_size">
+        <shape android:shape="oval">
+            <solid android:color="@color/setupPrimaryDark"/>
+            <size android:height="@dimen/drawable_intro_indicator_size"
+                android:width="@dimen/drawable_intro_indicator_size"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="@dimen/drawable_intro_indicator_distance_2"
+        android:right="@dimen/drawable_intro_indicator_distance_2"
+        android:top="@dimen/drawable_intro_indicator_size"
+        android:bottom="@dimen/drawable_intro_indicator_size">
+        <shape android:shape="oval">
+            <solid android:color="@color/setupPrimaryDark"/>
+            <size
+                android:height="@dimen/drawable_intro_indicator_size"
+                android:width="@dimen/drawable_intro_indicator_size"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="@dimen/drawable_intro_indicator_distance_3"
+        android:right="@dimen/drawable_intro_indicator_distance_1"
+        android:top="@dimen/drawable_intro_indicator_size"
+        android:bottom="@dimen/drawable_intro_indicator_size">
+        <shape android:shape="oval">
+            <solid android:color="@color/setupPrimaryDark"/>
+            <size
+                android:height="@dimen/drawable_intro_indicator_size"
+                android:width="@dimen/drawable_intro_indicator_size"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="@dimen/drawable_intro_indicator_distance_4"
+        android:top="@dimen/drawable_intro_indicator_size"
+        android:bottom="@dimen/drawable_intro_indicator_size">
+        <shape android:shape="oval">
+            <solid android:color="@color/setupPrimaryDark"/>
+            <size
+                android:height="@dimen/drawable_intro_indicator_size"
+                android:width="@dimen/drawable_intro_indicator_size"/>
+        </shape>
+    </item>
+</layer-list>
