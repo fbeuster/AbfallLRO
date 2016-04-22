@@ -16,6 +16,20 @@
     <string name="intro_title">%1$s - %2$s</string>
     <string name="intro_title_guide">Anleitung</string>
     <string name="intro_title_setup">Einrichtung</string>
+    <string name="intro_guide_main_desc">Der große Eimer zeigt dir, welche Tonne heute an der Reihe ist.</string>
+    <string name="intro_guide_main_title">Hauptansicht</string>
+    <string name="intro_guide_preview_desc">Die kleinen Eimer unten zeigen dir, in wie vielen Tagen die jeweilige Tonne abgeholt wird.</string>
+    <string name="intro_guide_preview_title">Vorschau</string>
+    <string name="intro_guide_settings_desc">Alles fertig eingerichtet. Einstellungen kannst du jederzeit in diesem Menü ändern.</string>
+    <string name="intro_guide_settings_title">Fertig</string>
+    <string name="intro_setup_location_desc">Wo werden die Tonnen abgeholt? Für Güstrow ist auch die Straße wichtig.</string>
+    <string name="intro_setup_location_label_street">Wähle eine Straße aus (nur Güstrow)</string>
+    <string name="intro_setup_location_label_town">Wähle einen Ort aus</string>
+    <string name="intro_setup_location_title">Abholort</string>
+    <string name="intro_setup_schedule_desc">Werden die Tonnen monatlich abgeholt, statt alle zwei Wochen?</string>
+    <string name="intro_setup_schedule_title">Abholrhythmus</string>
+    <string name="intro_setup_schedule_monthly_black">graue Tonne ist monatlich</string>
+    <string name="intro_setup_schedule_monthly_green">grüne Tonne ist monatlich</string>
 
     <string name="setup_sreen_title">Erstmalige Einstellungen</string>
     <string name="location_select_title">Wähle einen Ort aus</string>

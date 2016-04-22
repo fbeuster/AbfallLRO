@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/plan_select_title"
-            android:id="@+id/monthlyPickupTitle"
+            android:id="@+id/monthlyPickupDesc"
             android:layout_below="@+id/locationStreetDropdown"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="30dp" />
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:text="@string/select_monthly_black"
             android:id="@+id/monthlyBlackCheckBox"
-            android:layout_below="@+id/monthlyPickupTitle"
+            android:layout_below="@+id/monthlyPickupDesc"
             android:layout_alignParentLeft="true" />
 
         <CheckBox

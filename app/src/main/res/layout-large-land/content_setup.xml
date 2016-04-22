@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/plan_select_title"
-            android:id="@+id/monthlyPickupTitle"
+            android:id="@+id/monthlyPickupDesc"
             android:layout_below="@+id/locationStreetDropdown"
             android:layout_marginTop="20dp" />
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="@string/select_monthly_black"
             android:id="@+id/monthlyBlackCheckBox"
-            android:layout_below="@+id/monthlyPickupTitle"
+            android:layout_below="@+id/monthlyPickupDesc"
             android:layout_alignLeft="@+id/monthlyGreenCheckBox"
             android:layout_alignStart="@+id/monthlyGreenCheckBox" />
 
@@ -92,8 +92,8 @@
         android:text="@string/select_monthly_green"
         android:id="@+id/monthlyGreenCheckBox"
         android:layout_below="@+id/monthlyBlackCheckBox"
-        android:layout_alignLeft="@+id/monthlyPickupTitle"
-        android:layout_alignStart="@+id/monthlyPickupTitle" />
+        android:layout_alignLeft="@+id/monthlyPickupDesc"
+        android:layout_alignStart="@+id/monthlyPickupDesc" />
 
         <TextView
             android:layout_width="wrap_content"

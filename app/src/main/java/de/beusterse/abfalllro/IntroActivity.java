@@ -2,20 +2,20 @@ package de.beusterse.abfalllro;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
-import android.widget.TextView;
 
 /**
  * Intro pages activity, communicates with the view pager.
  *
  * Created by Felix Beuster
  */
-public class IntroActivity extends FragmentActivity {
+public class IntroActivity extends AppCompatActivity {
 
     private static final int NUM_PAGES = 5;
     private static final int LAST_SETUP_PAGE = 1;
@@ -23,14 +23,16 @@ public class IntroActivity extends FragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setTheme(R.style.SetupTheme);
-        setContentView(R.layout.activity_intro);
+        setTheme(R.style.SetupTheme_NoActionBar);
 
-        TextView title = (TextView) findViewById(R.id.intro_title);
-        title.setText(String.format(getString(R.string.intro_title),
-                                    getString(R.string.app_name),
-                                    getString(R.string.intro_title_setup)));
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_intro);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle(String.format( getString(R.string.intro_title),
+                                getString(R.string.app_name),
+                                getString(R.string.intro_title_setup)));
 
         PagerAdapter pagerAdapter = new IntroPagerAdapter(getSupportFragmentManager());
 
@@ -63,15 +65,14 @@ public class IntroActivity extends FragmentActivity {
 
     private void updateOverlay(int position) {
         String step;
-        TextView title = (TextView) findViewById(R.id.intro_title);
 
         if (position > LAST_SETUP_PAGE) {
             step = getString(R.string.intro_title_guide);
         } else {
             step = getString(R.string.intro_title_setup);
         }
-        title.setText(String.format(getString(R.string.intro_title),
-                                    getString(R.string.app_name), step));
+        setTitle(String.format( getString(R.string.intro_title),
+                                getString(R.string.app_name), step));
 
         Button nextButton = (Button) findViewById(R.id.intro_button_next);
         if (position == NUM_PAGES - 1) {
