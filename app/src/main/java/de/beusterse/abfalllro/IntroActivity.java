@@ -1,5 +1,7 @@
 package de.beusterse.abfalllro;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -23,8 +25,10 @@ import android.widget.Button;
  */
 public class IntroActivity extends AppCompatActivity {
 
-    private static final int NUM_PAGES = 5;
+    public static final int NUM_PAGES = 5;
     private static final int LAST_SETUP_PAGE = 1;
+
+    private boolean done;
     private ViewPager viewPager;
 
     @Override
@@ -54,6 +58,30 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 updateOverlay(position);
+            }
+        });
+
+        final Activity that = this;
+        Button nextButton   = (Button) findViewById(R.id.intro_button_next);
+        Button skipButton   = (Button) findViewById(R.id.intro_button_skip);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (done) {
+                    startActivity( new Intent(that, TrashCheckActivity.class) );
+                    that.finish();
+                } else {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                }
+            }
+        });
+
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(that, TrashCheckActivity.class) );
+                that.finish();
             }
         });
     }
@@ -103,8 +131,10 @@ public class IntroActivity extends AppCompatActivity {
 
         Button nextButton = (Button) findViewById(R.id.intro_button_next);
         if (position == NUM_PAGES - 1) {
+            done = true;
             nextButton.setText( getString(R.string.intro_button_done) );
         } else {
+            done = false;
             nextButton.setText( getString(R.string.intro_button_next) );
         }
 
