@@ -42,7 +42,8 @@
                 android:text="@string/intro_button_skip"
                 android:id="@+id/intro_button_skip"
                 android:layout_weight=".5"
-                android:background="@drawable/intro_button_left"/>
+                android:background="@drawable/intro_button_left"
+                android:enabled="false" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
                 android:text="@string/intro_button_next"
                 android:id="@+id/intro_button_next"
                 android:layout_weight=".5"
-                android:background="@drawable/intro_button_right"/>
+                android:background="@drawable/intro_button_right" />
 
         </LinearLayout>
     </LinearLayout>

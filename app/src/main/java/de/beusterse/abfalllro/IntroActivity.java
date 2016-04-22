@@ -84,13 +84,20 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void updateOverlay(int position) {
+        boolean canSkip;
         String step;
 
         if (position > LAST_SETUP_PAGE) {
-            step = getString(R.string.intro_title_guide);
+            canSkip = true;
+            step    = getString(R.string.intro_title_guide);
         } else {
-            step = getString(R.string.intro_title_setup);
+            canSkip = false;
+            step    = getString(R.string.intro_title_setup);
         }
+
+        Button skipButton = (Button) findViewById(R.id.intro_button_skip);
+        skipButton.setEnabled(canSkip);
+
         setTitle(String.format( getString(R.string.intro_title),
                                 getString(R.string.app_name), step));
 

@@ -13,6 +13,7 @@
     <color name="can_yellow">#FFC107</color>
     <color name="can_yellow_dark">#FFA000</color>
     <color name="white">#ffffff</color>
+    <color name="disabledButtonText">#90CAF9</color>
     <color name="setupAccent">#0ea86c</color>
     <color name="setupBackground">#F3F9F9</color>
     <color name="setupPrimary">#2196f3</color>

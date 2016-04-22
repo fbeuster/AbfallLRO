@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -30,8 +30,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="SetupThemeBottomOverlay" parent="SetupTheme">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@drawable/text_color</item>
         <item name="android:windowBackground">@color/setupPrimary</item>
     </style>
 
