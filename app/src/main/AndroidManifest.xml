@@ -27,10 +27,6 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"  />
         <activity
-            android:name=".SetupActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".TrashCheckActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />

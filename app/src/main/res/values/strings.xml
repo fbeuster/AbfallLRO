@@ -31,13 +31,6 @@
     <string name="intro_setup_schedule_monthly_black">graue Tonne ist monatlich</string>
     <string name="intro_setup_schedule_monthly_green">grüne Tonne ist monatlich</string>
 
-    <string name="setup_sreen_title">Erstmalige Einstellungen</string>
-    <string name="location_select_title">Wähle einen Ort aus</string>
-    <string name="location_street_select_title">Wähle eine Straße aus (nur Güstrow)</string>
-    <string name="plan_select_title">Monatlich Abfuhr (statt alle zwei Wochen)</string>
-    <string name="select_monthly_black">graue Tonne</string>
-    <string name="select_monthly_green">grüne Tonne</string>
-
     <string name="check_can_black">graue</string>
     <string name="check_can_blue">blaue</string>
     <string name="check_can_green">grüne</string>
