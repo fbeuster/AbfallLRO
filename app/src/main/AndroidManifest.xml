@@ -4,6 +4,7 @@
     android:versionCode="4"
     android:versionName="@string/version">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -34,6 +35,14 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
 
+        <receiver android:name=".service.BootCompletedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.BootAlarmService" />
         <service android:name=".service.NotifyService" />
         <service android:name=".service.ScheduleService" />
     </application>
