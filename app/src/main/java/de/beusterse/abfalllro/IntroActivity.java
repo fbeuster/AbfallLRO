@@ -2,11 +2,13 @@ package de.beusterse.abfalllro;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -40,50 +42,61 @@ public class IntroActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        updateOverlay(0);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        PagerAdapter pagerAdapter = new IntroPagerAdapter(getSupportFragmentManager());
+        if (pref.getBoolean(getString(R.string.pref_key_intern_setup_done), false)) {
+            startActivity(new Intent(this, TrashCheckActivity.class));
+            finish();
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
+        } else {
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
+            updateOverlay(0);
 
-            @Override
-            public void onPageSelected(int position) {
-                updateOverlay(position);
-            }
-        });
+            PagerAdapter pagerAdapter = new IntroPagerAdapter(getSupportFragmentManager());
 
-        final Activity that = this;
-        Button nextButton   = (Button) findViewById(R.id.intro_button_next);
-        Button skipButton   = (Button) findViewById(R.id.intro_button_skip);
-
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (done) {
-                    startActivity( new Intent(that, TrashCheckActivity.class) );
-                    that.finish();
-                } else {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            viewPager = (ViewPager) findViewById(R.id.pager);
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 }
-            }
-        });
 
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity( new Intent(that, TrashCheckActivity.class) );
-                that.finish();
-            }
-        });
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    updateOverlay(position);
+                }
+            });
+
+            final Activity that = this;
+            Button nextButton = (Button) findViewById(R.id.intro_button_next);
+            Button skipButton = (Button) findViewById(R.id.intro_button_skip);
+
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (done) {
+                        saveSetup(that);
+                        startActivity(new Intent(that, TrashCheckActivity.class));
+                        that.finish();
+                    } else {
+                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                    }
+                }
+            });
+
+            skipButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveSetup(that);
+                    startActivity(new Intent(that, TrashCheckActivity.class));
+                    that.finish();
+                }
+            });
+        }
     }
 
     @Override
@@ -101,6 +114,15 @@ public class IntroActivity extends AppCompatActivity {
         } else {
             return getResources().getColor(id);
         }
+    }
+
+    private void saveSetup(Activity activity) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putBoolean(getString(R.string.pref_key_intern_setup_done), true);
+
+        editor.apply();
     }
 
     private void setIndicator(View view, Drawable drawable) {
