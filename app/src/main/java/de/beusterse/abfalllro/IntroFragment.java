@@ -25,6 +25,8 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private int page;
 
+    private SharedPreferences pref;
+
     public static IntroFragment newInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt(PAGE, position);
@@ -91,6 +93,8 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         switch (page) {
             case 0:
                 initializeLocationPage();
@@ -103,14 +107,13 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
         }
     }
 
-    private void fillDropdown(Spinner dropdown, int defaultValueId, int entriesId) {
-        String defaultValue = getString( defaultValueId );
+    private void fillDropdown(Spinner dropdown, String entry, int entriesId) {
         String[] values     = getResources().getStringArray( entriesId );
 
         ArrayAdapter<String> valuesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, values);
 
         dropdown.setAdapter( valuesAdapter );
-        dropdown.setSelection( valuesAdapter.getPosition(defaultValue) );
+        dropdown.setSelection( valuesAdapter.getPosition(entry) );
     }
 
     private void initializeLocationPage() {
@@ -119,13 +122,17 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
 
         fillDropdown(
                 locationDropdown,
-                R.string.pref_location_default,
+                pref.getString(
+                        getString(R.string.pref_key_pickup_town),
+                        getString(R.string.pref_location_default)),
                 R.array.pref_locations);
         locationDropdown.setOnItemSelectedListener(this);
 
         fillDropdown(
                 locationStreetDropdown,
-                R.string.pref_location_street_default,
+                pref.getString(
+                        getString(R.string.pref_key_pickup_street),
+                        getString(R.string.pref_location_street_default)),
                 R.array.pref_location_streets);
         locationStreetDropdown.setEnabled(false);
     }
@@ -133,6 +140,9 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
     private void initializeSchedulePage() {
         CheckBox black = (CheckBox) getActivity().findViewById(R.id.monthlyBlackCheckBox);
         CheckBox green = (CheckBox) getActivity().findViewById(R.id.monthlyGreenCheckBox);
+
+        black.setChecked( pref.getBoolean(getString(R.string.pref_key_pickup_schedule_black), false) );
+        green.setChecked( pref.getBoolean(getString(R.string.pref_key_pickup_schedule_green), false) );
 
         black.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -153,7 +163,6 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
         Spinner city    = (Spinner) getActivity().findViewById(R.id.locationDropdown);
         Spinner street  = (Spinner) getActivity().findViewById(R.id.locationStreetDropdown);
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = pref.edit();
 
         editor.putString(getString(R.string.pref_key_pickup_town), city.getSelectedItem().toString());
@@ -166,7 +175,6 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
         CheckBox black = (CheckBox) getActivity().findViewById(R.id.monthlyBlackCheckBox);
         CheckBox green = (CheckBox) getActivity().findViewById(R.id.monthlyGreenCheckBox);
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = pref.edit();
 
         editor.putBoolean(getString(R.string.pref_key_pickup_schedule_black), black.isChecked());
