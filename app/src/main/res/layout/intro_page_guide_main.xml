@@ -26,6 +26,16 @@
             android:text="@string/intro_guide_main_desc"
             android:id="@+id/monthlyPickupDesc" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:src="@drawable/setup_main"
+            android:maxHeight="256dp"
+            android:maxWidth="256dp" />
+
     </LinearLayout>
 
 </ScrollView>
