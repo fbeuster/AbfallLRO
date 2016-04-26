@@ -70,6 +70,10 @@ public class ServiceManager {
         }
     }
 
+    private boolean hasValidPreview() {
+        return canAlarmTimes[0] != -1;
+    }
+
     public void run() {
         if (canAlarmTimes != null) {
             scheduleAlarms();
@@ -79,7 +83,8 @@ public class ServiceManager {
     private void scheduleAlarms() {
         if (scheduleClient.isBound()) {
             if (pref.getBoolean(context.getString(R.string.pref_key_notifications_active),
-                                context.getResources().getBoolean(R.bool.notifications_active_default))) {
+                                context.getResources().getBoolean(R.bool.notifications_active_default))
+                    && hasValidPreview()) {
                 setScheduledAlarms();
             } else {
                 cancelScheduledAlarms();

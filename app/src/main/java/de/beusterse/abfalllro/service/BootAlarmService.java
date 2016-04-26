@@ -39,31 +39,34 @@ public class BootAlarmService extends Service {
         TrashController controller      = new TrashController(pref, loader.getCode(), loader.getSchedule(), getResources());
         int[] canAlarmTimes             = controller.getPreview();
 
-        String alarmTime    = pref.getString(   getString(R.string.pref_key_notifications_time),
-                                                getString(R.string.pref_notifications_default_time));
-        int alarmHour       = TimePreference.getHour(alarmTime);
-        int alarmMinute     = TimePreference.getMinute(alarmTime);
-        int today           = 0;
+        if (canAlarmTimes[0] != -1 ) {
 
-        for (int i = 0; i < canAlarmTypes.length; i++) {
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
-            cal.set(Calendar.HOUR_OF_DAY, alarmHour);
-            cal.set(Calendar.MINUTE, alarmMinute);
+            String alarmTime = pref.getString(getString(R.string.pref_key_notifications_time),
+                    getString(R.string.pref_notifications_default_time));
+            int alarmHour = TimePreference.getHour(alarmTime);
+            int alarmMinute = TimePreference.getMinute(alarmTime);
+            int today = 0;
 
-            AlarmTask at = new AlarmTask(this, cal, i);
+            for (int i = 0; i < canAlarmTypes.length; i++) {
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
+                cal.set(Calendar.HOUR_OF_DAY, alarmHour);
+                cal.set(Calendar.MINUTE, alarmMinute);
+
+                AlarmTask at = new AlarmTask(this, cal, i);
 
             /* cancel alarm to make sure all current settings are applied */
-            if (at.exists()) {
-                at.cancel();
+                if (at.exists()) {
+                    at.cancel();
+                }
+
+                if (alarmWentOff(cal, i) || canAlarmTimes[i] == today) {
+                    cal.add(Calendar.DATE, canAlarmTimes[i] + controller.getNextPreview(2)[i]);
+                }
+
+                new AlarmTask(this, cal, i).run();
+
             }
-
-            if (alarmWentOff(cal, i) || canAlarmTimes[i] == today) {
-                cal.add(Calendar.DATE, canAlarmTimes[i] + controller.getNextPreview(2)[i]);
-            }
-
-            new AlarmTask(this, cal, i).run();
-
         }
 
         return super.onStartCommand(intent, flags, startId);

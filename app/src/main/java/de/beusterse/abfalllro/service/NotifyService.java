@@ -74,12 +74,19 @@ public class NotifyService extends Service {
         TrashController controller  = new TrashController(  pref, loader.getCode(),
                                                             loader.getSchedule(), getResources());
 
-        // getPreview() has the day diff for the current can, for the day this alarm was for.
-        // offset is added to get the next batch
         int[] currentPreview    = controller.getPreview();
-        int[] nextPreview       = controller.getNextPreview( currentPreview[can] + 1);
 
-        return currentPreview[can] + nextPreview[can];
+        if (currentPreview[0] == -1) {
+            return -1;
+
+        } else {
+
+            // getPreview() has the day diff for the current can, for the day this alarm was for.
+            // offset is added to get the next batch
+            int[] nextPreview = controller.getNextPreview(currentPreview[can] + 1);
+
+            return currentPreview[can] + nextPreview[can];
+        }
     }
 
     private int getNotificationColor(RawNotification rawNotification) {
@@ -129,17 +136,22 @@ public class NotifyService extends Service {
         // clean up the alarm that just went off
         new AlarmTask(this, Calendar.getInstance(),can).cancel();
 
-        Calendar nextDate   = Calendar.getInstance();
-        String alarmTime    = pref.getString(   getString(R.string.pref_key_notifications_time),
-                                                getString(R.string.pref_notifications_default_time));
-        int alarmHour       = TimePreference.getHour(alarmTime);
-        int alarmMinute     = TimePreference.getMinute(alarmTime);
+        int dayOffset = getDayOffset(pref, can);
 
-        nextDate.add(Calendar.DATE, getDayOffset(pref, can));
-        nextDate.set(Calendar.HOUR_OF_DAY, alarmHour);
-        nextDate.set(Calendar.MINUTE, alarmMinute);
+        if (dayOffset != -1) {
 
-        new AlarmTask(this, nextDate, can).run();
+            Calendar nextDate = Calendar.getInstance();
+            String alarmTime = pref.getString(getString(R.string.pref_key_notifications_time),
+                    getString(R.string.pref_notifications_default_time));
+            int alarmHour = TimePreference.getHour(alarmTime);
+            int alarmMinute = TimePreference.getMinute(alarmTime);
+
+            nextDate.add(Calendar.DATE, dayOffset);
+            nextDate.set(Calendar.HOUR_OF_DAY, alarmHour);
+            nextDate.set(Calendar.MINUTE, alarmMinute);
+
+            new AlarmTask(this, nextDate, can).run();
+        }
     }
 
     private void showNotification(int can, SharedPreferences pref) {

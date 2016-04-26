@@ -138,43 +138,45 @@ public class TrashController {
         int dayCount = 0;
         int[] preview = {-1, -1, -1, -1};
 
-        Calendar pNow       = (Calendar) now.clone();
-        Calendar pMaxTime   = (Calendar) now.clone();
+        if (locationCans.length() > 0) {
 
-        pNow.add(Calendar.DATE, dayOffset);
-        pMaxTime.add(Calendar.DATE, dayOffset);
-        pMaxTime.add(Calendar.MONTH, 1);
+            Calendar pNow = (Calendar) now.clone();
+            Calendar pMaxTime = (Calendar) now.clone();
 
-        while(found < 4 && pNow.getTime().before(pMaxTime.getTime())) {
-            String today    = dateFormat.format(pNow.getTime());
-            PickupDay plan  = schedule.get(today);
+            pNow.add(Calendar.DATE, dayOffset);
+            pMaxTime.add(Calendar.DATE, dayOffset);
+            pMaxTime.add(Calendar.MONTH, 1);
 
-            if (plan != null) {
-                if (preview[Can.BLACK] == -1 && plan.hasCan(monthly_black, Can.BLACK, locationCans.charAt(0))) {
-                    preview[Can.BLACK] = dayCount;
-                    found++;
+            while (found < 4 && pNow.getTime().before(pMaxTime.getTime())) {
+                String today = dateFormat.format(pNow.getTime());
+                PickupDay plan = schedule.get(today);
+
+                if (plan != null) {
+                    if (preview[Can.BLACK] == -1 && plan.hasCan(monthly_black, Can.BLACK, locationCans.charAt(0))) {
+                        preview[Can.BLACK] = dayCount;
+                        found++;
+                    }
+
+                    if (preview[Can.GREEN] == -1 && plan.hasCan(monthly_green, Can.GREEN, locationCans.charAt(1))) {
+                        preview[Can.GREEN] = dayCount;
+                        found++;
+                    }
+
+                    if (preview[Can.YELLOW] == -1 && plan.hasCan(!monthly, Can.YELLOW, locationCans.charAt(2))) {
+                        preview[Can.YELLOW] = dayCount;
+                        found++;
+                    }
+
+                    if (preview[Can.BLUE] == -1 && plan.hasCan(monthly, Can.BLUE, locationCans.charAt(3))) {
+                        preview[Can.BLUE] = dayCount;
+                        found++;
+                    }
                 }
 
-                if (preview[Can.GREEN] == -1 && plan.hasCan(monthly_green, Can.GREEN, locationCans.charAt(1))) {
-                    preview[Can.GREEN] = dayCount;
-                    found++;
-                }
-
-                if (preview[Can.YELLOW] == -1 && plan.hasCan(!monthly, Can.YELLOW, locationCans.charAt(2))) {
-                    preview[Can.YELLOW] = dayCount;
-                    found++;
-                }
-
-                if (preview[Can.BLUE] == -1 && plan.hasCan(monthly, Can.BLUE, locationCans.charAt(3))) {
-                    preview[Can.BLUE] = dayCount;
-                    found++;
-                }
+                pNow.add(Calendar.DATE, 1);
+                dayCount++;
             }
-
-            pNow.add(Calendar.DATE, 1);
-            dayCount++;
         }
-
         return preview;
     }
 }

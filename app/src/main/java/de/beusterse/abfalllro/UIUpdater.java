@@ -75,7 +75,7 @@ public class UIUpdater {
         prevCanBlack.setText(   cPreview[0] == -1 ? "" : "" + cPreview[0]);
         prevCanBlue.setText(    cPreview[1] == -1 ? "" : "" + cPreview[1]);
         prevCanGreen.setText(   cPreview[2] == -1 ? "" : "" + cPreview[2]);
-        prevCanYellow.setText(cPreview[3] == -1 ? "" : "" + cPreview[3]);
+        prevCanYellow.setText(  cPreview[3] == -1 ? "" : "" + cPreview[3]);
 
 
     }
