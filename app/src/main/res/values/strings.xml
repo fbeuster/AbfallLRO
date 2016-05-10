@@ -67,6 +67,7 @@
     <string name="pref_notifications_default_time">18:00</string>
     <string name="pref_notifications_time">Uhrzeit</string>
     <string name="pref_notifications_title">Erinnerungen am Vortag</string>
+    <string name="pref_notifications_sound">Ton</string>
     <string name="pref_notifications_vibrate">Vibration</string>
 
     <string name="pref_header_general">Abfuhreinstellungen</string>

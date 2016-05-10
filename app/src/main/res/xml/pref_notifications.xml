@@ -10,6 +10,11 @@
             android:title="@string/pref_notifications_active" />
 
         <SwitchPreference
+            android:defaultValue="@bool/notifications_sound_default"
+            android:key="@string/pref_key_notifications_sound"
+            android:title="@string/pref_notifications_sound" />
+
+        <SwitchPreference
             android:defaultValue="@bool/notifications_vibrate_default"
             android:key="@string/pref_key_notifications_vibrate"
             android:title="@string/pref_notifications_vibrate" />

@@ -8,6 +8,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
@@ -16,13 +18,13 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
-import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.MainActivity;
 import de.beusterse.abfalllro.R;
-import de.beusterse.abfalllro.capsules.RawNotification;
 import de.beusterse.abfalllro.TimePreference;
 import de.beusterse.abfalllro.TrashController;
+import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.capsules.RawNotification;
 
 /**
  * Created by Felix Beuster
@@ -170,6 +172,16 @@ public class NotifyService extends Service {
                 notificationBuilder.setColor( getNotificationColor(rawNotification) );
             }
 
+            /* notification sounds */
+            boolean soundsActive = pref.getBoolean( getString(R.string.pref_key_notifications_sound),
+                                                    getResources().getBoolean(R.bool.notifications_vibrate_default) );
+
+            if (soundsActive) {
+                Uri sound = RingtoneManager.getDefaultUri( RingtoneManager.TYPE_NOTIFICATION );
+                notificationBuilder.setSound( sound );
+            }
+
+            /* notification vibrations */
             boolean vibrationsActive = pref.getBoolean( getString(R.string.pref_key_notifications_vibrate),
                                                         getResources().getBoolean(R.bool.notifications_vibrate_default) );
 
