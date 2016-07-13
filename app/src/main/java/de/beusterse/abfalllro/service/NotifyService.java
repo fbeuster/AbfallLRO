@@ -119,13 +119,13 @@ public class NotifyService extends Service {
                 editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
                 break;
             case Can.BLUE:
-                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_blue), date.getTimeInMillis());
                 break;
             case Can.GREEN:
-                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_green), date.getTimeInMillis());
                 break;
             case Can.YELLOW:
-                editor.putLong(getString(R.string.pref_key_intern_last_alarm_black), date.getTimeInMillis());
+                editor.putLong(getString(R.string.pref_key_intern_last_alarm_yellow), date.getTimeInMillis());
                 break;
             default:
                 break;

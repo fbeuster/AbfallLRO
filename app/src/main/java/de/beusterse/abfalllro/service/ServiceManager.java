@@ -60,11 +60,11 @@ public class ServiceManager {
             case Can.BLACK:
                 return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_black), 0);
             case Can.BLUE:
-                return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_black), 0);
+                return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_blue), 0);
             case Can.GREEN:
-                return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_black), 0);
+                return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_green), 0);
             case Can.YELLOW:
-                return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_black), 0);
+                return pref.getLong(context.getString(R.string.pref_key_intern_last_alarm_yellow), 0);
             default:
                 return 0;
         }
