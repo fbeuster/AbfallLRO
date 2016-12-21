@@ -78,17 +78,20 @@ public class NotifyService extends Service {
 
         int[] currentPreview    = controller.getPreview();
 
-        if (currentPreview[0] == -1) {
+        if (currentPreview[can] == -1) {
             return -1;
 
-        } else {
-
-            // getPreview() has the day diff for the current can, for the day this alarm was for.
-            // offset is added to get the next batch
-            int[] nextPreview = controller.getNextPreview(currentPreview[can] + 1);
-
-            return currentPreview[can] + nextPreview[can];
         }
+
+        // getPreview() has the day diff for the current can, for the day this alarm was for.
+        // offset is added to get the next batch
+        int[] nextPreview = controller.getNextPreview(currentPreview[can] + 1);
+
+        if (nextPreview[can] == -1) {
+            return -1;
+        }
+
+        return currentPreview[can] + nextPreview[can];
     }
 
     private int getNotificationColor(RawNotification rawNotification) {
