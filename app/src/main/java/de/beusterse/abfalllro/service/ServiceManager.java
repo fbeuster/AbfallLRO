@@ -108,21 +108,23 @@ public class ServiceManager {
 
         for (int i = 0; i < canAlarmTypes.length; i++) {
 
-            /* cancel alarm to make sure all current settings are applied */
-            if (scheduleClient.hasAlarmForNotification(canAlarmTypes[i])) {
-                scheduleClient.cancelAlarmForNotification(canAlarmTypes[i]);
+            if (canAlarmTimes[i] >= 0) {
+                /* cancel alarm to make sure all current settings are applied */
+                if (scheduleClient.hasAlarmForNotification(canAlarmTypes[i])) {
+                    scheduleClient.cancelAlarmForNotification(canAlarmTypes[i]);
+                }
+
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
+                cal.set(Calendar.HOUR_OF_DAY, alarmHour);
+                cal.set(Calendar.MINUTE, alarmMinute);
+
+                if (alarmWentOff(cal, i) || canAlarmTimes[i] == today) {
+                    cal.add(Calendar.DATE, canAlarmTimes[i] + controller.getNextPreview(2)[i]);
+                }
+
+                scheduleClient.setAlarmForNotification(cal, canAlarmTypes[i]);
             }
-
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
-            cal.set(Calendar.HOUR_OF_DAY, alarmHour);
-            cal.set(Calendar.MINUTE, alarmMinute);
-
-            if (alarmWentOff(cal, i) || canAlarmTimes[i] == today) {
-                cal.add(Calendar.DATE, canAlarmTimes[i] + controller.getNextPreview(2)[i]);
-            }
-
-            scheduleClient.setAlarmForNotification(cal, canAlarmTypes[i]);
         }
     }
 
