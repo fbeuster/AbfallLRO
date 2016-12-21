@@ -70,24 +70,25 @@ public class DataLoader {
     private void parseScheduleLine(String[] line, Calendar time) {
         Can can;
 
-        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_NO_DAY);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
 
-        String date         = df.format(time.getTime()) + line[0];
+        String date         = df.format(time.getTime()) + "-" + line[0] + "-" + line[1];
 
-        int[] colorMap      = { -1,
+        int[] colorMap      = { -1, -1,
                 Can.BLACK, Can.GREEN,
                 Can.BLACK, Can.GREEN,
                 Can.YELLOW, Can.BLUE };
 
-        boolean[] monthlyMap = {    false, true, true,
-                                    false, false, false,
-                                    true };
+        boolean[] monthlyMap = {    false, false,
+                                    true, true,
+                                    false, false,
+                                    false, true };
 
         if (schedule.get(date) == null) {
             schedule.put(date, new PickupDay());
         }
 
-        for (int i = 1; i < line.length; i++) {
+        for (int i = 2; i < line.length; i++) {
             if (!line[i].isEmpty()) {
                 can = new Can(monthlyMap[i], colorMap[i], line[i].charAt(0));
                 schedule.get(date).addCan(can);
@@ -117,22 +118,17 @@ public class DataLoader {
         InputStreamReader inputStreamReader;
 
         try {
-            SimpleDateFormat df = new SimpleDateFormat("MM");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy");
+            SimpleDateFormat mf = new SimpleDateFormat("MM");
             Calendar now        = Calendar.getInstance();
 
             ArrayList<Calendar> dates = new ArrayList<>();
             dates.add(now);
 
-            if (!df.format(now.getTime()).equals("12")) {
+            if (mf.format(now.getTime()).equals("11") || mf.format(now.getTime()).equals("12")) {
                 Calendar next = Calendar.getInstance();
-                next.add(Calendar.MONTH, 1);
+                next.add(Calendar.YEAR, 1);
                 dates.add(next);
-
-                if (!df.format(now.getTime()).equals("11")) {
-                    Calendar nextnext = Calendar.getInstance();
-                    nextnext.add(Calendar.MONTH, 2);
-                    dates.add(nextnext);
-                }
             }
 
             for(Calendar current : dates) {
