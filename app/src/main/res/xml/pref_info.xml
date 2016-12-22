@@ -13,5 +13,8 @@
             android:action="android.intent.action.VIEW"
             android:data="@string/pref_url_website_long" />
     </Preference>
+    <Preference
+        android:title="@string/pref_title_note"
+        android:summary="@string/pref_description_note" />
 
 </PreferenceScreen>

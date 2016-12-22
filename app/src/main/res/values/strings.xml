@@ -61,6 +61,8 @@
     <string name="pref_title_website">Webseite</string>
     <string name="pref_url_website_short">beusterse.de</string>
     <string name="pref_url_website_long">http://beusterse.de</string>
+    <string name="pref_title_note">Hinweis</string>
+    <string name="pref_description_note">Der Eigenbetrieb Abfallwirtschaft kann weitere Abfuhrtermine festlegen, die unter Umständen nicht in der App enthalten sind. Diese sind dann online oder im Gebührenbescheid zu finden.</string>
 
     <string name="pref_header_notifications">Erinnerungen</string>
     <string name="pref_notifications_active">Erinnerungen</string>
