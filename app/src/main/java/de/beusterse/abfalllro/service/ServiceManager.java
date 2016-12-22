@@ -37,10 +37,11 @@ public class ServiceManager {
 
     private boolean alarmWentOff(Calendar cal, int can) {
         long lastAlarm      = getLastAlarmTime(can);
+        Calendar now        = Calendar.getInstance();
         Calendar lastCal    = Calendar.getInstance();
         lastCal.setTimeInMillis(lastAlarm);
 
-        return lastAlarm > 0 && lastCal.get(Calendar.DATE) == cal.get(Calendar.DATE);
+        return lastAlarm > 0 && lastCal.get(Calendar.DATE) == cal.get(Calendar.DATE) && lastCal.before(now);
     }
 
     public void bind() {
