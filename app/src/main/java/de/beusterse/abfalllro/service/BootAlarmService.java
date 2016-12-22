@@ -36,7 +36,7 @@ public class BootAlarmService extends Service {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         DataLoader loader               = new DataLoader(pref, getResources(), getPackageName());
-        TrashController controller      = new TrashController(pref, loader.getCode(), loader.getSchedule(), getResources());
+        TrashController controller      = new TrashController(pref, loader.getCodes(), loader.getSchedule(), getResources());
         int[] canAlarmTimes             = controller.getPreview();
 
         if (canAlarmTimes[0] != -1 ) {

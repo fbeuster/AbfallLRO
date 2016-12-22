@@ -24,11 +24,10 @@ import de.beusterse.abfalllro.capsules.PickupDay;
  */
 public class DataLoader {
 
-    private static final String DATE_FORMAT_NO_DAY = "yyyy-MM-";
     private static final String CITY_WITH_STREETS = "0000";
 
     private Resources resources;
-    private String code;
+    private String[] codes = {"", ""};
     private String packageName;
     private SharedPreferences pref;
     private HashMap<String, PickupDay> schedule;
@@ -39,19 +38,24 @@ public class DataLoader {
         this.pref           = pref;
         this.resources      = resources;
 
-        code = "";
         schedule = new HashMap<>();
 
         readSchedule();
 
-        readCodeFromFile(R.raw.codes, resources.getString(R.string.pref_key_pickup_town));
+        readCodeFromFile(R.raw.codes_2016, resources.getString(R.string.pref_key_pickup_town), 0);
 
-        if (code.equals(CITY_WITH_STREETS)) {
-            readCodeFromFile(R.raw.street_codes, resources.getString(R.string.pref_key_pickup_street));
+        if (codes.equals(CITY_WITH_STREETS)) {
+            readCodeFromFile(R.raw.street_codes_2016, resources.getString(R.string.pref_key_pickup_street), 0);
+        }
+
+        readCodeFromFile(R.raw.codes_2017, resources.getString(R.string.pref_key_pickup_town), 1);
+
+        if (codes.equals(CITY_WITH_STREETS)) {
+            readCodeFromFile(R.raw.street_codes_2017, resources.getString(R.string.pref_key_pickup_street), 1);
         }
     }
 
-    public String getCode() { return code; }
+    public String[] getCodes() { return codes; }
 
     public HashMap<String, PickupDay> getSchedule() { return schedule; }
 
@@ -96,7 +100,7 @@ public class DataLoader {
         }
     }
 
-    private void readCodeFromFile(int resourceId, String prefKey) {
+    private void readCodeFromFile(int resourceId, String prefKey, int index) {
         try {
             InputStream stream = resources.openRawResource(resourceId);
 
@@ -107,7 +111,7 @@ public class DataLoader {
             stream.close();
 
             JSONObject codes = new JSONObject( new String(buffer, "UTF-8") );
-            code = codes.getString( pref.getString(prefKey, "") );
+            this.codes[index] = codes.getString( pref.getString(prefKey, "") );
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,7 +136,7 @@ public class DataLoader {
             }
 
             for(Calendar current : dates) {
-                int scheduleId = resources.getIdentifier("raw/schedule" + df.format(current.getTime()), "raw", packageName);
+                int scheduleId = resources.getIdentifier("raw/schedule_" + df.format(current.getTime()), "raw", packageName);
 
                 inputStreamReader = new InputStreamReader(resources.openRawResource(scheduleId));
                 Scanner inputStream = new Scanner(inputStreamReader);

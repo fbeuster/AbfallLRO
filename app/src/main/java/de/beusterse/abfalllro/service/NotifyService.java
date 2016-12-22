@@ -73,7 +73,7 @@ public class NotifyService extends Service {
 
     private int getDayOffset(SharedPreferences pref, int can) {
         DataLoader loader           = new DataLoader(pref, getResources(), getPackageName());
-        TrashController controller  = new TrashController(  pref, loader.getCode(),
+        TrashController controller  = new TrashController(  pref, loader.getCodes(),
                                                             loader.getSchedule(), getResources());
 
         int[] currentPreview    = controller.getPreview();

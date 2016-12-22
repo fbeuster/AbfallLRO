@@ -24,7 +24,7 @@ public class TrashController {
     private int cError;
     private int[] cPreview;
 
-    private String locationCans;
+    private String[] locationCans;
     private Resources resources;
     private HashMap<String, PickupDay> schedule;
 
@@ -35,7 +35,7 @@ public class TrashController {
     boolean monthly_black;
     boolean monthly_green;
 
-    public TrashController(SharedPreferences pref, String locationCans, HashMap<String, PickupDay> schedule, Resources resources) {
+    public TrashController(SharedPreferences pref, String[] locationCans, HashMap<String, PickupDay> schedule, Resources resources) {
         this.locationCans   = locationCans;
         this.resources      = resources;
         this.schedule       = schedule;
@@ -77,13 +77,13 @@ public class TrashController {
     }
 
     private void calcCurrentCans() {
-        if (locationCans.length() == 0) {
+        if (locationCans[0].length() == 0) {
             cError = R.string.check_invalid_city;
 
         } else if (locationCans.equals(CITY_WITH_STREETS)) {
             cError = R.string.check_invalid_street;
 
-        } else if (locationCans.length() != 4) {
+        } else if (locationCans[0].length() != 4) {
             cError = R.string.check_invalid_code;
 
         } else {
@@ -94,7 +94,7 @@ public class TrashController {
                 cError = R.string.check_can_none;
 
             } else {
-                if (plan.hasCan(monthly_black, Can.BLACK, locationCans.charAt(0))) {
+                if (plan.hasCan(monthly_black, Can.BLACK, locationCans[0].charAt(0))) {
                     cCans.add(new int[]{
                             R.string.check_can_black,
                             R.drawable.can_black_scale,
@@ -102,7 +102,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(monthly_green, Can.GREEN, locationCans.charAt(1))) {
+                if (plan.hasCan(monthly_green, Can.GREEN, locationCans[0].charAt(1))) {
                     cCans.add(new int[]{
                             R.string.check_can_green,
                             R.drawable.can_green_scale,
@@ -110,7 +110,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(!monthly, Can.YELLOW, locationCans.charAt(2))) {
+                if (plan.hasCan(!monthly, Can.YELLOW, locationCans[0].charAt(2))) {
                     cCans.add(new int[]{
                             R.string.check_can_yellow,
                             R.drawable.can_yellow_scale,
@@ -118,7 +118,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(monthly, Can.BLUE, locationCans.charAt(3))) {
+                if (plan.hasCan(monthly, Can.BLUE, locationCans[0].charAt(3))) {
                     cCans.add(new int[]{
                             R.string.check_can_blue,
                             R.drawable.can_blue_scale,
@@ -138,36 +138,36 @@ public class TrashController {
         int dayCount = 0;
         int[] preview = {-1, -1, -1, -1};
 
-        if (locationCans.length() > 0) {
+        if (locationCans[0].length() > 0) {
 
             Calendar pNow = (Calendar) now.clone();
             Calendar pMaxTime = (Calendar) now.clone();
 
             pNow.add(Calendar.DATE, dayOffset);
             pMaxTime.add(Calendar.DATE, dayOffset);
-            pMaxTime.add(Calendar.MONTH, 1);
+            pMaxTime.add(Calendar.MONTH, 2);
 
             while (found < 4 && pNow.getTime().before(pMaxTime.getTime())) {
                 String today = dateFormat.format(pNow.getTime());
                 PickupDay plan = schedule.get(today);
 
-                if (plan != null) {
-                    if (preview[Can.BLACK] == -1 && plan.hasCan(monthly_black, Can.BLACK, locationCans.charAt(0))) {
+                if (plan != null && locationCans[pNow.get(Calendar.YEAR) - now.get(Calendar.YEAR)].length() > 0) {
+                    if (preview[Can.BLACK] == -1 && plan.hasCan(monthly_black, Can.BLACK, locationCans[pNow.get(Calendar.YEAR) - now.get(Calendar.YEAR)].charAt(0))) {
                         preview[Can.BLACK] = dayCount;
                         found++;
                     }
 
-                    if (preview[Can.GREEN] == -1 && plan.hasCan(monthly_green, Can.GREEN, locationCans.charAt(1))) {
+                    if (preview[Can.GREEN] == -1 && plan.hasCan(monthly_green, Can.GREEN, locationCans[pNow.get(Calendar.YEAR) - now.get(Calendar.YEAR)].charAt(1))) {
                         preview[Can.GREEN] = dayCount;
                         found++;
                     }
 
-                    if (preview[Can.YELLOW] == -1 && plan.hasCan(!monthly, Can.YELLOW, locationCans.charAt(2))) {
+                    if (preview[Can.YELLOW] == -1 && plan.hasCan(!monthly, Can.YELLOW, locationCans[pNow.get(Calendar.YEAR) - now.get(Calendar.YEAR)].charAt(2))) {
                         preview[Can.YELLOW] = dayCount;
                         found++;
                     }
 
-                    if (preview[Can.BLUE] == -1 && plan.hasCan(monthly, Can.BLUE, locationCans.charAt(3))) {
+                    if (preview[Can.BLUE] == -1 && plan.hasCan(monthly, Can.BLUE, locationCans[pNow.get(Calendar.YEAR) - now.get(Calendar.YEAR)].charAt(3))) {
                         preview[Can.BLUE] = dayCount;
                         found++;
                     }

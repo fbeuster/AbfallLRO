@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Abfall LRO</string>
     <string name="author">Felix Beuster</string>
-    <string name="version">1.3</string>
+    <string name="version">1.4</string>
 
     <string name="dialog_button_positive">OK</string>
     <string name="dialog_button_negative">Abbrechen</string>
@@ -84,8 +84,6 @@
         <item>Allershagen</item>
         <item>Alt Bukow</item>
         <item>Alt Diekhof</item>
-        <item>Altenhagen (Kröpelin)</item>
-        <item>Altenhagen (Lohmen)</item>
         <item>Althof</item>
         <item>Alt Kätwin</item>
         <item>Alt Karin</item>
@@ -97,6 +95,8 @@
         <item>Alt Stassow</item>
         <item>Alt Sührkow</item>
         <item>Alt Vorwerk</item>
+        <item>Altenhagen (Lohmen)</item>
+        <item>Altenhagen (Kröpelin)</item>
         <item>Altkalen</item>
         <item>Amalienhof</item>
         <item>Anna Luisenhof</item>
@@ -128,7 +128,6 @@
         <item>Bentwisch</item>
         <item>Berendshagen</item>
         <item>Bergfeld</item>
-        <item>Berghausen</item>
         <item>Bernitt</item>
         <item>Beselin</item>
         <item>Biendorf</item>
@@ -161,7 +160,7 @@
         <item>Buchenhof</item>
         <item>Buchholz</item>
         <item>Bukow</item>
-        <item>Bülow (Güstrow)</item>
+        <item>Bülow (Gutow)</item>
         <item>Bülow (Schorssow)</item>
         <item>Bülower Burg</item>
         <item>Büttelkow</item>
@@ -194,7 +193,7 @@
         <item>Dolglas</item>
         <item>Dölitz</item>
         <item>Dorf Jörnstorf</item>
-        <item>Dorf Taschow</item>
+        <item>Dorf Tatschow</item>
         <item>Dreetz</item>
         <item>Drölitz</item>
         <item>Drüsewitz</item>
@@ -219,15 +218,15 @@
         <item>Friedrichshof (Wasdow)</item>
         <item>Fulgenkoppel</item>
         <item>Fürstenhof</item>
-        <item>Ganschow</item>
         <item>Gaarzer Hof</item>
+        <item>Ganschow</item>
         <item>Garden</item>
         <item>Garvensdorf</item>
         <item>Garvsmühlen</item>
+        <item>Gehmkendorf</item>
         <item>Gelbensande</item>
         <item>Gerdshagen (Lohmen)</item>
         <item>Gerdshagen (Satow)</item>
-        <item>Gehmkendorf</item>
         <item>Gersdorf</item>
         <item>Glambeck</item>
         <item>Glasewitz</item>
@@ -269,7 +268,6 @@
         <item>Groß Köthel</item>
         <item>Groß Kussewitz</item>
         <item>Groß Lantow</item>
-        <item>Großen Luckow</item>
         <item>Groß Lüsewitz</item>
         <item>Groß Lunow</item>
         <item>Groß Markow</item>
@@ -287,6 +285,7 @@
         <item>Groß Viegeln</item>
         <item>Groß Wokern</item>
         <item>Groß Wüstenfelde</item>
+        <item>Großen Luckow</item>
         <item>Grube</item>
         <item>Grünenhagen</item>
         <item>Grünenhof</item>
@@ -300,27 +299,27 @@
         <item>Harmstorf</item>
         <item>Häschendorf</item>
         <item>Hastorf</item>
-        <item>Helmstorf</item>
         <item>Heiligendamm</item>
         <item>Heiligenhagen</item>
+        <item>Helmstorf</item>
         <item>Hermannshagen</item>
         <item>Hessenstein</item>
         <item>Hinrichshof</item>
         <item>Hinter Bollhagen</item>
         <item>Hinzenhagen</item>
-        <item>Hohen Gubkow</item>
-        <item>Hohen Schwarfs</item>
         <item>Hof Jörnstorf</item>
         <item>Hof Rühn</item>
-        <item>Hof Tatschow</item>
+        <item>Hof Tatschow  </item>
         <item>Hohen Demzin</item>
+        <item>Hohen Gubkow</item>
         <item>Hohen Luckow</item>
         <item>Hohen Mistorf</item>
         <item>Hohen Niendorf</item>
-        <item>Hohenfelde (Bad Doberan)</item>
-        <item>Hohenfelde (Thulendorf)</item>
+        <item>Hohen Schwarfs</item>
         <item>Hohen Sprenz</item>
         <item>Hohen Tutow</item>
+        <item>Hohenfelde (Bad Doberan)</item>
+        <item>Hohenfelde (Thulendorf)</item>
         <item>Hooge Liedt</item>
         <item>Hoppenhof</item>
         <item>Hoppenrade</item>
@@ -329,11 +328,10 @@
         <item>Horst (Sanitz)</item>
         <item>Horst (Satow)</item>
         <item>Huckstorf</item>
-        <item>Hütten</item>
-        <item>Hüttenkoppel</item>
         <item>Hundehagen</item>
-        <item>Ivendorf</item>
+        <item>Hüttenkoppel</item>
         <item>Ikendorf</item>
+        <item>Ivendorf      </item>
         <item>Jabelitz</item>
         <item>Jahmen</item>
         <item>Jennewitz</item>
@@ -371,8 +369,8 @@
         <item>Klein Köthel</item>
         <item>Klein Kussewitz</item>
         <item>Klein Lantow</item>
-        <item>Klein Lüsewitz</item>
         <item>Klein Lunow</item>
+        <item>Klein Lüsewitz</item>
         <item>Klein Markow</item>
         <item>Klein Mulsow</item>
         <item>Klein Nieköhr</item>
@@ -400,7 +398,6 @@
         <item>Klueß</item>
         <item>Knegendorf</item>
         <item>Kobrow</item>
-        <item>Koitendorf</item>
         <item>Kölln</item>
         <item>Koppelow</item>
         <item>Körchow</item>
@@ -413,8 +410,8 @@
         <item>Kranichshof</item>
         <item>Krempin</item>
         <item>Krevtsee</item>
-        <item>Kritzmow</item>
         <item>Kritzkow</item>
+        <item>Kritzmow</item>
         <item>Kröpelin</item>
         <item>Kronskamp</item>
         <item>Kuchelmiß</item>
@@ -454,7 +451,8 @@
         <item>Malpendorf</item>
         <item>Mamerow</item>
         <item>Mandelshagen</item>
-        <item>Marienhof</item>
+        <item>Marienhof (Bellin)</item>
+        <item>Marienhof (Sukow)</item>
         <item>Matersen</item>
         <item>Matgendorf</item>
         <item>Mechelsdorf</item>
@@ -467,18 +465,15 @@
         <item>Moitin</item>
         <item>Möllen</item>
         <item>Mönchhagen</item>
-        <item>Mönkweden</item>
         <item>Moltenow</item>
         <item>Mühl Rosin</item>
         <item>Mühlengeez</item>
-        <item>Mühlenhof</item>
         <item>Neu Bartelstorf</item>
         <item>Neu Bernitt</item>
         <item>Neu Boddin</item>
         <item>Neu Broderstorf</item>
         <item>Neu Dobbin</item>
         <item>Neu Fienstorf</item>
-        <item>Neu Gaarz</item>
         <item>Neu Gramstorf</item>
         <item>Neu Griebnitz</item>
         <item>Neu Harmstorf</item>
@@ -486,25 +481,21 @@
         <item>Neu Hohenfelde</item>
         <item>Neu Karin</item>
         <item>Neu Käterhagen</item>
-        <item>Neu Kassow</item>
+        <item>Neu Kätwin</item>
         <item>Neu Kokendorf</item>
         <item>Neu Krassow</item>
-        <item>Neu Kätwin</item>
         <item>Neu Mierendorf</item>
         <item>Neu Mistorf</item>
-        <item>Neu Mühle</item>
         <item>Neu Nieköhr</item>
         <item>Neu Pannekow</item>
         <item>Neu Pastow</item>
-        <item>Neu Poorstorf</item>
         <item>Neu Quitzenow</item>
         <item>Neu Rachow</item>
         <item>Neu Remlin</item>
-        <item>Neu Rethwisch</item>
-        <item>Neu Roggentin (+ N.R.Str.)</item>
+        <item>Neu Roggentin</item>
         <item>Neu Sammit</item>
-        <item>Neu Satow</item>
         <item>Neu Stassow</item>
+        <item>Neu Strenz</item>
         <item>Neu Sührkow</item>
         <item>Neu Tenze</item>
         <item>Neu Teschow (Alt Bu.)</item>
@@ -516,19 +507,21 @@
         <item>Neu Wokern</item>
         <item>Neu Zierhagen</item>
         <item>Neu Ziddorf</item>
-        <item>Neubukow</item>
+        <item>Neubukow       </item>
         <item>Neuendorf (Steinhagen)</item>
         <item>Neuendorf (Broderstorf)</item>
         <item>Neuhof (Zehna)</item>
         <item>Neuhof (Grammow)</item>
         <item>Neuhof (Parkentin)</item>
         <item>Neukirchen</item>
+        <item>Neumühle</item>
         <item>Niederhagen</item>
         <item>Niegleve</item>
         <item>Niekrenz</item>
         <item>Niendorf (Teterow)</item>
         <item>Niendorf (Wiendorf)</item>
         <item>Niendorf (Papendorf)</item>
+        <item>Niendorf (Ostseebad)</item>
         <item>Nienhagen (Groß Wokern)</item>
         <item>Nienhagen (Lalendorf)</item>
         <item>Nienhagen (Lohmen)</item>
@@ -560,13 +553,15 @@
         <item>Pinnow</item>
         <item>Plaaz</item>
         <item>Poggelow</item>
-        <item>Pohnstorf</item>
+        <item>Pohnstorf  (Alt Sührkow)</item>
+        <item>Pohnstorf  (Sukow-Levitzow)</item>
         <item>Polchow</item>
         <item>Pölchow</item>
         <item>Pölitz</item>
         <item>Poppendorf</item>
         <item>Prangendorf</item>
         <item>Prebberede</item>
+        <item>Primerburg</item>
         <item>Prisannewitz</item>
         <item>Prüzen</item>
         <item>Purkshof</item>
@@ -621,7 +616,7 @@
         <item>Sarmstorf (Güstrow)</item>
         <item>Sarmstorf (Lelkendorf)</item>
         <item>Satow</item>
-        <item>Scharstorf</item>
+        <item>Scharstorf     </item>
         <item>Schependorf</item>
         <item>Schlage</item>
         <item>Schlemmin</item>
@@ -658,7 +653,7 @@
         <item>Stechow</item>
         <item>Steffenshagen</item>
         <item>Steinbeck (Admannshagen)</item>
-        <item>Steinbeck (Krakow)</item>
+        <item>Steinbeck (Bellin)</item>
         <item>Steinbrinck</item>
         <item>Steinfeld</item>
         <item>Steinhagen (Bützow)</item>
@@ -711,11 +706,10 @@
         <item>Volkenshagen</item>
         <item>Vorbeck</item>
         <item>Vorder Bollhagen</item>
-        <item>Vorweden</item>
-        <item>Waldschmidt</item>
-        <item>Walkendorf</item>
         <item>Wahrstorf</item>
         <item>Waldeck</item>
+        <item>Waldschmidt</item>
+        <item>Walkendorf     </item>
         <item>Warbelow</item>
         <item>Wardow</item>
         <item>Warnkenhagen</item>
@@ -730,6 +724,7 @@
         <item>Wendorf (Plaaz)</item>
         <item>Wendorf (Sanitz)</item>
         <item>Wendorf (Groß Potrems)</item>
+        <item>Wendorf (Zehna)</item>
         <item>Werle</item>
         <item>Wesselstorf</item>
         <item>Westenbrügge</item>
@@ -751,7 +746,6 @@
         <item>Woltow</item>
         <item>Wotrum</item>
         <item>Wozeten</item>
-        <item>Wustrow</item>
         <item>Zapkendorf</item>
         <item>Zarfzow</item>
         <item>Zarnewanz</item>
@@ -771,13 +765,15 @@
 
     <string name="pref_location_street">Straße</string>
     <string-array name="pref_location_streets">
-        <item>Admannshagen</item>
+        <item>Ahornpromenade</item>
+        <item>Alt - Güstrower - Straße</item>
         <item>Am Augraben</item>
         <item>Am Berge</item>
         <item>Am Brink</item>
         <item>Am Eicheneck</item>
         <item>Am Gewerbegrund</item>
         <item>Am Hasenwald</item>
+        <item>Am langen Bruch</item>
         <item>Am Mühlbach</item>
         <item>Am Mühlenplatz</item>
         <item>Am Pfaffenbruch</item>
@@ -851,7 +847,7 @@
         <item>Gleviner Mauer</item>
         <item>Gleviner Platz</item>
         <item>Gleviner Straße</item>
-        <item>Gliner                 Straße</item>
+        <item>Gliner Straße</item>
         <item>Goetheplatz</item>
         <item>Goldberger Straße</item>
         <item>Gorkiweg</item>
@@ -894,7 +890,6 @@
         <item>Kleiner Kraul</item>
         <item>Klötterpott</item>
         <item>Klosterhof</item>
-        <item>Klueß</item>
         <item>Koppelweg</item>
         <item>Korngasse</item>
         <item>Kösterstraße</item>
@@ -905,6 +900,7 @@
         <item>Kurze Straße</item>
         <item>Lagerstraße</item>
         <item>Lagerweg</item>
+        <item>Landesbrandmeister-Bever-Straße</item>
         <item>Lange Stege</item>
         <item>Lange Straße</item>
         <item>Langendamm. Weg</item>
@@ -925,7 +921,6 @@
         <item>Neue Wallstraße</item>
         <item>Neukruger Straße</item>
         <item>Neuwieder Weg</item>
-        <item>Neu Strenz</item>
         <item>Niklotstraße</item>
         <item>Parumer Straße</item>
         <item>Parumer Weg</item>
@@ -938,7 +933,6 @@
         <item>Plauer Straße</item>
         <item>Prahmstraße</item>
         <item>Primer Straße</item>
-        <item>Primerburg</item>
         <item>Prof.-Karsten-Weg</item>
         <item>Puschkinweg</item>
         <item>Pustekowstraße</item>
@@ -962,6 +956,7 @@
         <item>Schondorfstraße</item>
         <item>Schöninseler Weg</item>
         <item>Schulstraße</item>
+        <item>Schwaaner Chaussee</item>
         <item>Schwaaner Straße</item>
         <item>Schwarzer Weg</item>
         <item>Schweriner Chaussee</item>
@@ -977,7 +972,6 @@
         <item>Steinstraße</item>
         <item>Straße der DSF</item>
         <item>Strenzer Weg</item>
-        <item>Suckow</item>
         <item>Thünenweg</item>
         <item>Tiefetal</item>
         <item>Tivolistraße</item>
@@ -1004,7 +998,7 @@
         <item>Willi-Schröder-Straße</item>
         <item>Wilsenstraße</item>
         <item>Wolfskrögen</item>
-        <item>Wossidlowstraße</item>
+        <item>Wossidlostraße</item>
         <item>Ziegeleiweg</item>
         <item>Ziegeleiwiese</item>
         <item>Zu den Domwiesen</item>
