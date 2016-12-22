@@ -24,6 +24,8 @@ import de.beusterse.abfalllro.capsules.PickupDay;
  */
 public class DataLoader {
 
+    public static final int FIRST_YEAR = 2016;
+    public static final int LAST_YEAR = 2017;
     private static final String CITY_WITH_STREETS = "0000";
 
     private Resources resources;
