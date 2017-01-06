@@ -65,7 +65,7 @@ public class UIUpdater {
         String location = pref.getString( activity.getString(R.string.pref_key_pickup_town), "" );
 
         if (location.equals(SettingsActivity.CITY_WITH_STREETS)) {
-            location += ", " + pref.getString( activity.getString(R.string.pref_key_pickup_town), "" );
+            location += ", " + pref.getString( activity.getString(R.string.pref_key_pickup_street), "" );
         }
 
         genInfo.setText(location);
