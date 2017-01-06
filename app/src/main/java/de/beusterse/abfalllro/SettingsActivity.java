@@ -290,6 +290,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             Preference preference = findPreference(getString(R.string.pref_key_notifications_time));
             preference.setEnabled(enabled);
 
+            preference = findPreference(getString(R.string.pref_key_notifications_sound));
+            preference.setEnabled(enabled);
+
             preference = findPreference(getString(R.string.pref_key_notifications_vibrate));
             preference.setEnabled(enabled);
         }
