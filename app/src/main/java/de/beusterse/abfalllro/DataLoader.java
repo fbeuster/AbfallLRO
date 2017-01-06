@@ -46,13 +46,13 @@ public class DataLoader {
 
         readCodeFromFile(R.raw.codes_2016, resources.getString(R.string.pref_key_pickup_town), 0);
 
-        if (codes.equals(CITY_WITH_STREETS)) {
+        if (codes[0].equals(CITY_WITH_STREETS)) {
             readCodeFromFile(R.raw.street_codes_2016, resources.getString(R.string.pref_key_pickup_street), 0);
         }
 
         readCodeFromFile(R.raw.codes_2017, resources.getString(R.string.pref_key_pickup_town), 1);
 
-        if (codes.equals(CITY_WITH_STREETS)) {
+        if (codes[1].equals(CITY_WITH_STREETS)) {
             readCodeFromFile(R.raw.street_codes_2017, resources.getString(R.string.pref_key_pickup_street), 1);
         }
     }
