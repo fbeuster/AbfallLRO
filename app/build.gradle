@@ -16,8 +16,8 @@ android {
         applicationId theApplicationId
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 8
-        versionName "1.4.3"
+        versionCode 9
+        versionName "1.4.4"
     }
     buildTypes {
         release {
