@@ -4,6 +4,10 @@
         android:title="@string/pref_title_version"
         android:summary="@string/version" />
     <Preference
+        android:key="@string/pref_key_info_rate"
+        android:title="@string/pref_rate_title"
+        android:summary="@string/pref_rate_description" />
+    <Preference
         android:title="@string/pref_title_author"
         android:summary="@string/author" />
     <Preference
