@@ -94,10 +94,15 @@ public class DataLoader {
             schedule.put(date, new PickupDay());
         }
 
+        // iterating schedule day fields
         for (int i = 2; i < line.length; i++) {
             if (!line[i].isEmpty()) {
-                can = new Can(monthlyMap[i], colorMap[i], line[i].charAt(0));
-                schedule.get(date).addCan(can);
+
+                // iterating field letters
+                for (int j = 0; j < line[i].length(); j++) {
+                    can = new Can(monthlyMap[i], colorMap[i], line[i].charAt(j));
+                    schedule.get(date).addCan(can);
+                }
             }
         }
     }
