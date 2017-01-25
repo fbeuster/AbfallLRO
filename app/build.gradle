@@ -48,14 +48,10 @@ dependencies {
  * loading signing data (keystore, passwords, alias) if the
  * keystore.properties file in the root directory can be read
  */
-def Properties localProps = new Properties()
-localProps.load(new FileInputStream(file('../local.properties')))
-
 def Properties props = new Properties()
-assert localProps['keystore.props.file'];
 
-if (file(localProps['keystore.props.file']).exists()) {
-    props.load(new FileInputStream(file(localProps['keystore.props.file'])))
+if (file('../keystore.properties').exists()) {
+    props.load(new FileInputStream(file('../keystore.properties')))
 
     if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD')
             && props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
