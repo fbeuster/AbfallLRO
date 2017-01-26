@@ -1,4 +1,4 @@
-Lixter (https://github.com/fbeuster/AbfallLRO)
+Abfall LRO (https://github.com/fbeuster/AbfallLRO)
 
 Copyright &copy; 2016 - 2017 | Felix Beuster | BSD-2-Clause License
 
