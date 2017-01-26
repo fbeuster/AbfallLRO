@@ -1,4 +1,7 @@
 # Abfall LRO
+[![BSD-2-Clause License](https://img.shields.io/badge/license-BSD--2-blue.svg)](https://github.com/fbeuster/AbfallLRO/blob/master/LICENSE.md)
+[![Github Releases](https://img.shields.io/github/release/fbeuster/abfalllro.svg)](https://github.com/fbeuster/abfalllro/releases)
+[![Github Issues](https://img.shields.io/github/issues/fbeuster/abfalllro.svg)](http://github.com/fbeuster/abfalllro/issues)
 
 [Abfall LRO](https://play.google.com/store/apps/details?id=de.beusterse.abfallkalenderlandkreisrostock) is an Android app that provides information about the pickup days of the different trash cans in the district **Landkreis Rostock** here in Germany.
 
