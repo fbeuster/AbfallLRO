@@ -12,14 +12,14 @@ import java.util.Calendar;
  *
  * Created by Felix Beuster
  */
-public class AlarmTask implements Runnable {
+public class NotificationAlarmTask implements Runnable {
 
     private final Calendar date;
     private final AlarmManager alarmManager;
     private final Context context;
     private int can;
 
-    public AlarmTask(Context context, Calendar date, int can) {
+    public NotificationAlarmTask(Context context, Calendar date, int can) {
         this.context        = context;
         this.alarmManager   = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         this.date           = date;

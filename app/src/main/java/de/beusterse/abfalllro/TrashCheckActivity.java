@@ -30,7 +30,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
         loader          = new DataLoader(pref, getResources(), getPackageName());
         controller      = new TrashController(pref, loader.getCodes(), loader.getSchedule(), getResources());
-        serviceManager  = new ServiceManager(this, pref, controller);
+        serviceManager  = new ServiceManager(this);
         updater         = new UIUpdater(this, pref);
 
         setTheme( controller.getTheme() );

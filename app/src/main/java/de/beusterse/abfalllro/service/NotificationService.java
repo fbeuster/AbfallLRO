@@ -18,11 +18,8 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
-import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.MainActivity;
 import de.beusterse.abfalllro.R;
-import de.beusterse.abfalllro.TimePreference;
-import de.beusterse.abfalllro.TrashController;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.RawNotification;
 
@@ -60,7 +57,6 @@ public class NotificationService extends Service {
 
             showNotification(can, pref);
             saveLastAlarmTime(can, pref);
-            setNewAlarm(can, pref);
         }
 
         return START_NOT_STICKY;
@@ -72,29 +68,6 @@ public class NotificationService extends Service {
     }
 
     private final IBinder binder = new ServiceBinder();
-
-    private int getDayOffset(SharedPreferences pref, int can) {
-        DataLoader loader           = new DataLoader(pref, getResources(), getPackageName());
-        TrashController controller  = new TrashController(  pref, loader.getCodes(),
-                                                            loader.getSchedule(), getResources());
-
-        int[] currentPreview    = controller.getPreview();
-
-        if (currentPreview[can] == -1) {
-            return -1;
-
-        }
-
-        // getPreview() has the day diff for the current can, for the day this alarm was for.
-        // offset is added to get the next batch
-        int[] nextPreview = controller.getNextPreview(currentPreview[can] + 1);
-
-        if (nextPreview[can] == -1) {
-            return -1;
-        }
-
-        return currentPreview[can] + nextPreview[can];
-    }
 
     private int getNotificationColor(RawNotification rawNotification) {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -137,28 +110,6 @@ public class NotificationService extends Service {
         }
 
         editor.apply();
-    }
-
-    private void setNewAlarm(int can, SharedPreferences pref) {
-        // clean up the alarm that just went off
-        new AlarmTask(this, Calendar.getInstance(),can).cancel();
-
-        int dayOffset = getDayOffset(pref, can);
-
-        if (dayOffset != -1) {
-
-            Calendar nextDate = Calendar.getInstance();
-            String alarmTime = pref.getString(getString(R.string.pref_key_notifications_time),
-                    getString(R.string.pref_notifications_default_time));
-            int alarmHour = TimePreference.getHour(alarmTime);
-            int alarmMinute = TimePreference.getMinute(alarmTime);
-
-            nextDate.add(Calendar.DATE, dayOffset);
-            nextDate.set(Calendar.HOUR_OF_DAY, alarmHour);
-            nextDate.set(Calendar.MINUTE, alarmMinute);
-
-            new AlarmTask(this, nextDate, can).run();
-        }
     }
 
     private void showNotification(int can, SharedPreferences pref) {

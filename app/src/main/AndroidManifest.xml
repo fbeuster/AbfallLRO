@@ -6,6 +6,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -41,10 +42,11 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".service.DailyCheckReceiver" />
 
-        <service android:name=".service.BootAlarmService" />
+        <service android:name=".service.DailyCheckService" />
         <service android:name=".service.NotificationService" />
-        <service android:name=".service.AlarmService" />
+        <service android:name=".service.DailyAlarmService" />
     </application>
 
 </manifest>
