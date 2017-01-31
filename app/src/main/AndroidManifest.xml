@@ -43,8 +43,8 @@
         </receiver>
 
         <service android:name=".service.BootAlarmService" />
-        <service android:name=".service.NotifyService" />
-        <service android:name=".service.ScheduleService" />
+        <service android:name=".service.NotificationService" />
+        <service android:name=".service.AlarmService" />
     </application>
 
 </manifest>

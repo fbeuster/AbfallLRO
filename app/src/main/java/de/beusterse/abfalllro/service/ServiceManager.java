@@ -23,7 +23,7 @@ public class ServiceManager {
     private int[] canAlarmTimes             = null;
     private int[] canAlarmTypes             = { Can.BLACK, Can.BLUE,
                                                 Can.GREEN, Can.YELLOW};
-    private ScheduleClient scheduleClient;
+    private AlarmClient alarmClient;
     private SharedPreferences pref;
     private TrashController controller;
 
@@ -31,7 +31,7 @@ public class ServiceManager {
         this.context    = context;
         this.controller = controller;
         this.pref       = pref;
-        scheduleClient  = new ScheduleClient(context);
+        alarmClient     = new AlarmClient(context);
         canAlarmTimes   = controller.getPreview();
     }
 
@@ -45,13 +45,13 @@ public class ServiceManager {
     }
 
     public void bind() {
-        scheduleClient.doBindService();
+        alarmClient.doBindService();
     }
 
     private void cancelScheduledAlarms() {
         for (int i = 0; i < canAlarmTypes.length; i++) {
-            if (scheduleClient.hasAlarmForNotification(canAlarmTypes[i])) {
-                scheduleClient.cancelAlarmForNotification(canAlarmTypes[i]);
+            if (alarmClient.hasAlarmForNotification(canAlarmTypes[i])) {
+                alarmClient.cancelAlarmForNotification(canAlarmTypes[i]);
             }
         }
     }
@@ -82,7 +82,7 @@ public class ServiceManager {
     }
 
     private void scheduleAlarms() {
-        if (scheduleClient.isBound()) {
+        if (alarmClient.isBound()) {
             if (pref.getBoolean(context.getString(R.string.pref_key_notifications_active),
                                 context.getResources().getBoolean(R.bool.notifications_active_default))
                     && hasValidPreview()) {
@@ -111,8 +111,8 @@ public class ServiceManager {
 
             if (canAlarmTimes[i] >= 0) {
                 /* cancel alarm to make sure all current settings are applied */
-                if (scheduleClient.hasAlarmForNotification(canAlarmTypes[i])) {
-                    scheduleClient.cancelAlarmForNotification(canAlarmTypes[i]);
+                if (alarmClient.hasAlarmForNotification(canAlarmTypes[i])) {
+                    alarmClient.cancelAlarmForNotification(canAlarmTypes[i]);
                 }
 
                 Calendar cal = Calendar.getInstance();
@@ -124,14 +124,14 @@ public class ServiceManager {
                     cal.add(Calendar.DATE, canAlarmTimes[i] + controller.getNextPreview(2)[i]);
                 }
 
-                scheduleClient.setAlarmForNotification(cal, canAlarmTypes[i]);
+                alarmClient.setAlarmForNotification(cal, canAlarmTypes[i]);
             }
         }
     }
 
     public void unbind() {
-        if (scheduleClient != null) {
-            scheduleClient.doUnbindService();
+        if (alarmClient != null) {
+            alarmClient.doUnbindService();
         }
     }
 }

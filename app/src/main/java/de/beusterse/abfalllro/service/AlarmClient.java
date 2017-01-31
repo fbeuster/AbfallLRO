@@ -9,29 +9,29 @@ import android.os.IBinder;
 import java.util.Calendar;
 
 /**
- * Creates and binds the scheduling service.
+ * Creates and binds the alarm service.
  *
  * Created by Felix Beuster
  */
-public class ScheduleClient {
+public class AlarmClient {
 
-    private ScheduleService boundService;
+    private AlarmService boundService;
     private Context context;
     private boolean isBound;
 
-    public ScheduleClient(Context context) {
+    public AlarmClient(Context context) {
         this.context = context;
     }
 
     public void doBindService() {
-        context.bindService(new Intent(context, ScheduleService.class), connection, Context.BIND_AUTO_CREATE);
+        context.bindService(new Intent(context, AlarmService.class), connection, Context.BIND_AUTO_CREATE);
         isBound = true;
     }
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            boundService = ((ScheduleService.ServiceBinder) service).getService();
+            boundService = ((AlarmService.ServiceBinder) service).getService();
         }
 
         @Override

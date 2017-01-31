@@ -8,7 +8,7 @@ import android.content.Intent;
 import java.util.Calendar;
 
 /**
- * Sets or cancels induvidual alarms for notifications.
+ * Sets or cancels individual alarms for notifications.
  *
  * Created by Felix Beuster
  */
@@ -37,9 +37,9 @@ public class AlarmTask implements Runnable {
     }
 
     private PendingIntent getPendingIntent(int flags) {
-        Intent intent = new Intent(context, NotifyService.class);
-        intent.putExtra(NotifyService.EXTRA_INTENT_NOTIFY, true);
-        intent.putExtra(NotifyService.EXTRA_NOTIFY_CAN, can);
+        Intent intent = new Intent(context, NotificationService.class);
+        intent.putExtra(NotificationService.EXTRA_INTENT_NOTIFY, true);
+        intent.putExtra(NotificationService.EXTRA_NOTIFY_CAN, can);
 
         return PendingIntent.getService(context, can, intent, flags);
     }

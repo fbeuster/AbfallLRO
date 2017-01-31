@@ -27,9 +27,11 @@ import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.RawNotification;
 
 /**
+ * Creates an notification based on passed in parameters
+ *
  * Created by Felix Beuster
  */
-public class NotifyService extends Service {
+public class NotificationService extends Service {
 
     private NotificationManager notificationManager;
 
@@ -39,8 +41,8 @@ public class NotifyService extends Service {
     private long[] vibrate_pattern = new long[]{ 31, 415, 92, 653 };
 
     public class ServiceBinder extends Binder {
-        NotifyService getService() {
-            return NotifyService.this;
+        NotificationService getService() {
+            return NotificationService.this;
         }
     }
 

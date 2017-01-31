@@ -12,11 +12,11 @@ import java.util.Calendar;
  *
  * Created by Felix Beuster
  */
-public class ScheduleService extends Service {
+public class AlarmService extends Service {
 
     public class ServiceBinder extends Binder {
-        ScheduleService getService() {
-            return ScheduleService.this;
+        AlarmService getService() {
+            return AlarmService.this;
         }
     }
 
