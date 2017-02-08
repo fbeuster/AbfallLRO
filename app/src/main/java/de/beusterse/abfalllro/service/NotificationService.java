@@ -56,7 +56,7 @@ public class NotificationService extends Service {
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
             showNotification(can, pref);
-            saveLastAlarmTime(can, pref);
+//            saveLastAlarmTime(can, pref);
         }
 
         return START_NOT_STICKY;
@@ -158,7 +158,5 @@ public class NotificationService extends Service {
             notification.flags |= Notification.FLAG_AUTO_CANCEL;
             notificationManager.notify(rawNotification.getUniqueId(), notification);
         }
-
-        stopSelf();
     }
 }
