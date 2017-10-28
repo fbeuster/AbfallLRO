@@ -11,7 +11,7 @@ android {
         release
     }
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId theApplicationId
         minSdkVersion 14
@@ -26,6 +26,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    flavorDimensions "app"
     productFlavors {
         dev {
             applicationId = theApplicationId + ".dev" + debugsuffix
@@ -38,10 +39,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
+    testCompile 'junit:junit:4.12'
 }
 
 /**
