@@ -10,12 +10,12 @@ android {
     signingConfigs {
         release
     }
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId theApplicationId
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 10
         versionName "1.5"
     }
@@ -39,9 +39,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:appcompat-v7:26.0.0'
+    compile 'com.android.support:design:26.0.0'
+    compile 'com.android.support:support-v4:26.0.0'
     testCompile 'junit:junit:4.12'
 }
 
