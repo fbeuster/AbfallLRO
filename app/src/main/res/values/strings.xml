@@ -79,6 +79,11 @@
     <string name="pref_title_can_black_monthly">Graue Tonne</string>
     <string name="pref_title_can_green_monthly">Grüne Tonne</string>
 
+    <string name="pref_sync_title">Abfuhrdaten</string>
+    <string name="pref_sync_auto">Automatisch aktualisieren</string>
+    <string name="pref_sync_auto_desc">Sucht online nach neuen Abfuhrdaten</string>
+
+
     <string name="pref_title_location">Abholort</string>
     <string name="pref_location">Ort</string>
     <string-array name="pref_locations">

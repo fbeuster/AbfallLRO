@@ -20,6 +20,9 @@
     <string name="pref_key_pickup_schedule_black">pref_can_black_monthly</string>
     <string name="pref_key_pickup_schedule_green">pref_can_green_monthly</string>
 
+    <string name="pref_key_sync">pref_sync</string>
+    <string name="pref_key_sync_auto">pref_sync_auto</string>
+
     <string name="pref_key_info_rate">pref_info_rate</string>
 
 </resources>

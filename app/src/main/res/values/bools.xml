@@ -5,4 +5,5 @@
     <bool name="notifications_vibrate_default">true</bool>
     <bool name="pickup_monthly_black">false</bool>
     <bool name="pickup_monthly_green">false</bool>
+    <bool name="sync_auto">true</bool>
 </resources>

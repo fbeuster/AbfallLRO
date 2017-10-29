@@ -2,10 +2,12 @@ package de.beusterse.abfalllro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -43,8 +45,14 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback 
     }
 
     private void checkPickupCodes() {
-        String url = "https://abfallkalenderlandkreisrostock.beusterse.de/data/test.json";
-        mNetworkFragment = NetworkFragment.getInstance(getFragmentManager(), url);
+        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean sync_enabled    = pref.getBoolean(  getResources().getString(R.string.pref_key_sync_auto),
+                                                    getResources().getBoolean(R.bool.sync_auto) );
+
+        if (sync_enabled) {
+            String url = "https://abfallkalenderlandkreisrostock.beusterse.de/data/test.json";
+            mNetworkFragment = NetworkFragment.getInstance(getFragmentManager(), url);
+        }
     }
 
     @Override
