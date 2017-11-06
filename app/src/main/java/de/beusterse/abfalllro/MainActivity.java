@@ -12,8 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import de.beusterse.abfalllro.interfaces.DownloadCallback;
 import de.beusterse.abfalllro.service.NetworkFragment;
+import de.beusterse.abfalllro.utils.HashUtils;
+import de.beusterse.abfalllro.utils.JSONUtils;
 
 /**
  * Opening activity of the app
@@ -50,7 +55,18 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback 
                                                     getResources().getBoolean(R.bool.sync_auto) );
 
         if (sync_enabled) {
-            String url = "https://abfallkalenderlandkreisrostock.beusterse.de/data/test.json";
+            String url  = "https://abfallkalenderlandkreisrostock.beusterse.de/api.php?";
+            url         += "year=2017";
+
+            // TODO this should come from prefs
+            boolean noHashStored = true;
+
+            if (noHashStored) {
+                url += "&codes=" + HashUtils.inputStreamToSha256(getResources().openRawResource(R.raw.codes_2017));
+                url += "&schedule=" + HashUtils.inputStreamToSha256(getResources().openRawResource(R.raw.schedule_2017));
+                url += "&street_codes=" + HashUtils.inputStreamToSha256(getResources().openRawResource(R.raw.street_codes_2017));
+            }
+
             mNetworkFragment = NetworkFragment.getInstance(getFragmentManager(), url);
         }
     }
@@ -64,7 +80,33 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback 
     public void updateFromDownload(Object result) {
         // TODO update pickup code files
         // TODO continue to intro activity
-        Log.d(this.getLocalClassName(), result.toString());
+
+        String resultString = result.toString();
+
+        if (JSONUtils.isValidJSON(resultString)) {
+            JsonParser parser = new JsonParser();
+            JsonObject object = (parser.parse(resultString)).getAsJsonObject();
+            Log.d("fetch", object.toString());
+
+            switch (object.get("status").getAsInt()) {
+                case 200:
+                    // TODO foreach file check status
+                    // TODO     200 save to file
+                    // TODO     304 no change
+                    Log.d("sync data", object.get("codes").getAsJsonObject().get("status").getAsString());
+                    Log.d("sync data", object.get("schedule").getAsJsonObject().get("status").getAsString());
+                    Log.d("sync data", object.get("street_codes").getAsJsonObject().get("status").getAsString());
+                    break;
+                case 404:
+                    Log.d("sync data", object.get("message").getAsString());
+                    break;
+                case 500:
+                    Log.d("sync data", object.get("message").getAsString());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
