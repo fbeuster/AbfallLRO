@@ -1,13 +1,14 @@
 package de.beusterse.abfalllro;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
-import de.beusterse.abfalllro.interfaces.DownloadCallback;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
 import de.beusterse.abfalllro.service.SyncClient;
 
@@ -54,7 +55,10 @@ public class MainActivity extends AppCompatActivity implements SyncCallback {
 
     @Override
     public NetworkInfo getActiveNetworkInfo() {
-        return mSyncClient.getActiveNetworkInfo();
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo;
     }
 
     @Override

@@ -52,8 +52,69 @@ public class SyncClient {
         mFiles.add("street_codes");
     }
 
-    public void run() {
-        checkPickupCodes();
+
+    private void checkPickupCodes() {
+        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(mContext);
+        boolean sync_enabled    = pref.getBoolean(  mResources.getString(R.string.pref_key_sync_auto),
+                                                    mResources.getBoolean(R.bool.sync_auto) );
+
+        if (sync_enabled) {
+            mNetworkFragment = NetworkFragment.getInstance(((AppCompatActivity) mContext).getFragmentManager(), getSyncRequestUrl());
+        }
+    }
+
+    private void evaluateResponseObject(JsonObject responseObject) {
+        // check overall status
+        switch (responseObject.get("status").getAsInt()) {
+            case 200:
+                // check year status
+                for (String year : mYears) {
+                    if (!mSyncData.has(year)) {
+                        // adding member if not exists
+                        mSyncData.add(year, new JsonObject());
+                    }
+
+                    evaluateYearObject( year, responseObject.get( year ).getAsJsonObject() );
+                }
+                break;
+            case 500:
+            default:
+                break;
+        }
+    }
+
+    private void evaluateYearObject(String year, JsonObject yearObject) {
+        switch (yearObject.get("status").getAsInt()) {
+            case 200:   // check each file
+                saveToStorage( year, "codes", yearObject.get("codes").getAsJsonObject() );
+                saveToStorage( year, "schedule", yearObject.get("schedule").getAsJsonObject() );
+                saveToStorage( year, "street_codes", yearObject.get("street_codes").getAsJsonObject() );
+                break;
+            case 404:   // no data found for year
+            default:
+                break;
+        }
+    }
+
+    public void finishDownloading() {
+        mDownloading = false;
+        if (mNetworkFragment != null) {
+            mNetworkFragment.cancelDownload();
+        }
+    }
+
+    private String getFileHash(String name) {
+        try {
+            return HashUtils.inputStreamToSha256(mResources.openRawResource(getResourceIdentifier(name)));
+
+        } catch (Exception e) {
+            // if no resource is found, append empty hash
+            return "";
+        }
+    }
+
+    private int getResourceIdentifier(String name) {
+        return mResources.getIdentifier(name, "raw", mContext.getPackageName());
     }
 
     private String getSyncRequestUrl() {
@@ -100,31 +161,6 @@ public class SyncClient {
         return url + year_url + codes_url + schedule_url + street_codes_url;
     }
 
-
-    private void checkPickupCodes() {
-        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(mContext);
-        boolean sync_enabled    = pref.getBoolean(  mResources.getString(R.string.pref_key_sync_auto),
-                                                    mResources.getBoolean(R.bool.sync_auto) );
-
-        if (sync_enabled) {
-            mNetworkFragment = NetworkFragment.getInstance(((AppCompatActivity) mContext).getFragmentManager(), getSyncRequestUrl());
-        }
-    }
-
-    private String getFileHash(String name) {
-        try {
-            return HashUtils.inputStreamToSha256(mResources.openRawResource(getResourceIdentifier(name)));
-
-        } catch (Exception e) {
-            // if no resource is found, append empty hash
-            return "";
-        }
-    }
-
-    private int getResourceIdentifier(String name) {
-        return mResources.getIdentifier(name, "raw", mContext.getPackageName());
-    }
-
     private void loadSyncData() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         String syncDataString   = prefs.getString(mResources.getString(R.string.pref_key_sync_data), "");
@@ -140,6 +176,49 @@ public class SyncClient {
 
         } catch (Exception e) {
             mSyncData = new JsonObject();
+        }
+    }
+
+    public void onProgressUpdate(int progressCode, int percentComplete) {
+        switch(progressCode) {
+            case DownloadCallback.Progress.ERROR:
+                // TODO error occurred, continue to intro activity
+                break;
+            case DownloadCallback.Progress.CONNECT_SUCCESS:
+                break;
+            case DownloadCallback.Progress.GET_INPUT_STREAM_SUCCESS:
+                break;
+            case DownloadCallback.Progress.PROCESS_INPUT_STREAM_IN_PROGRESS:
+                break;
+            case DownloadCallback.Progress.PROCESS_INPUT_STREAM_SUCCESS:
+                break;
+        }
+    }
+
+    /**
+     * Wait for the NetworkFragment to be initialized,
+     * then start download.
+     */
+    public void ready() {
+        if (!mDownloading && mNetworkFragment != null) {
+            mNetworkFragment.startDownload();
+            mDownloading = true;
+        }
+    }
+
+    public void run() {
+        checkPickupCodes();
+    }
+
+    private void saveToStorage(String year, String file, JsonObject fileObject) {
+        switch (fileObject.get("status").getAsInt()) {
+            case 200:   // new data available
+                // TODO save to file
+                mSyncData.get(year).getAsJsonObject().addProperty(file, fileObject.get("hash").getAsString());
+                break;
+            case 304:   // no changes in data
+            default:
+                break;
         }
     }
 
@@ -166,91 +245,5 @@ public class SyncClient {
         }
 
         ((SyncCallback) mContext).syncComplete();
-    }
-
-    private void evaluateResponseObject(JsonObject responseObject) {
-        // check overall status
-        switch (responseObject.get("status").getAsInt()) {
-            case 200:
-                // check year status
-                for (String year : mYears) {
-                    if (!mSyncData.has(year)) {
-                        // adding member if not exists
-                        mSyncData.add(year, new JsonObject());
-                    }
-
-                    evaluateYearObject( year, responseObject.get( year ).getAsJsonObject() );
-                }
-                break;
-            case 500:
-            default:
-                break;
-        }
-    }
-
-    private void evaluateYearObject(String year, JsonObject yearObject) {
-        switch (yearObject.get("status").getAsInt()) {
-            case 200:   // check each file
-                saveToStorage( year, "codes", yearObject.get("codes").getAsJsonObject() );
-                saveToStorage( year, "schedule", yearObject.get("schedule").getAsJsonObject() );
-                saveToStorage( year, "street_codes", yearObject.get("street_codes").getAsJsonObject() );
-                break;
-            case 404:   // no data found for year
-            default:
-                break;
-        }
-    }
-
-    public NetworkInfo getActiveNetworkInfo() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo;
-    }
-
-    public void onProgressUpdate(int progressCode, int percentComplete) {
-        switch(progressCode) {
-            case DownloadCallback.Progress.ERROR:
-                // TODO error occurred, continue to intro activity
-                break;
-            case DownloadCallback.Progress.CONNECT_SUCCESS:
-                break;
-            case DownloadCallback.Progress.GET_INPUT_STREAM_SUCCESS:
-                break;
-            case DownloadCallback.Progress.PROCESS_INPUT_STREAM_IN_PROGRESS:
-                break;
-            case DownloadCallback.Progress.PROCESS_INPUT_STREAM_SUCCESS:
-                break;
-        }
-    }
-
-    private void saveToStorage(String year, String file, JsonObject fileObject) {
-        switch (fileObject.get("status").getAsInt()) {
-            case 200:   // new data available
-                // TODO save to file
-                mSyncData.get(year).getAsJsonObject().addProperty(file, fileObject.get("hash").getAsString());
-                break;
-            case 304:   // no changes in data
-            default:
-                break;
-        }
-    }
-
-    public void finishDownloading() {
-        mDownloading = false;
-        if (mNetworkFragment != null) {
-            mNetworkFragment.cancelDownload();
-        }
-    }
-
-    /**
-     * Wait for the NetworkFragment to be initialized,
-     * then start download.
-     */
-    public void ready() {
-        if (!mDownloading && mNetworkFragment != null) {
-            mNetworkFragment.startDownload();
-            mDownloading = true;
-        }
     }
 }
