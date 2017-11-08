@@ -31,8 +31,6 @@ import de.beusterse.abfalllro.utils.JSONUtils;
  */
 public class DataLoader {
 
-    public static final int FIRST_YEAR = 2016;
-    public static final int LAST_YEAR = 2017;
     private static final String CITY_WITH_STREETS = "0000";
 
     private Context context;
@@ -43,6 +41,9 @@ public class DataLoader {
 
     private JsonObject mSyncData;
 
+    private int mFirstYear;
+    private int mLastYear;
+
     public DataLoader(Context context) {
         this.context        = context;
         this.pref           = PreferenceManager.getDefaultSharedPreferences(context);
@@ -50,13 +51,26 @@ public class DataLoader {
 
         schedule = new HashMap<>();
 
+        setYears();
         loadSyncData();
         loadFileData();
     }
 
     public String[] getCodes() { return codes; }
 
+    public int getFirstYear() {
+        return mFirstYear;
+    }
+
     public HashMap<String, PickupDay> getSchedule() { return schedule; }
+
+    public int getLastYear() {
+        return mLastYear;
+    }
+
+    private int getResourceIdentifier(String name) {
+        return resources.getIdentifier(name, "raw", context.getPackageName());
+    }
 
     private boolean hasLineSchedule(String[] line) {
         for (int i = 0; i < line.length; i++) {
@@ -76,11 +90,12 @@ public class DataLoader {
         String year         = yf.format(now.getTime());
         String yearLater;
 
-        readCode(year, R.raw.codes_2016, 0);
+        readCode(year, getResourceIdentifier("codes_" + year), 0);
         readSchedule(year);
 
         if (codes[0].equals(CITY_WITH_STREETS)) {
-            readStreetCode(year, R.raw.street_codes_2016, 0);
+
+            readStreetCode(year, getResourceIdentifier("street_codes_" + year), 0);
         }
 
         if (needsMultipleYears()) {
@@ -88,11 +103,11 @@ public class DataLoader {
             later.add(Calendar.YEAR, 1);
             yearLater    = yf.format(now.getTime());
 
-            readCode(yearLater, R.raw.codes_2017, 1);
+            readCode(yearLater, getResourceIdentifier("codes_" + yearLater), 1);
             readSchedule(yearLater);
 
             if (codes[1].equals(CITY_WITH_STREETS)) {
-                readStreetCode(yearLater, R.raw.street_codes_2017, 1);
+                readStreetCode(yearLater, getResourceIdentifier("street_codes_" + yearLater), 1);
             }
         }
     }
@@ -282,6 +297,15 @@ public class DataLoader {
 
         } else {
             readCodeFromResource(resourceId, resources.getString(R.string.pref_key_pickup_street), index);
+        }
+    }
+
+    private void setYears() {
+        Calendar now = Calendar.getInstance();
+        mFirstYear = now.get(Calendar.YEAR);
+
+        if (needsMultipleYears()) {
+            mLastYear = mFirstYear + 1;
         }
     }
 }

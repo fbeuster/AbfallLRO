@@ -58,8 +58,7 @@ public class DailyCheckService extends IntentService {
 
     private void getPreview() {
         DataLoader loader           = new DataLoader(this);
-        TrashController controller  = new TrashController(pref, loader.getCodes(),
-                loader.getSchedule(), getResources());
+        TrashController controller  = new TrashController(pref, loader, getResources());
 
         canAlarmTimes = controller.getPreview();
     }
