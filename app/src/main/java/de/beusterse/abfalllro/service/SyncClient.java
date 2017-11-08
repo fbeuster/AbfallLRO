@@ -3,8 +3,6 @@ package de.beusterse.abfalllro.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +10,7 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -210,11 +209,36 @@ public class SyncClient {
         checkPickupCodes();
     }
 
+    private boolean saveFile(String filename, String data) {
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = mContext.openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(data.getBytes());
+            outputStream.close();
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private void saveToStorage(String year, String file, JsonObject fileObject) {
         switch (fileObject.get("status").getAsInt()) {
             case 200:   // new data available
-                // TODO save to file
-                mSyncData.get(year).getAsJsonObject().addProperty(file, fileObject.get("hash").getAsString());
+                String filename = file + "_" + year + "." + fileObject.get("type").getAsString();
+
+                boolean saved;
+                if (fileObject.get("type").getAsString().equals("json")) {
+                    saved = saveFile(filename, fileObject.get("data").toString());
+
+                } else {
+                    saved = saveFile(filename, fileObject.get("data").getAsString());
+                }
+
+                if ( saved ) {
+                    mSyncData.get(year).getAsJsonObject().addProperty(file, fileObject.get("hash").getAsString());
+                }
                 break;
             case 304:   // no changes in data
             default:
@@ -223,9 +247,6 @@ public class SyncClient {
     }
 
     public void updateFromDownload(Object result) {
-        // TODO update pickup code files
-        // TODO continue to intro activity
-
         String resultString = result.toString();
 
         if (JSONUtils.isValidJSON(resultString)) {
