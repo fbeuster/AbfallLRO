@@ -57,7 +57,7 @@ public class DailyCheckService extends IntentService {
     }
 
     private void getPreview() {
-        DataLoader loader           = new DataLoader(pref, getResources(), getPackageName());
+        DataLoader loader           = new DataLoader(this);
         TrashController controller  = new TrashController(pref, loader.getCodes(),
                 loader.getSchedule(), getResources());
 
