@@ -36,10 +36,20 @@ public class SyncClient {
     private boolean mDownloading = false;
     private Context mContext;
     private Resources mResources;
+    private ArrayList<String> mFiles;
+    ArrayList<String> mYears = new ArrayList<>();
+    JsonObject mSyncData;
 
     public SyncClient(Context context) {
-        mContext    = context;
-        mResources  = context.getResources();
+        mContext        = context;
+        mResources      = context.getResources();
+        mFiles          = new ArrayList<>();
+
+        loadSyncData();
+
+        mFiles.add("codes");
+        mFiles.add("schedule");
+        mFiles.add("street_codes");
     }
 
     public void run() {
@@ -51,13 +61,12 @@ public class SyncClient {
 
         Calendar now            = Calendar.getInstance();
         SimpleDateFormat yf     = new SimpleDateFormat("yyyy");
-        ArrayList<String> years = new ArrayList<>();
-        years.add(yf.format(now.getTime()));
+        mYears.add(yf.format(now.getTime()));
 
         if (DataLoader.needsMultipleYears()) {
             Calendar later = Calendar.getInstance();
             later.add(Calendar.YEAR, 1);
-            years.add(yf.format(later.getTime()));
+            mYears.add(yf.format(later.getTime()));
         }
 
         String codes_url        = "&codes=";
@@ -68,7 +77,7 @@ public class SyncClient {
         // TODO this should come from prefs
         boolean noHashStored    = true;
 
-        for (String year : years) {
+        for (String year : mYears) {
             if (noHashStored) {
                 codes_url           += getFileHash("raw/codes_" + year);
                 schedule_url        += getFileHash("raw/schedule_" + year);
@@ -80,7 +89,7 @@ public class SyncClient {
 
             year_url += year;
 
-            if (!year.equals(years.get(years.size() - 1))) {
+            if (!year.equals(mYears.get(mYears.size() - 1))) {
                 codes_url           += ";";
                 schedule_url        += ";";
                 street_codes_url    += ";";
@@ -116,6 +125,24 @@ public class SyncClient {
         return mResources.getIdentifier(name, "raw", mContext.getPackageName());
     }
 
+    private void loadSyncData() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String syncDataString   = prefs.getString(mResources.getString(R.string.pref_key_sync_data), "");
+
+        try {
+            if (syncDataString.equals("") || !JSONUtils.isValidJSON(syncDataString)) {
+                mSyncData = new JsonObject();
+
+            } else {
+                JsonParser parser = new JsonParser();
+                mSyncData = parser.parse(syncDataString).getAsJsonObject();
+            }
+
+        } catch (Exception e) {
+            mSyncData = new JsonObject();
+        }
+    }
+
     public void updateFromDownload(Object result) {
         // TODO update pickup code files
         // TODO continue to intro activity
@@ -127,52 +154,48 @@ public class SyncClient {
             JsonObject responseObject   = (parser.parse(resultString)).getAsJsonObject();
 
             evaluateResponseObject( responseObject );
+
+            // updating preferences to store sync data
+            Log.d("sync data save", mSyncData.toString());
+
+            SharedPreferences prefs         = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences.Editor editor = prefs.edit();
+
+            editor.putString(mResources.getString(R.string.pref_key_sync_data), mSyncData.toString());
+            editor.apply();
         }
 
         ((SyncCallback) mContext).syncComplete();
     }
 
     private void evaluateResponseObject(JsonObject responseObject) {
-        Log.d("fetch", responseObject.toString());
-
         // check overall status
         switch (responseObject.get("status").getAsInt()) {
             case 200:
                 // check year status
-                // TODO add loop over years
-                JsonObject yearObject = responseObject.get("2017").getAsJsonObject();
-                evaluateYearObject( yearObject );
+                for (String year : mYears) {
+                    if (!mSyncData.has(year)) {
+                        // adding member if not exists
+                        mSyncData.add(year, new JsonObject());
+                    }
+
+                    evaluateYearObject( year, responseObject.get( year ).getAsJsonObject() );
+                }
                 break;
             case 500:
-                Log.d("sync data", responseObject.get("message").getAsString());
-                break;
             default:
                 break;
         }
     }
 
-    private void evaluateYearObject(JsonObject yearObject) {
+    private void evaluateYearObject(String year, JsonObject yearObject) {
         switch (yearObject.get("status").getAsInt()) {
-            case 200:
-                // check each file
-                // TODO add loop over files
-                switch (yearObject.get("status").getAsInt()) {
-                    case 200:
-                        // new data available
-                        // TODO save to file
-                        Log.d("sync data", yearObject.get("codes").getAsJsonObject().get("status").getAsString());
-                        Log.d("sync data", yearObject.get("schedule").getAsJsonObject().get("status").getAsString());
-                        Log.d("sync data", yearObject.get("street_codes").getAsJsonObject().get("status").getAsString());
-                        break;
-                    case 304:
-                        // no changes in data
-                        // TODO check if resources ex in internal storage or copy
-                        break;
-                    default:
-                        break;
-                }
-            case 404: // no data found for year
-            case 500: // missing hashes for year
+            case 200:   // check each file
+                saveToStorage( year, "codes", yearObject.get("codes").getAsJsonObject() );
+                saveToStorage( year, "schedule", yearObject.get("schedule").getAsJsonObject() );
+                saveToStorage( year, "street_codes", yearObject.get("street_codes").getAsJsonObject() );
+                break;
+            case 404:   // no data found for year
             default:
                 break;
         }
@@ -197,6 +220,18 @@ public class SyncClient {
             case DownloadCallback.Progress.PROCESS_INPUT_STREAM_IN_PROGRESS:
                 break;
             case DownloadCallback.Progress.PROCESS_INPUT_STREAM_SUCCESS:
+                break;
+        }
+    }
+
+    private void saveToStorage(String year, String file, JsonObject fileObject) {
+        switch (fileObject.get("status").getAsInt()) {
+            case 200:   // new data available
+                // TODO save to file
+                mSyncData.get(year).getAsJsonObject().addProperty(file, fileObject.get("hash").getAsString());
+                break;
+            case 304:   // no changes in data
+            default:
                 break;
         }
     }
