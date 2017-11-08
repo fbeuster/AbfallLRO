@@ -73,6 +73,13 @@ public class DataLoader {
         return false;
     }
 
+    public static boolean needsMultipleYears() {
+        SimpleDateFormat mf = new SimpleDateFormat("MM");
+        Calendar now        = Calendar.getInstance();
+
+        return mf.format(now.getTime()).equals("11") || mf.format(now.getTime()).equals("12");
+    }
+
     private void parseScheduleLine(String[] line, Calendar time) {
         Can can;
 
@@ -130,13 +137,12 @@ public class DataLoader {
 
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy");
-            SimpleDateFormat mf = new SimpleDateFormat("MM");
             Calendar now        = Calendar.getInstance();
 
             ArrayList<Calendar> dates = new ArrayList<>();
             dates.add(now);
 
-            if (mf.format(now.getTime()).equals("11") || mf.format(now.getTime()).equals("12")) {
+            if (needsMultipleYears()) {
                 Calendar next = Calendar.getInstance();
                 next.add(Calendar.YEAR, 1);
                 dates.add(next);

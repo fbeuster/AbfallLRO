@@ -12,6 +12,11 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.interfaces.DownloadCallback;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
@@ -41,6 +46,51 @@ public class SyncClient {
         checkPickupCodes();
     }
 
+    private String getSyncRequestUrl() {
+        String url  = "https://abfallkalenderlandkreisrostock.beusterse.de/api.php";
+
+        Calendar now            = Calendar.getInstance();
+        SimpleDateFormat yf     = new SimpleDateFormat("yyyy");
+        ArrayList<String> years = new ArrayList<>();
+        years.add(yf.format(now.getTime()));
+
+        if (DataLoader.needsMultipleYears()) {
+            Calendar later = Calendar.getInstance();
+            later.add(Calendar.YEAR, 1);
+            years.add(yf.format(later.getTime()));
+        }
+
+        String codes_url        = "&codes=";
+        String schedule_url     = "&schedule=";
+        String street_codes_url = "&street_codes=";
+        String year_url         = "?year=";
+
+        // TODO this should come from prefs
+        boolean noHashStored    = true;
+
+        for (String year : years) {
+            if (noHashStored) {
+                codes_url           += getFileHash("raw/codes_" + year);
+                schedule_url        += getFileHash("raw/schedule_" + year);
+                street_codes_url    += getFileHash("raw/street_codes_" + year);
+
+            } else {
+                // TODO use stored hashes
+            }
+
+            year_url += year;
+
+            if (!year.equals(years.get(years.size() - 1))) {
+                codes_url           += ";";
+                schedule_url        += ";";
+                street_codes_url    += ";";
+                year_url            += ";";
+            }
+        }
+
+        return url + year_url + codes_url + schedule_url + street_codes_url;
+    }
+
 
     private void checkPickupCodes() {
         SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -48,20 +98,22 @@ public class SyncClient {
                                                     mResources.getBoolean(R.bool.sync_auto) );
 
         if (sync_enabled) {
-            String url  = "https://abfallkalenderlandkreisrostock.beusterse.de/api.php?";
-            url         += "year=2017";
-
-            // TODO this should come from prefs
-            boolean noHashStored = true;
-
-            if (noHashStored) {
-                url += "&codes=" + HashUtils.inputStreamToSha256(mResources.openRawResource(R.raw.codes_2017));
-                url += "&schedule=" + HashUtils.inputStreamToSha256(mResources.openRawResource(R.raw.schedule_2017));
-                url += "&street_codes=" + HashUtils.inputStreamToSha256(mResources.openRawResource(R.raw.street_codes_2017));
-            }
-
-            mNetworkFragment = NetworkFragment.getInstance(((AppCompatActivity) mContext).getFragmentManager(), url);
+            mNetworkFragment = NetworkFragment.getInstance(((AppCompatActivity) mContext).getFragmentManager(), getSyncRequestUrl());
         }
+    }
+
+    private String getFileHash(String name) {
+        try {
+            return HashUtils.inputStreamToSha256(mResources.openRawResource(getResourceIdentifier(name)));
+
+        } catch (Exception e) {
+            // if no resource is found, append empty hash
+            return "";
+        }
+    }
+
+    private int getResourceIdentifier(String name) {
+        return mResources.getIdentifier(name, "raw", mContext.getPackageName());
     }
 
     public void updateFromDownload(Object result) {
