@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.R;
@@ -117,39 +119,80 @@ public class SyncClient {
     }
 
     private String getSyncRequestUrl() {
-        String url  = "https://abfallkalenderlandkreisrostock.beusterse.de/api.php";
+        Calendar now        = Calendar.getInstance();
+        SimpleDateFormat yf = new SimpleDateFormat("YYYY");
 
-        Calendar now            = Calendar.getInstance();
-        SimpleDateFormat yf     = new SimpleDateFormat("yyyy");
-        mYears.add(yf.format(now.getTime()));
-
-        if (DataLoader.needsMultipleYears()) {
-            Calendar later = Calendar.getInstance();
-            later.add(Calendar.YEAR, 1);
-            mYears.add(yf.format(later.getTime()));
-        }
-
+        String url              = "https://abfallkalenderlandkreisrostock.beusterse.de/api.php";
         String codes_url        = "&codes=";
         String schedule_url     = "&schedule=";
         String street_codes_url = "&street_codes=";
         String year_url         = "?year=";
 
-        // TODO this should come from prefs
-        boolean noHashStored    = true;
+        // adding years from saved data, with saved or generated hashes
+        HashMap<String, String[]> year_hashes = new HashMap<>();
 
-        for (String year : mYears) {
-            if (noHashStored) {
-                codes_url           += getFileHash("raw/codes_" + year);
-                schedule_url        += getFileHash("raw/schedule_" + year);
-                street_codes_url    += getFileHash("raw/street_codes_" + year);
+        for (Map.Entry<String, JsonElement> year : mSyncData.entrySet()) {
+            int year_value = Integer.parseInt(year.getKey());
 
-            } else {
-                // TODO use stored hashes
+            if (year_value >= now.get(Calendar.YEAR)) {
+                String[] hashes         = new String[3];
+                JsonObject yearObject   = year.getValue().getAsJsonObject();
+
+                if (yearObject.has("codes")) {
+                    hashes[0] = yearObject.get("codes").getAsString();
+                } else {
+                    hashes[0] = getFileHash("codes_" + year.getKey());
+                }
+
+                if (yearObject.has("schedule")) {
+                    hashes[1] = yearObject.get("schedule").getAsString();
+                } else {
+                    hashes[1] = getFileHash("schedule_" + year.getKey());
+                }
+
+                if (yearObject.has("street_codes")) {
+                    hashes[2] = yearObject.get("street_codes").getAsString();
+                } else {
+                    hashes[2] = getFileHash("street_codes_" + year.getKey());
+                }
+
+                year_hashes.put(year.getKey(), hashes);
             }
+        }
 
-            year_url += year;
+        if (!year_hashes.containsKey(yf.format(now.getTime()))) {
+            String[] hashes = new String[3];
+            String year     = yf.format(now.getTime());
 
-            if (!year.equals(mYears.get(mYears.size() - 1))) {
+            hashes[0] = getFileHash("codes_" + year);
+            hashes[1] = getFileHash("schedule_" + year);
+            hashes[2] = getFileHash("street_codes_" + year);
+
+            year_hashes.put(year, hashes);
+        }
+
+        if (DataLoader.needsMultipleYears()) {
+            now.add(Calendar.YEAR, 1);
+            if (!year_hashes.containsKey(yf.format(now.getTime()))) {
+                String[] hashes = new String[3];
+                String year     = yf.format(now.getTime());
+
+                hashes[0] = getFileHash("codes_" + year);
+                hashes[1] = getFileHash("schedule_" + year);
+                hashes[2] = getFileHash("street_codes_" + year);
+
+                year_hashes.put(year, hashes);
+            }
+        }
+
+        for (Map.Entry<String, String[]> year : year_hashes.entrySet()) {
+            codes_url           += year.getValue()[0];
+            schedule_url        += year.getValue()[1];
+            street_codes_url    += year.getValue()[2];
+
+            year_url += year.getKey();
+
+            if (!year.getKey().equals(year_hashes.get(year_hashes.size() - 1))) {
                 codes_url           += ";";
                 schedule_url        += ";";
                 street_codes_url    += ";";
@@ -256,8 +299,6 @@ public class SyncClient {
             evaluateResponseObject( responseObject );
 
             // updating preferences to store sync data
-            Log.d("sync data save", mSyncData.toString());
-
             SharedPreferences prefs         = PreferenceManager.getDefaultSharedPreferences(mContext);
             SharedPreferences.Editor editor = prefs.edit();
 
