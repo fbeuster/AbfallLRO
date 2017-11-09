@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -33,7 +32,7 @@ import de.beusterse.abfalllro.utils.JSONUtils;
 
 public class SyncClient {
 
-    private NetworkFragment mNetworkFragment;
+    private NetworkClient mNetworkClient;
     private boolean mDownloading = false;
     private Context mContext;
     private Resources mResources;
@@ -60,7 +59,12 @@ public class SyncClient {
                                                     mResources.getBoolean(R.bool.sync_auto) );
 
         if (sync_enabled) {
-            mNetworkFragment = NetworkFragment.getInstance(((AppCompatActivity) mContext).getFragmentManager(), getSyncRequestUrl());
+            mNetworkClient = new NetworkClient((DownloadCallback) mContext, getSyncRequestUrl());
+
+            if (!mDownloading && mNetworkClient != null) {
+                mNetworkClient.startDownload();
+                mDownloading = true;
+            }
         }
     }
 
@@ -99,8 +103,8 @@ public class SyncClient {
 
     public void finishDownloading() {
         mDownloading = false;
-        if (mNetworkFragment != null) {
-            mNetworkFragment.cancelDownload();
+        if (mNetworkClient != null) {
+            mNetworkClient.cancelDownload();
         }
     }
 
@@ -234,17 +238,6 @@ public class SyncClient {
                 break;
             case DownloadCallback.Progress.PROCESS_INPUT_STREAM_SUCCESS:
                 break;
-        }
-    }
-
-    /**
-     * Wait for the NetworkFragment to be initialized,
-     * then start download.
-     */
-    public void ready() {
-        if (!mDownloading && mNetworkFragment != null) {
-            mNetworkFragment.startDownload();
-            mDownloading = true;
         }
     }
 

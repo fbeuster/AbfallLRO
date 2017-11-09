@@ -1,8 +1,11 @@
 package de.beusterse.abfalllro.service;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
 import java.util.Calendar;
@@ -12,6 +15,7 @@ import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.TimePreference;
 import de.beusterse.abfalllro.TrashController;
 import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.interfaces.SyncCallback;
 
 /**
  * Performs the daily check whether a can is due in the next days or not.
@@ -20,13 +24,15 @@ import de.beusterse.abfalllro.capsules.Can;
  * Created by Felix Beuster
  */
 
-public class DailyCheckService extends IntentService {
+public class DailyCheckService extends IntentService implements SyncCallback {
 
     private int[] canAlarmTimes = null;
     private int[] canAlarmTypes = { Can.BLACK, Can.BLUE,
                                     Can.GREEN, Can.YELLOW};
 
+    private Intent mIntent;
     private SharedPreferences pref;
+    private SyncClient mSyncClient;
 
     public DailyCheckService() {
         super("DailyCheckService");
@@ -39,6 +45,11 @@ public class DailyCheckService extends IntentService {
         lastCal.setTimeInMillis(lastAlarm);
 
         return lastAlarm > 0 && lastCal.get(Calendar.DATE) == cal.get(Calendar.DATE) && lastCal.before(now);
+    }
+
+    @Override
+    public void finishDownloading() {
+        mSyncClient.finishDownloading();
     }
 
     private long getLastAlarmTime(int can) {
@@ -56,6 +67,14 @@ public class DailyCheckService extends IntentService {
         }
     }
 
+    @Override
+    public NetworkInfo getActiveNetworkInfo() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo;
+    }
+
     private void getPreview() {
         DataLoader loader           = new DataLoader(this);
         TrashController controller  = new TrashController(pref, loader, getResources());
@@ -65,12 +84,16 @@ public class DailyCheckService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        mIntent     = intent;
+        mSyncClient = new SyncClient(this);
+        pref        = PreferenceManager.getDefaultSharedPreferences(this);
 
-        getPreview();
-        scheduleNotification();
+        mSyncClient.run();
+    }
 
-        DailyCheckReceiver.completeWakefulIntent(intent);
+    @Override
+    public void onProgressUpdate(int progressCode, int percentComplete) {
+        mSyncClient.onProgressUpdate(progressCode, percentComplete);
     }
 
     private void scheduleNotification() {
@@ -100,5 +123,18 @@ public class DailyCheckService extends IntentService {
                 }
             }
         }
+    }
+
+    @Override
+    public void syncComplete() {
+        getPreview();
+        scheduleNotification();
+
+        DailyCheckReceiver.completeWakefulIntent(mIntent);
+    }
+
+    @Override
+    public void updateFromDownload(Object result) {
+        mSyncClient.updateFromDownload(result);
     }
 }

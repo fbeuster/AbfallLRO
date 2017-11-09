@@ -4,7 +4,7 @@ import android.net.NetworkInfo;
 
 
 /**
- * Callback interface for the NetworkFragment
+ * Callback interface for the NetworkClient
  *
  * Implemented by Felix Beuster
  * Created by Google Samples
@@ -42,9 +42,4 @@ public interface DownloadCallback<T> {
      * download hasn't completed successfully.
      */
     void finishDownloading();
-
-    /**
-     * Indicates that the download operation is ready to start.
-     */
-    void ready();
 }
