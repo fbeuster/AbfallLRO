@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import de.beusterse.abfalllro.DataLoader;
@@ -88,12 +90,33 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         mSyncClient = new SyncClient(this);
         pref        = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mSyncClient.run();
+        Log.d("check", "wake up");
+
+        Calendar now            = Calendar.getInstance();
+        SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
+        String lasDailyCheck    = pref.getString(getResources().getString(R.string.pref_key_intern_last_daily_check), "");
+
+        if (!df.format(now.getTime()).equals(lasDailyCheck)) {
+            Log.d("check", "run");
+            mSyncClient.run();
+
+        } else {
+            DailyCheckReceiver.completeWakefulIntent(mIntent);
+        }
     }
 
     @Override
     public void onProgressUpdate(int progressCode, int percentComplete) {
         mSyncClient.onProgressUpdate(progressCode, percentComplete);
+    }
+
+    private void saveLastDailyCheckDate() {
+        Calendar now                    = Calendar.getInstance();
+        SimpleDateFormat df             = new SimpleDateFormat("yyyy-MM-dd");
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(getResources().getString(R.string.pref_key_intern_last_daily_check), df.format(now.getTime()));
+        editor.apply();
     }
 
     private void scheduleNotification() {
@@ -129,6 +152,7 @@ public class DailyCheckService extends IntentService implements SyncCallback {
     public void syncComplete() {
         getPreview();
         scheduleNotification();
+        saveLastDailyCheckDate();
 
         DailyCheckReceiver.completeWakefulIntent(mIntent);
     }

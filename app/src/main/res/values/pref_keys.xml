@@ -5,6 +5,7 @@
     <string name="pref_key_intern_last_alarm_blue">pref_last_pickup_blue</string>
     <string name="pref_key_intern_last_alarm_green">pref_last_pickup_green</string>
     <string name="pref_key_intern_last_alarm_yellow">pref_last_pickup_yellow</string>
+    <string name="pref_key_intern_last_daily_check">pref_last_daily_check</string>
     <string name="pref_key_intern_setup_done">pref_setup_done</string>
     <string name="pref_key_intern_sync_data">pref_sync_data</string>
 
