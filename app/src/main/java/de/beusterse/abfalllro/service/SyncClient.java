@@ -209,7 +209,7 @@ public class SyncClient {
 
     private void loadSyncData() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String syncDataString   = prefs.getString(mResources.getString(R.string.pref_key_sync_data), "");
+        String syncDataString   = prefs.getString(mResources.getString(R.string.pref_key_intern_sync_data), "");
 
         try {
             if (syncDataString.equals("") || !JSONUtils.isValidJSON(syncDataString)) {
@@ -295,7 +295,7 @@ public class SyncClient {
             SharedPreferences prefs         = PreferenceManager.getDefaultSharedPreferences(mContext);
             SharedPreferences.Editor editor = prefs.edit();
 
-            editor.putString(mResources.getString(R.string.pref_key_sync_data), mSyncData.toString());
+            editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
             editor.apply();
         }
 

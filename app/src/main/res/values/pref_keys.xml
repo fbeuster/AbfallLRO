@@ -6,6 +6,7 @@
     <string name="pref_key_intern_last_alarm_green">pref_last_pickup_green</string>
     <string name="pref_key_intern_last_alarm_yellow">pref_last_pickup_yellow</string>
     <string name="pref_key_intern_setup_done">pref_setup_done</string>
+    <string name="pref_key_intern_sync_data">pref_sync_data</string>
 
     <string name="pref_key_notifications">pref_notifications</string>
     <string name="pref_key_notifications_active">pref_notifications_active</string>
@@ -22,7 +23,6 @@
 
     <string name="pref_key_sync">pref_sync</string>
     <string name="pref_key_sync_auto">pref_sync_auto</string>
-    <string name="pref_key_sync_data">pref_sync_data</string>
 
     <string name="pref_key_info_rate">pref_info_rate</string>
 

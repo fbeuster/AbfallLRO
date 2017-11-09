@@ -113,7 +113,7 @@ public class DataLoader {
     }
 
     private void loadSyncData() {
-        String syncDataString   = pref.getString(resources.getString(R.string.pref_key_sync_data), "");
+        String syncDataString   = pref.getString(resources.getString(R.string.pref_key_intern_sync_data), "");
 
         try {
             if (syncDataString.equals("") || !JSONUtils.isValidJSON(syncDataString)) {
