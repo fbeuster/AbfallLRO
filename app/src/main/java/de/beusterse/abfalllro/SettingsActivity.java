@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,8 +19,12 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
+
+import de.beusterse.abfalllro.interfaces.SyncCallback;
+import de.beusterse.abfalllro.service.SyncClient;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -31,9 +37,11 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity implements SyncCallback {
 
     public static final String CITY_WITH_STREETS = "Güstrow";
+
+    private SyncClient mSyncClient;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -154,12 +162,45 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || NotificationsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
+    @Override
+    public void finishDownloading() {
+        mSyncClient.finishDownloading();
+    }
+
+    @Override
+    public NetworkInfo getActiveNetworkInfo() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo();
+    }
+
+    @Override
+    public void onProgressUpdate(int progressCode, int percentComplete) {
+        mSyncClient.onProgressUpdate(progressCode, percentComplete);
+    }
+
+    public void startManualSync() {
+        mSyncClient = new SyncClient(this);
+        mSyncClient.run();
+    }
+
+    @Override
+    public void syncComplete() {
+        Toast.makeText(this, getString(R.string.pref_sync_manual_toast), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateFromDownload(Object result) {
+        mSyncClient.updateFromDownload(result);
+    }
+
     /**
      * This fragment shows pickup preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class PickupPreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -185,6 +226,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                     updateStreetSummary(preference, stringValue);
                     updateStreetLocationPref(stringValue);
+                    return true;
+                }
+            });
+
+            /**
+             * Button press to manually synchronize the pickup data.
+             */
+            Preference syncManualButton = findPreference(getString(R.string.pref_key_sync_manual));
+            syncManualButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    ((SettingsActivity) getActivity()).startManualSync();
                     return true;
                 }
             });

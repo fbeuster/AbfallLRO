@@ -43,6 +43,10 @@
             android:key="@string/pref_key_sync_auto"
             android:title="@string/pref_sync_auto"
             android:summary="@string/pref_sync_auto_desc"/>
+        <Preference
+            android:title="@string/pref_sync_manual"
+            android:key="@string/pref_key_sync_manual"
+            android:summary="@string/pref_sync_manual_desc"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
