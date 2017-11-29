@@ -35,4 +35,18 @@
             android:title="@string/pref_title_can_green_monthly" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/pref_sync_title"
+        android:key="@string/pref_key_sync">
+        <SwitchPreference
+            android:defaultValue="@bool/sync_auto"
+            android:key="@string/pref_key_sync_auto"
+            android:title="@string/pref_sync_auto"
+            android:summary="@string/pref_sync_auto_desc"/>
+        <Preference
+            android:title="@string/pref_sync_manual"
+            android:key="@string/pref_key_sync_manual"
+            android:summary="@string/pref_sync_manual_desc"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>

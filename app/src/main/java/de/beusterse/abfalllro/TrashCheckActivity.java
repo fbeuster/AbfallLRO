@@ -28,8 +28,8 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
 
-        loader          = new DataLoader(pref, getResources(), getPackageName());
-        controller      = new TrashController(pref, loader.getCodes(), loader.getSchedule(), getResources());
+        loader          = new DataLoader(this);
+        controller      = new TrashController(pref, loader, getResources());
         serviceManager  = new ServiceManager(this);
         updater         = new UIUpdater(this, pref);
 

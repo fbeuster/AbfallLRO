@@ -1,20 +1,27 @@
 package de.beusterse.abfalllro;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.PickupDay;
+import de.beusterse.abfalllro.utils.JSONUtils;
 
 
 /**
@@ -24,43 +31,53 @@ import de.beusterse.abfalllro.capsules.PickupDay;
  */
 public class DataLoader {
 
-    public static final int FIRST_YEAR = 2016;
-    public static final int LAST_YEAR = 2017;
     private static final String CITY_WITH_STREETS = "0000";
 
+    private Context context;
     private Resources resources;
     private String[] codes = {"", ""};
-    private String packageName;
     private SharedPreferences pref;
     private HashMap<String, PickupDay> schedule;
 
+    private JsonObject mSyncData;
 
-    public DataLoader(SharedPreferences pref, Resources resources, String packageName) {
-        this.packageName    = packageName;
-        this.pref           = pref;
-        this.resources      = resources;
+    private int mFirstYear;
+    private int mLastYear;
+
+    public DataLoader(Context context) {
+        this.context        = context;
+        this.pref           = PreferenceManager.getDefaultSharedPreferences(context);
+        this.resources      = context.getResources();
 
         schedule = new HashMap<>();
 
-        readSchedule();
-
-        readCodeFromFile(R.raw.codes_2016, resources.getString(R.string.pref_key_pickup_town), 0);
-
-        if (codes[0].equals(CITY_WITH_STREETS)) {
-            readCodeFromFile(R.raw.street_codes_2016, resources.getString(R.string.pref_key_pickup_street), 0);
-        }
-
-        readCodeFromFile(R.raw.codes_2017, resources.getString(R.string.pref_key_pickup_town), 1);
-
-        if (codes[1].equals(CITY_WITH_STREETS)) {
-            readCodeFromFile(R.raw.street_codes_2017, resources.getString(R.string.pref_key_pickup_street), 1);
-        }
+        setYears();
+        loadSyncData();
+        loadFileData();
     }
 
     public String[] getCodes() { return codes; }
 
+    public int getFirstYear() {
+        return mFirstYear;
+    }
+
     public HashMap<String, PickupDay> getSchedule() { return schedule; }
 
+    public int getLastYear() {
+        return mLastYear;
+    }
+
+    private int getResourceIdentifier(String name) {
+        return resources.getIdentifier(name, "raw", context.getPackageName());
+    }
+
+    /**
+     * Checks, if a line has a schedule for the day.
+     *
+     * @param line
+     * @return
+     */
     private boolean hasLineSchedule(String[] line) {
         for (int i = 0; i < line.length; i++) {
             if (i == 0) continue;
@@ -73,12 +90,79 @@ public class DataLoader {
         return false;
     }
 
-    private void parseScheduleLine(String[] line, Calendar time) {
+    /**
+     * Reads code and schedule data from the files.
+     */
+    private void loadFileData() {
+        SimpleDateFormat yf = new SimpleDateFormat("yyyy");
+        Calendar now        = Calendar.getInstance();
+        String year         = yf.format(now.getTime());
+        String yearLater;
+
+        readCode(year, getResourceIdentifier("codes_" + year), 0);
+        readSchedule(year);
+
+        if (codes[0].equals(CITY_WITH_STREETS)) {
+
+            readStreetCode(year, getResourceIdentifier("street_codes_" + year), 0);
+        }
+
+        if (needsMultipleYears()) {
+            Calendar later      = Calendar.getInstance();
+            later.add(Calendar.YEAR, 1);
+            yearLater    = yf.format(now.getTime());
+
+            readCode(yearLater, getResourceIdentifier("codes_" + yearLater), 1);
+            readSchedule(yearLater);
+
+            if (codes[1].equals(CITY_WITH_STREETS)) {
+                readStreetCode(yearLater, getResourceIdentifier("street_codes_" + yearLater), 1);
+            }
+        }
+    }
+
+    /**
+     * Loads current sync data from preferences.
+     */
+    private void loadSyncData() {
+        String syncDataString   = pref.getString(resources.getString(R.string.pref_key_intern_sync_data), "");
+
+        try {
+            if (syncDataString.equals("") || !JSONUtils.isValidJSON(syncDataString)) {
+                mSyncData = new JsonObject();
+
+            } else {
+                JsonParser parser = new JsonParser();
+                mSyncData = parser.parse(syncDataString).getAsJsonObject();
+            }
+
+        } catch (Exception e) {
+            mSyncData = new JsonObject();
+        }
+    }
+
+    /**
+     * Checks, if the current date requires checking more than one year.
+     *
+     * @return
+     */
+    public static boolean needsMultipleYears() {
+        SimpleDateFormat mf = new SimpleDateFormat("MM");
+        Calendar now        = Calendar.getInstance();
+
+        return mf.format(now.getTime()).equals("11") || mf.format(now.getTime()).equals("12");
+    }
+
+    /**
+     * Reads a schedule string line into the schedule hash map.
+     *
+     * @param line
+     * @param year
+     */
+    private void parseScheduleLine(String[] line, String year) {
         Can can;
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
-
-        String date         = df.format(time.getTime()) + "-" + line[0] + "-" + line[1];
+        String date         = year + "-" + line[0] + "-" + line[1];
 
         int[] colorMap      = { -1, -1,
                 Can.BLACK, Can.GREEN,
@@ -107,7 +191,48 @@ public class DataLoader {
         }
     }
 
-    private void readCodeFromFile(int resourceId, String prefKey, int index) {
+    /**
+     * Reads the pickup code for the saved town
+     * from stored sync data into the codes array.
+     *
+     * @param year
+     * @param resourceId
+     * @param index
+     */
+    private void readCode(String year, int resourceId, int index) {
+        if (mSyncData.has(year)) {
+            JsonObject yearObject = mSyncData.getAsJsonObject(year);
+
+            if (yearObject.has("codes")) {
+
+                JsonObject object   = JSONUtils.getJsonObjectFromFile(context, "codes_" + year + ".json");
+                String town          = pref.getString(resources.getString(R.string.pref_key_pickup_town), "");
+
+                if (object != null && object.has(town)) {
+                    codes[index] = object.get(town).getAsString();
+
+                } else {
+                    codes[index] = "";
+                }
+
+            } else {
+                readCodeFromResource(resourceId, resources.getString(R.string.pref_key_pickup_town), index);
+            }
+
+        } else {
+            readCodeFromResource(resourceId, resources.getString(R.string.pref_key_pickup_town), index);
+        }
+    }
+
+    /**
+     * Reads the pickup code for the saved town
+     * from resources into the codes array.
+     *
+     * @param resourceId
+     * @param prefKey
+     * @param index
+     */
+    private void readCodeFromResource(int resourceId, String prefKey, int index) {
         try {
             InputStream stream = resources.openRawResource(resourceId);
 
@@ -125,44 +250,127 @@ public class DataLoader {
         }
     }
 
-    private void readSchedule() {
+    /**
+     * Reads the schedule file from storage or resource.
+     *
+     * @param year
+     */
+    private void readSchedule(String year) {
+        if (mSyncData.has(year)) {
+            JsonObject yearObject = mSyncData.getAsJsonObject(year);
+
+            if (yearObject.has("schedule")) {
+                readScheduleFromStorage(year);
+
+            } else {
+                readScheduleFromResource(year);
+            }
+
+        } else {
+            readScheduleFromResource(year);
+        }
+    }
+
+    /**
+     * Reads the schedule file from resources.
+     *
+     * @param year
+     */
+    private void readScheduleFromResource(String year) {
         InputStreamReader inputStreamReader;
 
         try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy");
-            SimpleDateFormat mf = new SimpleDateFormat("MM");
-            Calendar now        = Calendar.getInstance();
+            int scheduleId = resources.getIdentifier("raw/schedule_" + year, "raw", context.getPackageName());
 
-            ArrayList<Calendar> dates = new ArrayList<>();
-            dates.add(now);
+            inputStreamReader = new InputStreamReader(resources.openRawResource(scheduleId));
+            Scanner inputStream = new Scanner(inputStreamReader);
 
-            if (mf.format(now.getTime()).equals("11") || mf.format(now.getTime()).equals("12")) {
-                Calendar next = Calendar.getInstance();
-                next.add(Calendar.YEAR, 1);
-                dates.add(next);
-            }
+            inputStream.nextLine();
 
-            for(Calendar current : dates) {
-                int scheduleId = resources.getIdentifier("raw/schedule_" + df.format(current.getTime()), "raw", packageName);
+            while (inputStream.hasNext()) {
+                String data = inputStream.nextLine();
+                String[] line = data.split(",");
 
-                inputStreamReader = new InputStreamReader(resources.openRawResource(scheduleId));
-                Scanner inputStream = new Scanner(inputStreamReader);
-
-                inputStream.nextLine();
-
-                while (inputStream.hasNext()) {
-                    String data = inputStream.nextLine();
-                    String[] line = data.split(",");
-
-                    if (hasLineSchedule(line)) {
-                        parseScheduleLine(line, current);
-                    }
+                if (hasLineSchedule(line)) {
+                    parseScheduleLine(line, year);
                 }
-                inputStream.close();
             }
+            inputStream.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Reads the schedule file from the storad sync data.
+     *
+     * @param year
+     */
+    private void readScheduleFromStorage(String year) {
+        FileInputStream inputStream;
+
+        try {
+            inputStream = context.openFileInput("schedule_" + year + ".csv");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader       = new BufferedReader(inputStreamReader);
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] lineElements = line.split(",");
+
+                if (hasLineSchedule(lineElements)) {
+                    parseScheduleLine(lineElements, year);
+                }
+            }
+
+            inputStreamReader.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * Reads the pickup code for the saved street
+     * from the stored sync data into the codes array.
+     *
+     * @param year
+     * @param resourceId
+     * @param index
+     */
+    private void readStreetCode(String year, int resourceId, int index) {
+        if (mSyncData.has(year)) {
+            JsonObject yearObject = mSyncData.getAsJsonObject(year);
+
+            if (yearObject.has("street_codes")) {
+
+                JsonObject object   = JSONUtils.getJsonObjectFromFile(context,"street_codes_" + year + ".json");
+                String street       = pref.getString(resources.getString(R.string.pref_key_pickup_street), "");
+
+                if (object != null && object.has(street)) {
+                    codes[index] = object.get(street).getAsString();
+
+                } else {
+                    codes[index] = "";
+                }
+
+            } else {
+                readCodeFromResource(resourceId, resources.getString(R.string.pref_key_pickup_street), index);
+            }
+
+        } else {
+            readCodeFromResource(resourceId, resources.getString(R.string.pref_key_pickup_street), index);
+        }
+    }
+
+    /**
+     * Sets the first and last year.
+     */
+    private void setYears() {
+        Calendar now = Calendar.getInstance();
+        mFirstYear = now.get(Calendar.YEAR);
+
+        if (needsMultipleYears()) {
+            mLastYear = mFirstYear + 1;
         }
     }
 }

@@ -5,7 +5,9 @@
     <string name="pref_key_intern_last_alarm_blue">pref_last_pickup_blue</string>
     <string name="pref_key_intern_last_alarm_green">pref_last_pickup_green</string>
     <string name="pref_key_intern_last_alarm_yellow">pref_last_pickup_yellow</string>
+    <string name="pref_key_intern_last_daily_check">pref_last_daily_check</string>
     <string name="pref_key_intern_setup_done">pref_setup_done</string>
+    <string name="pref_key_intern_sync_data">pref_sync_data</string>
 
     <string name="pref_key_notifications">pref_notifications</string>
     <string name="pref_key_notifications_active">pref_notifications_active</string>
@@ -19,6 +21,10 @@
     <string name="pref_key_pickup_schedule">pref_cans_monthly</string>
     <string name="pref_key_pickup_schedule_black">pref_can_black_monthly</string>
     <string name="pref_key_pickup_schedule_green">pref_can_green_monthly</string>
+
+    <string name="pref_key_sync">pref_sync</string>
+    <string name="pref_key_sync_auto">pref_sync_auto</string>
+    <string name="pref_key_sync_manual">pref_sync_manual</string>
 
     <string name="pref_key_info_rate">pref_info_rate</string>
 

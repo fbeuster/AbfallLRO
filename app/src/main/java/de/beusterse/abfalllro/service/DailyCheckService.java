@@ -1,10 +1,15 @@
 package de.beusterse.abfalllro.service;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import de.beusterse.abfalllro.DataLoader;
@@ -12,6 +17,7 @@ import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.TimePreference;
 import de.beusterse.abfalllro.TrashController;
 import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.interfaces.SyncCallback;
 
 /**
  * Performs the daily check whether a can is due in the next days or not.
@@ -20,13 +26,15 @@ import de.beusterse.abfalllro.capsules.Can;
  * Created by Felix Beuster
  */
 
-public class DailyCheckService extends IntentService {
+public class DailyCheckService extends IntentService implements SyncCallback {
 
     private int[] canAlarmTimes = null;
     private int[] canAlarmTypes = { Can.BLACK, Can.BLUE,
                                     Can.GREEN, Can.YELLOW};
 
+    private Intent mIntent;
     private SharedPreferences pref;
+    private SyncClient mSyncClient;
 
     public DailyCheckService() {
         super("DailyCheckService");
@@ -39,6 +47,11 @@ public class DailyCheckService extends IntentService {
         lastCal.setTimeInMillis(lastAlarm);
 
         return lastAlarm > 0 && lastCal.get(Calendar.DATE) == cal.get(Calendar.DATE) && lastCal.before(now);
+    }
+
+    @Override
+    public void finishDownloading() {
+        mSyncClient.finishDownloading();
     }
 
     private long getLastAlarmTime(int can) {
@@ -56,22 +69,73 @@ public class DailyCheckService extends IntentService {
         }
     }
 
+    /**
+     * Gets information about the current network connection.
+     *
+     * @return NetworkInfo
+     */
+    @Override
+    public NetworkInfo getActiveNetworkInfo() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo;
+    }
+
     private void getPreview() {
-        DataLoader loader           = new DataLoader(pref, getResources(), getPackageName());
-        TrashController controller  = new TrashController(pref, loader.getCodes(),
-                loader.getSchedule(), getResources());
+        DataLoader loader           = new DataLoader(this);
+        TrashController controller  = new TrashController(pref, loader, getResources());
 
         canAlarmTimes = controller.getPreview();
     }
 
+    /**
+     * Entrypoint when service is called.
+     *
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        mIntent     = intent;
+        mSyncClient = new SyncClient(this);
+        pref        = PreferenceManager.getDefaultSharedPreferences(this);
 
-        getPreview();
-        scheduleNotification();
+        Log.d("check", "wake up");
 
-        DailyCheckReceiver.completeWakefulIntent(intent);
+        Calendar now            = Calendar.getInstance();
+        SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
+        String lasDailyCheck    = pref.getString(getResources().getString(R.string.pref_key_intern_last_daily_check), "");
+
+        if (!df.format(now.getTime()).equals(lasDailyCheck)) {
+            Log.d("check", "run");
+            mSyncClient.run();
+
+        } else {
+            DailyCheckReceiver.completeWakefulIntent(mIntent);
+        }
+    }
+
+    /**
+     * Progress update from the sync process.
+     *
+     * @param progressCode must be one of the constants defined in DownloadCallback.Progress.
+     * @param percentComplete must be 0-100.
+     */
+    @Override
+    public void onProgressUpdate(int progressCode, int percentComplete) {
+        mSyncClient.onProgressUpdate(progressCode, percentComplete);
+    }
+
+    /**
+     * Saces the current date as last checked date.
+     */
+    private void saveLastDailyCheckDate() {
+        Calendar now                    = Calendar.getInstance();
+        SimpleDateFormat df             = new SimpleDateFormat("yyyy-MM-dd");
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(getResources().getString(R.string.pref_key_intern_last_daily_check), df.format(now.getTime()));
+        editor.apply();
     }
 
     private void scheduleNotification() {
@@ -101,5 +165,27 @@ public class DailyCheckService extends IntentService {
                 }
             }
         }
+    }
+
+    /**
+     * Callback when sync is complete.
+     */
+    @Override
+    public void syncComplete() {
+        getPreview();
+        scheduleNotification();
+        saveLastDailyCheckDate();
+
+        DailyCheckReceiver.completeWakefulIntent(mIntent);
+    }
+
+    /**
+     * Callback for an update from the download.
+     *
+     * @param result
+     */
+    @Override
+    public void updateFromDownload(Object result) {
+        mSyncClient.updateFromDownload(result);
     }
 }

@@ -35,10 +35,13 @@ public class TrashController {
     boolean monthly_black;
     boolean monthly_green;
 
-    public TrashController(SharedPreferences pref, String[] locationCans, HashMap<String, PickupDay> schedule, Resources resources) {
-        this.locationCans   = locationCans;
+    private DataLoader loader;
+
+    public TrashController(SharedPreferences pref, DataLoader loader, Resources resources) {
+        this.loader         = loader;
+        this.locationCans   = loader.getCodes();
         this.resources      = resources;
-        this.schedule       = schedule;
+        this.schedule       = loader.getSchedule();
 
         cCans = new ArrayList<>();
         cError = -1;
@@ -77,7 +80,7 @@ public class TrashController {
     }
 
     private void calcCurrentCans() {
-        String current_codes = locationCans[now.get(Calendar.YEAR) - DataLoader.FIRST_YEAR];
+        String current_codes = locationCans[now.get(Calendar.YEAR) - loader.getFirstYear()];
 
         if (current_codes.length() == 0) {
             cError = R.string.check_invalid_city;
@@ -149,8 +152,8 @@ public class TrashController {
             pMaxTime.add(Calendar.DATE, dayOffset);
             pMaxTime.add(Calendar.MONTH, 2);
 
-            if (pMaxTime.get(Calendar.YEAR) > DataLoader.LAST_YEAR) {
-                pMaxTime.set(Calendar.YEAR, DataLoader.LAST_YEAR);
+            if (pMaxTime.get(Calendar.YEAR) > loader.getLastYear()) {
+                pMaxTime.set(Calendar.YEAR, loader.getLastYear());
                 pMaxTime.set(Calendar.MONTH, 12);
                 pMaxTime.set(Calendar.DATE, 31);
             }
@@ -158,7 +161,7 @@ public class TrashController {
             while (found < 4 && pNow.getTime().before(pMaxTime.getTime())) {
                 String today            = dateFormat.format(pNow.getTime());
                 PickupDay plan          = schedule.get(today);
-                String current_codes    = locationCans[pNow.get(Calendar.YEAR) - DataLoader.FIRST_YEAR];
+                String current_codes    = locationCans[pNow.get(Calendar.YEAR) - loader.getFirstYear()];
 
                 if (plan != null && current_codes.length() > 0) {
                     if (preview[Can.BLACK] == -1 && plan.hasCan(monthly_black, Can.BLACK, current_codes.charAt(0))) {
