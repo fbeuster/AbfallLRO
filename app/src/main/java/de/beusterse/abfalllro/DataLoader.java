@@ -72,6 +72,12 @@ public class DataLoader {
         return resources.getIdentifier(name, "raw", context.getPackageName());
     }
 
+    /**
+     * Checks, if a line has a schedule for the day.
+     *
+     * @param line
+     * @return
+     */
     private boolean hasLineSchedule(String[] line) {
         for (int i = 0; i < line.length; i++) {
             if (i == 0) continue;
@@ -84,6 +90,9 @@ public class DataLoader {
         return false;
     }
 
+    /**
+     * Reads code and schedule data from the files.
+     */
     private void loadFileData() {
         SimpleDateFormat yf = new SimpleDateFormat("yyyy");
         Calendar now        = Calendar.getInstance();
@@ -112,6 +121,9 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Loads current sync data from preferences.
+     */
     private void loadSyncData() {
         String syncDataString   = pref.getString(resources.getString(R.string.pref_key_intern_sync_data), "");
 
@@ -129,6 +141,11 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Checks, if the current date requires checking more than one year.
+     *
+     * @return
+     */
     public static boolean needsMultipleYears() {
         SimpleDateFormat mf = new SimpleDateFormat("MM");
         Calendar now        = Calendar.getInstance();
@@ -136,6 +153,12 @@ public class DataLoader {
         return mf.format(now.getTime()).equals("11") || mf.format(now.getTime()).equals("12");
     }
 
+    /**
+     * Reads a schedule string line into the schedule hash map.
+     *
+     * @param line
+     * @param year
+     */
     private void parseScheduleLine(String[] line, String year) {
         Can can;
 
@@ -168,6 +191,14 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads the pickup code for the saved town
+     * from stored sync data into the codes array.
+     *
+     * @param year
+     * @param resourceId
+     * @param index
+     */
     private void readCode(String year, int resourceId, int index) {
         if (mSyncData.has(year)) {
             JsonObject yearObject = mSyncData.getAsJsonObject(year);
@@ -193,6 +224,14 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads the pickup code for the saved town
+     * from resources into the codes array.
+     *
+     * @param resourceId
+     * @param prefKey
+     * @param index
+     */
     private void readCodeFromResource(int resourceId, String prefKey, int index) {
         try {
             InputStream stream = resources.openRawResource(resourceId);
@@ -211,6 +250,11 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads the schedule file from storage or resource.
+     *
+     * @param year
+     */
     private void readSchedule(String year) {
         if (mSyncData.has(year)) {
             JsonObject yearObject = mSyncData.getAsJsonObject(year);
@@ -227,6 +271,11 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads the schedule file from resources.
+     *
+     * @param year
+     */
     private void readScheduleFromResource(String year) {
         InputStreamReader inputStreamReader;
 
@@ -252,6 +301,11 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads the schedule file from the storad sync data.
+     *
+     * @param year
+     */
     private void readScheduleFromStorage(String year) {
         FileInputStream inputStream;
 
@@ -275,6 +329,14 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads the pickup code for the saved street
+     * from the stored sync data into the codes array.
+     *
+     * @param year
+     * @param resourceId
+     * @param index
+     */
     private void readStreetCode(String year, int resourceId, int index) {
         if (mSyncData.has(year)) {
             JsonObject yearObject = mSyncData.getAsJsonObject(year);
@@ -300,6 +362,9 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Sets the first and last year.
+     */
     private void setYears() {
         Calendar now = Calendar.getInstance();
         mFirstYear = now.get(Calendar.YEAR);

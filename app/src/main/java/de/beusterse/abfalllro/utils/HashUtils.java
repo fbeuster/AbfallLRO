@@ -8,10 +8,18 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 /**
- * Created by felix on 11/6/2017.
+ * Utility methods for hashing data.
+ *
+ * Created by Felix Beuster on 11/6/2017.
  */
 
 public class HashUtils {
+    /**
+     * Generates a SHA256 hash string from an input stream.
+     *
+     * @param inputStream
+     * @return Hash string
+     */
     public static String inputStreamToSha256(InputStream inputStream) {
         try {
             byte[] bytes = new byte[inputStream.available()];
@@ -31,6 +39,12 @@ public class HashUtils {
         }
     }
 
+    /**
+     * Converts a byte array to a hexadecimal string.
+     *
+     * @param data
+     * @return
+     */
     public static String bin2hex(byte[] data) {
         return String.format("%0" + (data.length * 2) + "X", new BigInteger(1, data));
     }

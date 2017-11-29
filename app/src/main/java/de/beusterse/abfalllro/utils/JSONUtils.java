@@ -11,7 +11,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by felix on 11/5/2017.
+ * Utility methods for handling JSON data.
+ *
+ * Created by Felix Beuster on 11/5/2017.
  */
 
 public class JSONUtils {
@@ -19,6 +21,12 @@ public class JSONUtils {
 
     private JSONUtils(){}
 
+    /**
+     * Checks if a string is a valid JSON string.
+     *
+     * @param jsonInString
+     * @return
+     */
     public static boolean isValidJSON(String jsonInString) {
         try {
             gson.fromJson(jsonInString, Object.class);
@@ -28,10 +36,17 @@ public class JSONUtils {
         }
     }
 
+    /**
+     * Reads a file into a JSON object.
+     *
+     * @param context
+     * @param filename
+     * @return
+     */
     public static JsonObject getJsonObjectFromFile(Context context, String filename) {
         FileInputStream inputStream;
         try {
-            inputStream = context.openFileInput(filename);
+            inputStream                         = context.openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader       = new BufferedReader(inputStreamReader);
             StringBuilder stringBuilder         = new StringBuilder();

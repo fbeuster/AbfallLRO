@@ -32,18 +32,23 @@ import de.beusterse.abfalllro.utils.JSONUtils;
 
 public class SyncClient {
 
-    private NetworkClient mNetworkClient;
-    private boolean mDownloading = false;
-    private Context mContext;
-    private Resources mResources;
     private ArrayList<String> mFiles;
-    ArrayList<String> mYears = new ArrayList<>();
-    JsonObject mSyncData;
+    private ArrayList<String> mYears;
+
+    private boolean mDownloading = false;
+
+    private Context mContext;
+
+    private JsonObject mSyncData;
+
+    private NetworkClient mNetworkClient;
+    private Resources mResources;
 
     public SyncClient(Context context) {
-        mContext        = context;
-        mResources      = context.getResources();
-        mFiles          = new ArrayList<>();
+        mContext    = context;
+        mResources  = context.getResources();
+        mFiles      = new ArrayList<>();
+        mYears      = new ArrayList<>();
 
         loadSyncData();
 
@@ -52,22 +57,11 @@ public class SyncClient {
         mFiles.add("street_codes");
     }
 
-
-    private void checkPickupCodes() {
-        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(mContext);
-        boolean sync_enabled    = pref.getBoolean(  mResources.getString(R.string.pref_key_sync_auto),
-                                                    mResources.getBoolean(R.bool.sync_auto) );
-
-        if (sync_enabled) {
-            mNetworkClient = new NetworkClient((DownloadCallback) mContext, getSyncRequestUrl());
-
-            if (!mDownloading && mNetworkClient != null) {
-                mNetworkClient.startDownload();
-                mDownloading = true;
-            }
-        }
-    }
-
+    /**
+     * Checks if response object has valid data.
+     *
+     * @param responseObject
+     */
     private void evaluateResponseObject(JsonObject responseObject) {
         // check overall status
         switch (responseObject.get("status").getAsInt()) {
@@ -88,6 +82,12 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Checks if year object has valid data.
+     *
+     * @param year
+     * @param yearObject
+     */
     private void evaluateYearObject(String year, JsonObject yearObject) {
         switch (yearObject.get("status").getAsInt()) {
             case 200:   // check each file
@@ -101,6 +101,9 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Callback when download finishes.
+     */
     public void finishDownloading() {
         mDownloading = false;
         if (mNetworkClient != null) {
@@ -108,6 +111,12 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Gets the hash of a given file.
+     *
+     * @param name File name
+     * @return Hash string
+     */
     private String getFileHash(String name) {
         try {
             return HashUtils.inputStreamToSha256(mResources.openRawResource(getResourceIdentifier(name)));
@@ -118,10 +127,20 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Get a resource identifier by the resource's name
+     *
+     * @param name Resource name
+     * @return Resource identifier
+     */
     private int getResourceIdentifier(String name) {
         return mResources.getIdentifier(name, "raw", mContext.getPackageName());
     }
 
+    /**
+     * Construct the sync request URL, to include all needed files and years.
+     * @return URL string
+     */
     private String getSyncRequestUrl() {
         Calendar now        = Calendar.getInstance();
         SimpleDateFormat yf = new SimpleDateFormat("YYYY");
@@ -207,6 +226,9 @@ public class SyncClient {
         return url + year_url + codes_url + schedule_url + street_codes_url;
     }
 
+    /**
+     * Loads currently stored sync data.
+     */
     private void loadSyncData() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         String syncDataString   = prefs.getString(mResources.getString(R.string.pref_key_intern_sync_data), "");
@@ -225,6 +247,12 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Action when a progress update comes in.
+     *
+     * @param progressCode
+     * @param percentComplete
+     */
     public void onProgressUpdate(int progressCode, int percentComplete) {
         switch(progressCode) {
             case DownloadCallback.Progress.ERROR:
@@ -241,10 +269,31 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Runs the SyncClient
+     */
     public void run() {
-        checkPickupCodes();
+        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(mContext);
+        boolean sync_enabled    = pref.getBoolean(  mResources.getString(R.string.pref_key_sync_auto),
+                mResources.getBoolean(R.bool.sync_auto) );
+
+        if (sync_enabled) {
+            mNetworkClient = new NetworkClient((DownloadCallback) mContext, getSyncRequestUrl());
+
+            if (!mDownloading && mNetworkClient != null) {
+                mNetworkClient.startDownload();
+                mDownloading = true;
+            }
+        }
     }
 
+    /**
+     * Saves a data string to a file.
+     *
+     * @param filename Destination for the file
+     * @param data Data to be stored
+     * @return boolean
+     */
     private boolean saveFile(String filename, String data) {
         FileOutputStream outputStream;
 
@@ -259,6 +308,13 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Saves the data of a given temporary file and year to a local file.
+     *
+     * @param year Year of the file
+     * @param file Name of the temporary file
+     * @param fileObject Object containing the data of the file
+     */
     private void saveToStorage(String year, String file, JsonObject fileObject) {
         switch (fileObject.get("status").getAsInt()) {
             case 200:   // new data available
@@ -282,6 +338,13 @@ public class SyncClient {
         }
     }
 
+    /**
+     * Callback for updates from downloads.
+     *
+     * Evaluates response object and saves data to preferences.
+     *
+     * @param result
+     */
     public void updateFromDownload(Object result) {
         String resultString = result.toString();
 

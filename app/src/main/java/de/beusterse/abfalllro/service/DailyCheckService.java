@@ -69,6 +69,11 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         }
     }
 
+    /**
+     * Gets information about the current network connection.
+     *
+     * @return NetworkInfo
+     */
     @Override
     public NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager connectivityManager =
@@ -84,6 +89,11 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         canAlarmTimes = controller.getPreview();
     }
 
+    /**
+     * Entrypoint when service is called.
+     *
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         mIntent     = intent;
@@ -105,11 +115,20 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         }
     }
 
+    /**
+     * Progress update from the sync process.
+     *
+     * @param progressCode must be one of the constants defined in DownloadCallback.Progress.
+     * @param percentComplete must be 0-100.
+     */
     @Override
     public void onProgressUpdate(int progressCode, int percentComplete) {
         mSyncClient.onProgressUpdate(progressCode, percentComplete);
     }
 
+    /**
+     * Saces the current date as last checked date.
+     */
     private void saveLastDailyCheckDate() {
         Calendar now                    = Calendar.getInstance();
         SimpleDateFormat df             = new SimpleDateFormat("yyyy-MM-dd");
@@ -148,6 +167,9 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         }
     }
 
+    /**
+     * Callback when sync is complete.
+     */
     @Override
     public void syncComplete() {
         getPreview();
@@ -157,6 +179,11 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         DailyCheckReceiver.completeWakefulIntent(mIntent);
     }
 
+    /**
+     * Callback for an update from the download.
+     *
+     * @param result
+     */
     @Override
     public void updateFromDownload(Object result) {
         mSyncClient.updateFromDownload(result);

@@ -7,5 +7,8 @@ package de.beusterse.abfalllro.interfaces;
  */
 
 public interface SyncCallback extends DownloadCallback {
+    /**
+     * Indicates, that the sync is complete.
+     */
     void syncComplete();
 }
