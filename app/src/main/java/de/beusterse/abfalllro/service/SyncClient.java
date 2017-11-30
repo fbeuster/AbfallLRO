@@ -143,7 +143,7 @@ public class SyncClient {
      */
     private String getSyncRequestUrl() {
         Calendar now        = Calendar.getInstance();
-        SimpleDateFormat yf = new SimpleDateFormat("YYYY");
+        SimpleDateFormat yf = new SimpleDateFormat("yyyy");
 
         String url              = "https://abfallkalenderlandkreisrostock.beusterse.de/api.php";
         String codes_url        = "&codes=";

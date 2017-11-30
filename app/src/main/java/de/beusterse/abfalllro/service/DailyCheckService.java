@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -100,14 +99,11 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         mSyncClient = new SyncClient(this);
         pref        = PreferenceManager.getDefaultSharedPreferences(this);
 
-        Log.d("check", "wake up");
-
         Calendar now            = Calendar.getInstance();
         SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
         String lasDailyCheck    = pref.getString(getResources().getString(R.string.pref_key_intern_last_daily_check), "");
 
         if (!df.format(now.getTime()).equals(lasDailyCheck)) {
-            Log.d("check", "run");
             mSyncClient.run();
 
         } else {
