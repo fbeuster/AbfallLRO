@@ -346,20 +346,22 @@ public class SyncClient {
      * @param result
      */
     public void updateFromDownload(Object result) {
-        String resultString = result.toString();
+        if (result != null) {
+            String resultString = result.toString();
 
-        if (JSONUtils.isValidJSON(resultString)) {
-            JsonParser parser           = new JsonParser();
-            JsonObject responseObject   = (parser.parse(resultString)).getAsJsonObject();
+            if (JSONUtils.isValidJSON(resultString)) {
+                JsonParser parser = new JsonParser();
+                JsonObject responseObject = (parser.parse(resultString)).getAsJsonObject();
 
-            evaluateResponseObject( responseObject );
+                evaluateResponseObject(responseObject);
 
-            // updating preferences to store sync data
-            SharedPreferences prefs         = PreferenceManager.getDefaultSharedPreferences(mContext);
-            SharedPreferences.Editor editor = prefs.edit();
+                // updating preferences to store sync data
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+                SharedPreferences.Editor editor = prefs.edit();
 
-            editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
-            editor.apply();
+                editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
+                editor.apply();
+            }
         }
 
         ((SyncCallback) mContext).syncComplete();
