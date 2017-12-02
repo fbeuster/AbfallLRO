@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
 import java.util.Calendar;
 
@@ -48,18 +49,26 @@ public class DailyAlarmTask implements Runnable {
     }
 
     private PendingIntent getPendingIntent(int flags) {
-        Intent intent = new Intent(context, DailyCheckReceiver.class);
+            Intent intent = new Intent(context, DailyCheckReceiver.class);
 
-        return PendingIntent.getBroadcast(context, 0, intent, flags);
+            return PendingIntent.getBroadcast(context, 0, intent, flags);
     }
 
     @Override
     public void run() {
-        alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                date.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
-                getPendingIntent(0));
+        if (Build.VERSION.SDK_INT < 26) {
+            /**
+             * WakefulBroadcastReceiver is deprecated since Android 8.0
+             * Thus the daily check/notification scheduling is temporarily disabled.
+             *
+             * TODO implement newer version
+             */
+            alarmManager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    date.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY,
+                    getPendingIntent(0));
+        }
 
         ComponentName receiver = new ComponentName(context, BootCompletedReceiver.class);
         PackageManager pm = context.getPackageManager();
