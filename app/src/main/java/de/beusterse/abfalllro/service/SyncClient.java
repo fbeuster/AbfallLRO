@@ -36,6 +36,7 @@ public class SyncClient {
     private ArrayList<String> mYears;
     private boolean mDownloading = false;
     private Context mContext;
+    private int mStatus = 304;
     private JsonObject mSyncData;
     private NetworkClient mNetworkClient;
     private Resources mResources;
@@ -140,6 +141,15 @@ public class SyncClient {
      */
     private int getResourceIdentifier(String name) {
         return mResources.getIdentifier(name, "raw", mContext.getPackageName());
+    }
+
+    /**
+     * Get the status of the sync.
+     *
+     * @return
+     */
+    public int getStatus() {
+        return mStatus;
     }
 
     /**
@@ -325,6 +335,7 @@ public class SyncClient {
         switch (fileObject.get("status").getAsInt()) {
             case 200:   // new data available
                 String filename = file + "_" + year + "." + fileObject.get("type").getAsString();
+                mStatus = 200;
 
                 boolean saved;
                 if (fileObject.get("type").getAsString().equals("json")) {

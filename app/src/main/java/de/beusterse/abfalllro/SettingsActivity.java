@@ -186,7 +186,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
     @Override
     public void syncComplete() {
-        Toast.makeText(this, getString(R.string.pref_sync_manual_toast), Toast.LENGTH_LONG).show();
+        String toast;
+        switch (mSyncClient.getStatus()) {
+            case 200:
+                toast = getString(R.string.pref_sync_manual_toast_success);
+                break;
+            case 304:
+            default:
+                toast = getString(R.string.pref_sync_manual_toast_no_change);
+                break;
+        }
+        Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     }
 
     @Override
