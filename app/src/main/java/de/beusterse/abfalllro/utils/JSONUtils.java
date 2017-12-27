@@ -28,6 +28,10 @@ public class JSONUtils {
      * @return
      */
     public static boolean isValidJSON(String jsonInString) {
+        if (jsonInString == "" || jsonInString == null) {
+            return false;
+        }
+
         try {
             gson.fromJson(jsonInString, Object.class);
             return true;
