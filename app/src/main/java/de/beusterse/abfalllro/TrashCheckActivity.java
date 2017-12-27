@@ -54,7 +54,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
         serviceManager.run();
 
-        mSyncClient = new SyncClient(this);
+        mSyncClient = new SyncClient(this, "trash_check");
         mSyncClient.run();
     }
 

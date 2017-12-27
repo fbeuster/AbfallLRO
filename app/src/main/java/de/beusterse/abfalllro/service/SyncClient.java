@@ -34,20 +34,18 @@ public class SyncClient {
 
     private ArrayList<String> mFiles;
     private ArrayList<String> mYears;
-
     private boolean mDownloading = false;
-
     private Context mContext;
-
     private JsonObject mSyncData;
-
     private NetworkClient mNetworkClient;
     private Resources mResources;
+    private String mView;
 
-    public SyncClient(Context context) {
+    public SyncClient(Context context, String view) {
         mContext    = context;
         mResources  = context.getResources();
         mFiles      = new ArrayList<>();
+        mView       = view;
         mYears      = new ArrayList<>();
 
         loadSyncData();
@@ -156,6 +154,7 @@ public class SyncClient {
         String codes_url        = "&codes=";
         String schedule_url     = "&schedule=";
         String street_codes_url = "&street_codes=";
+        String view_url         = "&view=" + mView;
         String year_url         = "?year=";
 
         // adding years from saved data, with saved or generated hashes
@@ -230,7 +229,7 @@ public class SyncClient {
             }
         }
 
-        return url + year_url + codes_url + schedule_url + street_codes_url;
+        return url + year_url + codes_url + schedule_url + street_codes_url + view_url;
     }
 
     /**

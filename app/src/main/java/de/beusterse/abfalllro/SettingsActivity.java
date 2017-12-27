@@ -180,7 +180,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
     }
 
     public void startManualSync() {
-        mSyncClient = new SyncClient(this);
+        mSyncClient = new SyncClient(this, "manual_check");
         mSyncClient.run();
     }
 

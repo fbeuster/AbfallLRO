@@ -96,7 +96,7 @@ public class DailyCheckService extends IntentService implements SyncCallback {
     @Override
     protected void onHandleIntent(Intent intent) {
         mIntent     = intent;
-        mSyncClient = new SyncClient(this);
+        mSyncClient = new SyncClient(this, "daily_check");
         pref        = PreferenceManager.getDefaultSharedPreferences(this);
 
         Calendar now            = Calendar.getInstance();
