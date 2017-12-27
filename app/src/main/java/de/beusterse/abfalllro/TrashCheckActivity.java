@@ -104,15 +104,17 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
     @Override
     public void syncComplete() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        if (mSyncClient.getStatus() == 200) {
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // TODO simple reload() methods would be nice
-        loader          = new DataLoader(this);
-        controller      = new TrashController(pref, loader, getResources());
-        updater         = new UIUpdater(this, pref);
+            // TODO simple reload() methods would be nice
+            loader = new DataLoader(this);
+            controller = new TrashController(pref, loader, getResources());
+            updater = new UIUpdater(this, pref);
 
-        updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
-        updater.update();
+            updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
+            updater.update();
+        }
     }
 
     @Override
