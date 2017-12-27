@@ -1,7 +1,10 @@
 package de.beusterse.abfalllro;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +12,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import de.beusterse.abfalllro.interfaces.SyncCallback;
 import de.beusterse.abfalllro.service.ServiceManager;
+import de.beusterse.abfalllro.service.SyncClient;
 
 /**
  * Main info activity, presents processed data as trash cans
  *
  * Created by Felix Beuster
  */
-public class TrashCheckActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class TrashCheckActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, SyncCallback {
 
     private DataLoader loader;
     private ServiceManager serviceManager;
+    private SyncClient mSyncClient;
     private TrashController controller;
     private UIUpdater updater;
 
@@ -47,6 +53,9 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         updater.update();
 
         serviceManager.run();
+
+        mSyncClient = new SyncClient(this);
+        mSyncClient.run();
     }
 
     @Override
@@ -91,5 +100,40 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
     protected void onStop() {
         serviceManager.unbind();
         super.onStop();
+    }
+
+    @Override
+    public void syncComplete() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // TODO simple reload() methods would be nice
+        loader          = new DataLoader(this);
+        controller      = new TrashController(pref, loader, getResources());
+        updater         = new UIUpdater(this, pref);
+
+        updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
+        updater.update();
+    }
+
+    @Override
+    public void updateFromDownload(Object result) {
+        mSyncClient.updateFromDownload(result);
+    }
+
+    @Override
+    public NetworkInfo getActiveNetworkInfo() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo();
+    }
+
+    @Override
+    public void onProgressUpdate(int progressCode, int percentComplete) {
+        mSyncClient.onProgressUpdate(progressCode, percentComplete);
+    }
+
+    @Override
+    public void finishDownloading() {
+        mSyncClient.finishDownloading();
     }
 }

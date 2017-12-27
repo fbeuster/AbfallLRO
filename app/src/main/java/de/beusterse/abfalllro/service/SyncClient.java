@@ -66,6 +66,13 @@ public class SyncClient {
         // check overall status
         switch (responseObject.get("status").getAsInt()) {
             case 200:
+                // set years to check
+                for (String key : responseObject.keySet()) {
+                    if (key.matches("\\d{4}")) {
+                        mYears.add(key);
+                    }
+                }
+
                 // check year status
                 for (String year : mYears) {
                     if (!mSyncData.has(year)) {

@@ -110,7 +110,7 @@ public class DataLoader {
         if (needsMultipleYears()) {
             Calendar later      = Calendar.getInstance();
             later.add(Calendar.YEAR, 1);
-            yearLater    = yf.format(now.getTime());
+            yearLater    = yf.format(later.getTime());
 
             readCode(yearLater, getResourceIdentifier("codes_" + yearLater), 1);
             readSchedule(yearLater);
