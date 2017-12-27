@@ -86,6 +86,8 @@
     <string name="pref_sync_manual_desc">Jetzt sofort nach neuen Abfuhrdaten suchen</string>
     <string name="pref_sync_manual_toast_no_change">Keine neuen Daten verfügbar.</string>
     <string name="pref_sync_manual_toast_success">Abfuhrdaten wurden aktualisiert.</string>
+    <string name="pref_sync_title_last_sync">Letzte Aktualisierung</string>
+    <string name="pref_sync_description_last_sync">Die letzte Aktualisierung wurde am %1$s durchgeführt, die aktuellsten Daten sind vom %2$s.</string>
 
 
     <string name="pref_title_location">Abholort</string>

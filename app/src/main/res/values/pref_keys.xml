@@ -25,6 +25,8 @@
     <string name="pref_key_sync">pref_sync</string>
     <string name="pref_key_sync_auto">pref_sync_auto</string>
     <string name="pref_key_sync_manual">pref_sync_manual</string>
+    <string name="pref_key_sync_last_check">pref_sync_last_check</string>
+    <string name="pref_key_sync_last_update">pref_sync_last_update</string>
 
     <string name="pref_key_info_rate">pref_info_rate</string>
 

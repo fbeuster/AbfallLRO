@@ -10,10 +10,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.FileOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import de.beusterse.abfalllro.DataLoader;
@@ -375,6 +377,16 @@ public class SyncClient {
                 // updating preferences to store sync data
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor editor = prefs.edit();
+
+                // saving the date of the checks
+                Calendar now = Calendar.getInstance();
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault());
+
+                editor.putString(mResources.getString(R.string.pref_key_sync_last_check), df.format(now.getTime()));
+
+                if (mStatus == 200 || !prefs.contains(mResources.getString(R.string.pref_key_sync_last_update))) {
+                    editor.putString(mResources.getString(R.string.pref_key_sync_last_update), df.format(now.getTime()));
+                }
 
                 editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
                 editor.apply();

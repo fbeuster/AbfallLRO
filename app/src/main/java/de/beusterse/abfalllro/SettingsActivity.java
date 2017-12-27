@@ -227,6 +227,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_pickup_street)));
             updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_town)), cityName);
             updateStreetLocationPref(cityName);
+            updateSyncSummary();
 
             ListPreference city = (ListPreference) findPreference(getString(R.string.pref_key_pickup_town));
             city.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -279,6 +280,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
             boolean needsStreet = cityName.equals(CITY_WITH_STREETS);
             street.setEnabled(needsStreet);
+        }
+
+        public void updateSyncSummary() {
+            SharedPreferences sp    = getPreferenceManager().getSharedPreferences();
+            String last_check       = sp.getString(getString(R.string.pref_key_sync_last_check), "-");
+            String last_update      = sp.getString(getString(R.string.pref_key_sync_last_update), last_check);
+
+            Preference sync_summary = findPreference(getString(R.string.pref_key_sync_last_check));
+            sync_summary.setSummary(getString( R.string.pref_sync_description_last_sync, last_check, last_update ));
         }
     }
 
