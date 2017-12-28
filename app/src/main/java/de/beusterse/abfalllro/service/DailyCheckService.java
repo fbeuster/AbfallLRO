@@ -96,17 +96,33 @@ public class DailyCheckService extends IntentService implements SyncCallback {
     @Override
     protected void onHandleIntent(Intent intent) {
         mIntent     = intent;
-        mSyncClient = new SyncClient(this, "daily_check");
         pref        = PreferenceManager.getDefaultSharedPreferences(this);
 
         Calendar now            = Calendar.getInstance();
         SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
-        String lasDailyCheck    = pref.getString(getResources().getString(R.string.pref_key_intern_last_daily_check), "");
+        String lastDailyCheck   = pref.getString(getResources().getString(R.string.pref_key_intern_last_daily_check), "");
 
-        if (!df.format(now.getTime()).equals(lasDailyCheck)) {
-            mSyncClient.run();
+        if (!df.format(now.getTime()).equals(lastDailyCheck)) {
+            if (pref.getBoolean(    getString(R.string.pref_key_sync_auto),
+                                    getResources().getBoolean(R.bool.sync_auto))) {
+                mSyncClient = new SyncClient(this, "daily_check");
+                mSyncClient.run();
+
+            } else {
+                // sync disabled, just take care of notifications
+                getPreview();
+                scheduleNotification();
+                saveLastDailyCheckDate();
+
+                DailyCheckReceiver.completeWakefulIntent(mIntent);
+            }
 
         } else {
+            // Daily check did run already this day, but could be running again (e.g. reboot)
+            getPreview();
+            scheduleNotification();
+            saveLastDailyCheckDate();
+
             DailyCheckReceiver.completeWakefulIntent(mIntent);
         }
     }
