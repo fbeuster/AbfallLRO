@@ -368,28 +368,39 @@ public class SyncClient {
         if (result != null) {
             String resultString = result.toString();
 
+            // check if valid JSON string
             if (JSONUtils.isValidJSON(resultString)) {
-                JsonParser parser = new JsonParser();
-                JsonObject responseObject = (parser.parse(resultString)).getAsJsonObject();
 
-                evaluateResponseObject(responseObject);
+                JsonParser parser           = new JsonParser();
+                JsonElement responseElement = parser.parse(resultString);
 
-                // updating preferences to store sync data
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-                SharedPreferences.Editor editor = prefs.edit();
+                // check if JsonElement is JsonObject
+                if (responseElement.isJsonObject()) {
+                    // nothing should go wrong anymore, but just in case...
+                    try {
+                        JsonObject responseObject = responseElement.getAsJsonObject();
 
-                // saving the date of the checks
-                Calendar now = Calendar.getInstance();
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault());
+                        evaluateResponseObject(responseObject);
 
-                editor.putString(mResources.getString(R.string.pref_key_sync_last_check), df.format(now.getTime()));
+                        // updating preferences to store sync data
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+                        SharedPreferences.Editor editor = prefs.edit();
 
-                if (mStatus == 200 || !prefs.contains(mResources.getString(R.string.pref_key_sync_last_update))) {
-                    editor.putString(mResources.getString(R.string.pref_key_sync_last_update), df.format(now.getTime()));
+                        // saving the date of the checks
+                        Calendar now = Calendar.getInstance();
+                        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault());
+
+                        editor.putString(mResources.getString(R.string.pref_key_sync_last_check), df.format(now.getTime()));
+
+                        if (mStatus == 200 || !prefs.contains(mResources.getString(R.string.pref_key_sync_last_update))) {
+                            editor.putString(mResources.getString(R.string.pref_key_sync_last_update), df.format(now.getTime()));
+                        }
+
+                        editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
+                        editor.apply();
+
+                    } catch (IllegalStateException e) {}
                 }
-
-                editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
-                editor.apply();
             }
         }
 
