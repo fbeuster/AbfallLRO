@@ -366,11 +366,12 @@ public class DataLoader {
      * Sets the first and last year.
      */
     private void setYears() {
-        Calendar now = Calendar.getInstance();
-        mFirstYear = now.get(Calendar.YEAR);
+        Calendar now    = Calendar.getInstance();
+        mFirstYear      = now.get(Calendar.YEAR);
+        mLastYear       = mFirstYear;
 
         if (needsMultipleYears()) {
-            mLastYear = mFirstYear + 1;
+            mLastYear++;
         }
     }
 }
