@@ -174,6 +174,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
     public NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager == null) {
+            return null;
+        }
+
         return connectivityManager.getActiveNetworkInfo();
     }
 
@@ -287,8 +292,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             setHasOptionsMenu(true);
             updateSyncSummary();
 
-            /**
-             * Button press to manually synchronize the pickup data.
+            /*
+              Button press to manually synchronize the pickup data.
              */
             Preference syncManualButton = findPreference(getString(R.string.pref_key_sync_manual));
             syncManualButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
