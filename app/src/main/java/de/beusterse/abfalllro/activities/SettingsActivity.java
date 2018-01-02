@@ -159,9 +159,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || PickupPreferenceFragment.class.getName().equals(fragmentName)
                 || InfoPreferenceFragment.class.getName().equals(fragmentName)
-                || NotificationsPreferenceFragment.class.getName().equals(fragmentName);
+                || NotificationsPreferenceFragment.class.getName().equals(fragmentName)
+                || PickupPreferenceFragment.class.getName().equals(fragmentName)
+                || SyncPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     @Override
@@ -229,7 +230,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_pickup_street)));
             updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_town)), cityName);
             updateStreetLocationPref(cityName);
-            updateSyncSummary();
 
             ListPreference city = (ListPreference) findPreference(getString(R.string.pref_key_pickup_town));
             city.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -239,18 +239,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
                     updateStreetSummary(preference, stringValue);
                     updateStreetLocationPref(stringValue);
-                    return true;
-                }
-            });
-
-            /**
-             * Button press to manually synchronize the pickup data.
-             */
-            Preference syncManualButton = findPreference(getString(R.string.pref_key_sync_manual));
-            syncManualButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    ((SettingsActivity) getActivity()).startManualSync();
                     return true;
                 }
             });
@@ -282,6 +270,44 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
             boolean needsStreet = cityName.equals(CITY_WITH_STREETS);
             street.setEnabled(needsStreet);
+        }
+    }
+
+    /**
+     * This fragment shows sync preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SyncPreferenceFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_sync);
+            setHasOptionsMenu(true);
+            updateSyncSummary();
+
+            /**
+             * Button press to manually synchronize the pickup data.
+             */
+            Preference syncManualButton = findPreference(getString(R.string.pref_key_sync_manual));
+            syncManualButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    ((SettingsActivity) getActivity()).startManualSync();
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
         }
 
         public void updateSyncSummary() {
