@@ -19,20 +19,21 @@ android {
         versionCode 17
         versionName "1.6"
     }
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            buildConfigField "String", "API_SUFFIX", "\"_dev\""
+            applicationId = theApplicationId + ".dev" + debugSuffix
+        }
+        full {
+            buildConfigField "String", "API_SUFFIX", ""
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-        }
-    }
-    flavorDimensions "app"
-    productFlavors {
-        dev {
-            applicationId = theApplicationId + ".dev" + debugSuffix
-        }
-        full {
-
         }
     }
 }

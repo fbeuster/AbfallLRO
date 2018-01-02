@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.interfaces.DownloadCallback;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
@@ -166,7 +167,7 @@ public class SyncController {
         String codes_url        = "&codes=";
         String schedule_url     = "&schedule=";
         String street_codes_url = "&street_codes=";
-        String view_url         = "&view=" + mView;
+        String view_url         = "&view=" + mView + BuildConfig.API_SUFFIX;
         String year_url         = "?year=";
 
         // adding years from saved data, with saved or generated hashes
