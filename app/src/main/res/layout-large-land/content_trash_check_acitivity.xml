@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".TrashCheckActivity"
+    tools:context=".activities.TrashCheckActivity"
     tools:showIn="@layout/activity_trash_check_acitivity"
     android:background="@color/background"
     android:paddingLeft="@dimen/activity_horizontal_margin">

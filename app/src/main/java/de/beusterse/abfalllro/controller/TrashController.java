@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.controller;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.PickupDay;
 
@@ -35,9 +36,9 @@ public class TrashController {
     boolean monthly_black;
     boolean monthly_green;
 
-    private DataLoader loader;
+    private DataController loader;
 
-    public TrashController(SharedPreferences pref, DataLoader loader, Resources resources) {
+    public TrashController(SharedPreferences pref, DataController loader, Resources resources) {
         this.loader         = loader;
         this.locationCans   = loader.getCodes();
         this.resources      = resources;

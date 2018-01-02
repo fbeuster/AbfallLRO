@@ -11,10 +11,11 @@ import android.preference.PreferenceManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import de.beusterse.abfalllro.DataLoader;
+import de.beusterse.abfalllro.controller.DataController;
 import de.beusterse.abfalllro.R;
-import de.beusterse.abfalllro.TimePreference;
-import de.beusterse.abfalllro.TrashController;
+import de.beusterse.abfalllro.controller.SyncController;
+import de.beusterse.abfalllro.utils.TimePreference;
+import de.beusterse.abfalllro.controller.TrashController;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
 
@@ -33,7 +34,7 @@ public class DailyCheckService extends IntentService implements SyncCallback {
 
     private Intent mIntent;
     private SharedPreferences pref;
-    private SyncClient mSyncClient;
+    private SyncController mSyncController;
 
     public DailyCheckService() {
         super("DailyCheckService");
@@ -50,7 +51,7 @@ public class DailyCheckService extends IntentService implements SyncCallback {
 
     @Override
     public void finishDownloading() {
-        mSyncClient.finishDownloading();
+        mSyncController.finishDownloading();
     }
 
     private long getLastAlarmTime(int can) {
@@ -82,7 +83,7 @@ public class DailyCheckService extends IntentService implements SyncCallback {
     }
 
     private void getPreview() {
-        DataLoader loader           = new DataLoader(this);
+        DataController loader           = new DataController(this);
         TrashController controller  = new TrashController(pref, loader, getResources());
 
         canAlarmTimes = controller.getPreview();
@@ -105,8 +106,8 @@ public class DailyCheckService extends IntentService implements SyncCallback {
         if (!df.format(now.getTime()).equals(lastDailyCheck)) {
             if (pref.getBoolean(    getString(R.string.pref_key_sync_auto),
                                     getResources().getBoolean(R.bool.sync_auto))) {
-                mSyncClient = new SyncClient(this, "daily_check");
-                mSyncClient.run();
+                mSyncController = new SyncController(this, "daily_check");
+                mSyncController.run();
 
             } else {
                 // sync disabled, just take care of notifications
@@ -135,7 +136,7 @@ public class DailyCheckService extends IntentService implements SyncCallback {
      */
     @Override
     public void onProgressUpdate(int progressCode, int percentComplete) {
-        mSyncClient.onProgressUpdate(progressCode, percentComplete);
+        mSyncController.onProgressUpdate(progressCode, percentComplete);
     }
 
     /**
@@ -198,6 +199,6 @@ public class DailyCheckService extends IntentService implements SyncCallback {
      */
     @Override
     public void updateFromDownload(Object result) {
-        mSyncClient.updateFromDownload(result);
+        mSyncController.updateFromDownload(result);
     }
 }

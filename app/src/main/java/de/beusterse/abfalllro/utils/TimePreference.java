@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,8 @@ import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import de.beusterse.abfalllro.R;
 
 /**
  * Custom prefrence for a time picker dialog

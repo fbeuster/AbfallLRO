@@ -1,7 +1,7 @@
 package de.beusterse.abfalllro.interfaces;
 
 /**
- * Callback interface for the SyncClient
+ * Callback interface for the SyncController
  *
  * Created by Felix Beuster
  */

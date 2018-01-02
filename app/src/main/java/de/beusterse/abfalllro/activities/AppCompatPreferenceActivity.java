@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

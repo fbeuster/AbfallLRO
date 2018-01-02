@@ -1,10 +1,12 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+
+import de.beusterse.abfalllro.R;
 
 /**
  * Opening activity of the app

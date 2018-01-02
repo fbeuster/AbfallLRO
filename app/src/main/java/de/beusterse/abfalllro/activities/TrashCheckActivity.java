@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import de.beusterse.abfalllro.controller.DataController;
+import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.controller.SyncController;
+import de.beusterse.abfalllro.controller.TrashController;
+import de.beusterse.abfalllro.controller.UIController;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
 import de.beusterse.abfalllro.service.ServiceManager;
-import de.beusterse.abfalllro.service.SyncClient;
 
 /**
  * Main info activity, presents processed data as trash cans
@@ -23,23 +27,23 @@ import de.beusterse.abfalllro.service.SyncClient;
  */
 public class TrashCheckActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, SyncCallback {
 
-    private DataLoader loader;
+    private DataController dataController;
     private ServiceManager serviceManager;
-    private SyncClient mSyncClient;
-    private TrashController controller;
-    private UIUpdater updater;
+    private SyncController mSyncController;
+    private TrashController trashController;
+    private UIController uiController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
 
-        loader          = new DataLoader(this);
-        controller      = new TrashController(pref, loader, getResources());
+        dataController  = new DataController(this);
+        trashController = new TrashController(pref, dataController, getResources());
         serviceManager  = new ServiceManager(this);
-        updater         = new UIUpdater(this, pref);
+        uiController    = new UIController(this, pref);
 
-        setTheme( controller.getTheme() );
+        setTheme( trashController.getTheme() );
 
         super.onCreate(savedInstanceState);
 
@@ -49,13 +53,13 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
         serviceManager.bind();
 
-        updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
-        updater.update();
+        uiController.prepare(trashController.getCans(), trashController.getError(), trashController.getPreview());
+        uiController.update();
 
         serviceManager.run();
 
-        mSyncClient = new SyncClient(this, "trash_check");
-        mSyncClient.run();
+        mSyncController = new SyncController(this, "trash_check");
+        mSyncController.run();
     }
 
     @Override
@@ -104,22 +108,22 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
     @Override
     public void syncComplete() {
-        if (mSyncClient.getStatus() == 200) {
+        if (mSyncController.getStatus() == 200) {
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
             // TODO simple reload() methods would be nice
-            loader = new DataLoader(this);
-            controller = new TrashController(pref, loader, getResources());
-            updater = new UIUpdater(this, pref);
+            dataController = new DataController(this);
+            trashController = new TrashController(pref, dataController, getResources());
+            uiController = new UIController(this, pref);
 
-            updater.prepare(controller.getCans(), controller.getError(), controller.getPreview());
-            updater.update();
+            uiController.prepare(trashController.getCans(), trashController.getError(), trashController.getPreview());
+            uiController.update();
         }
     }
 
     @Override
     public void updateFromDownload(Object result) {
-        mSyncClient.updateFromDownload(result);
+        mSyncController.updateFromDownload(result);
     }
 
     @Override
@@ -131,11 +135,11 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
     @Override
     public void onProgressUpdate(int progressCode, int percentComplete) {
-        mSyncClient.onProgressUpdate(progressCode, percentComplete);
+        mSyncController.onProgressUpdate(progressCode, percentComplete);
     }
 
     @Override
     public void finishDownloading() {
-        mSyncClient.finishDownloading();
+        mSyncController.finishDownloading();
     }
 }

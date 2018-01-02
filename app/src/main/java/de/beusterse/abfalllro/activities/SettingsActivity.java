@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.activities;
 
 
 import android.annotation.TargetApi;
@@ -23,8 +23,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.controller.SyncController;
+import de.beusterse.abfalllro.utils.TimePreference;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
-import de.beusterse.abfalllro.service.SyncClient;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -41,7 +43,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
     public static final String CITY_WITH_STREETS = "Güstrow";
 
-    private SyncClient mSyncClient;
+    private SyncController mSyncController;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -164,7 +166,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
     @Override
     public void finishDownloading() {
-        mSyncClient.finishDownloading();
+        mSyncController.finishDownloading();
     }
 
     @Override
@@ -176,18 +178,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
     @Override
     public void onProgressUpdate(int progressCode, int percentComplete) {
-        mSyncClient.onProgressUpdate(progressCode, percentComplete);
+        mSyncController.onProgressUpdate(progressCode, percentComplete);
     }
 
     public void startManualSync() {
-        mSyncClient = new SyncClient(this, "manual_check");
-        mSyncClient.run();
+        mSyncController = new SyncController(this, "manual_check");
+        mSyncController.run();
     }
 
     @Override
     public void syncComplete() {
         String toast;
-        switch (mSyncClient.getStatus()) {
+        switch (mSyncController.getStatus()) {
             case 200:
                 toast = getString(R.string.pref_sync_manual_toast_success);
                 break;
@@ -201,7 +203,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
     @Override
     public void updateFromDownload(Object result) {
-        mSyncClient.updateFromDownload(result);
+        mSyncController.updateFromDownload(result);
     }
 
     /**

@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+
+import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.activities.SettingsActivity;
 
 /**
  * Selects the matching intro page layout file

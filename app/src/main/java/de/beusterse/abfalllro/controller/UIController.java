@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.controller;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.activities.SettingsActivity;
+
 /**
  * Updates the UI with given data
  *
  * Created by Felix Beuster
  */
-public class UIUpdater {
+public class UIController {
 
     private Activity activity;
     private SharedPreferences pref;
@@ -34,7 +37,7 @@ public class UIUpdater {
     private int cError;
     private int[] cPreview;
 
-    public UIUpdater(Activity activity, SharedPreferences pref) {
+    public UIController(Activity activity, SharedPreferences pref) {
         this.activity = activity;
         this.pref = pref;
     }

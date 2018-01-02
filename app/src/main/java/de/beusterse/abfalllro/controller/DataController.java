@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro;
+package de.beusterse.abfalllro.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.PickupDay;
 import de.beusterse.abfalllro.utils.JSONUtils;
@@ -29,7 +30,7 @@ import de.beusterse.abfalllro.utils.JSONUtils;
  *
  * Created by Felix Beuster
  */
-public class DataLoader {
+public class DataController {
 
     private static final String CITY_WITH_STREETS = "0000";
 
@@ -44,7 +45,7 @@ public class DataLoader {
     private int mFirstYear;
     private int mLastYear;
 
-    public DataLoader(Context context) {
+    public DataController(Context context) {
         this.context        = context;
         this.pref           = PreferenceManager.getDefaultSharedPreferences(context);
         this.resources      = context.getResources();

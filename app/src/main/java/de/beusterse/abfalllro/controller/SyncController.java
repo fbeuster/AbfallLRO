@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro.service;
+package de.beusterse.abfalllro.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,21 +18,21 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import de.beusterse.abfalllro.DataLoader;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.interfaces.DownloadCallback;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
+import de.beusterse.abfalllro.service.NetworkClient;
 import de.beusterse.abfalllro.utils.HashUtils;
 import de.beusterse.abfalllro.utils.JSONUtils;
 
 /**
- * SyncClient for checking for new data on the server and
+ * SyncController for checking for new data on the server and
  * saving it to local storage.
  *
  * Created by Felix Beuster
  */
 
-public class SyncClient {
+public class SyncController {
 
     private ArrayList<String> mFiles;
     private ArrayList<String> mYears;
@@ -44,7 +44,7 @@ public class SyncClient {
     private Resources mResources;
     private String mView;
 
-    public SyncClient(Context context, String view) {
+    public SyncController(Context context, String view) {
         mContext    = context;
         mResources  = context.getResources();
         mFiles      = new ArrayList<>();
@@ -212,7 +212,7 @@ public class SyncClient {
             year_hashes.put(year, hashes);
         }
 
-        if (DataLoader.needsMultipleYears()) {
+        if (DataController.needsMultipleYears()) {
             now.add(Calendar.YEAR, 1);
             if (!year_hashes.containsKey(yf.format(now.getTime()))) {
                 String[] hashes = new String[3];
@@ -288,7 +288,7 @@ public class SyncClient {
     }
 
     /**
-     * Runs the SyncClient
+     * Runs the SyncController
      */
     public void run() {
         SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(mContext);

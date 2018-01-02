@@ -18,7 +18,7 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
-import de.beusterse.abfalllro.MainActivity;
+import de.beusterse.abfalllro.activities.MainActivity;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.RawNotification;
