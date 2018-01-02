@@ -16,8 +16,8 @@ android {
         applicationId theApplicationId
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 16
-        versionName "1.5.6"
+        versionCode 17
+        versionName "1.6"
     }
     buildTypes {
         release {
