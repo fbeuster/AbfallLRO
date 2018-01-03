@@ -57,6 +57,15 @@ public class DataController {
         loadFileData();
     }
 
+    private JsonObject fileToObject(String fileName) {
+        try {
+            InputStream inputStream = context.openFileInput(fileName);
+            return JSONUtils.getJsonObjectFromInputStream(inputStream);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public String[] getCodes() { return codes; }
 
     public int getFirstYear() {
@@ -206,8 +215,8 @@ public class DataController {
 
             if (yearObject.has("codes")) {
 
-                JsonObject object   = JSONUtils.getJsonObjectFromFile(context, "codes_" + year + ".json");
-                String town          = pref.getString(resources.getString(R.string.pref_key_pickup_town), "");
+                JsonObject object   = fileToObject("codes_" + year + ".json");
+                String town         = pref.getString(resources.getString(R.string.pref_key_pickup_town), "");
 
                 if (object != null && object.has(town)) {
                     codes[index] = object.get(town).getAsString();
@@ -344,7 +353,7 @@ public class DataController {
 
             if (yearObject.has("street_codes")) {
 
-                JsonObject object   = JSONUtils.getJsonObjectFromFile(context,"street_codes_" + year + ".json");
+                JsonObject object   = fileToObject("street_codes_" + year + ".json");
                 String street       = pref.getString(resources.getString(R.string.pref_key_pickup_street), "");
 
                 if (object != null && object.has(street)) {

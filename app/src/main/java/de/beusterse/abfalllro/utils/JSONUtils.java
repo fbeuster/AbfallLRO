@@ -1,13 +1,11 @@
 package de.beusterse.abfalllro.utils;
 
-import android.content.Context;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -24,11 +22,11 @@ public class JSONUtils {
     /**
      * Checks if a string is a valid JSON string.
      *
-     * @param jsonInString
-     * @return
+     * @param jsonInString String that is meant to be JSON
+     * @return true if string is valid JSON String
      */
     public static boolean isValidJSON(String jsonInString) {
-        if (jsonInString == "" || jsonInString == null) {
+        if (jsonInString == null || jsonInString.equals("")) {
             return false;
         }
 
@@ -43,14 +41,11 @@ public class JSONUtils {
     /**
      * Reads a file into a JSON object.
      *
-     * @param context
-     * @param filename
-     * @return
+     * @param inputStream input stream of the file
+     * @return JsonObject from file
      */
-    public static JsonObject getJsonObjectFromFile(Context context, String filename) {
-        FileInputStream inputStream;
+    public static JsonObject getJsonObjectFromInputStream(InputStream inputStream) {
         try {
-            inputStream                         = context.openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader       = new BufferedReader(inputStreamReader);
             StringBuilder stringBuilder         = new StringBuilder();

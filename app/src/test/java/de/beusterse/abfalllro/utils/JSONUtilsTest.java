@@ -9,8 +9,11 @@ import static org.junit.Assert.*;
  *
  * Created by Felix Beuster on 1/2/2018.
  */
-
 public class JSONUtilsTest {
+
+    /*
+        Test for isValidJSON()
+     */
 
     @Test
     public void isValidJSON_EmptyString_ReturnFalse() {
