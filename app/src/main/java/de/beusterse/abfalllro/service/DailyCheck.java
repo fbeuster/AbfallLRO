@@ -75,7 +75,7 @@ public class DailyCheck implements SyncCallback {
         canAlarmTimes = controller.getPreview();
     }
 
-    protected void run() {
+    public void run() {
         pref                    = PreferenceManager.getDefaultSharedPreferences(mContext);
         Calendar now            = Calendar.getInstance();
         SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro.service;
+package de.beusterse.abfalllro.service.legacy;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,7 +10,10 @@ import android.os.Build;
 
 import java.util.Calendar;
 
+import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.service.DailyCheck;
+import de.beusterse.abfalllro.service.NotificationAlarmTask;
 
 /**
  * Sets or cancels the daily alarm for notifications checks.
@@ -62,10 +65,16 @@ public class DailyAlarmTask implements Runnable {
             for older versions.
          */
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            long interval               = DailyCheck.INTERVAL;
+
+            if (BuildConfig.DEBUG) {
+                interval = DailyCheck.INTERVAL_DEBUG;
+            }
+
             alarmManager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     date.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY,
+                    interval,
                     getPendingIntent(0));
         }
 

@@ -1,9 +1,10 @@
-package de.beusterse.abfalllro.service;
+package de.beusterse.abfalllro.service.legacy;
 
 import android.app.IntentService;
 import android.content.Intent;
 
 import de.beusterse.abfalllro.interfaces.DailyCheckCallback;
+import de.beusterse.abfalllro.service.DailyCheck;
 
 /**
  * Performs the daily check whether a can is due in the next days or not.

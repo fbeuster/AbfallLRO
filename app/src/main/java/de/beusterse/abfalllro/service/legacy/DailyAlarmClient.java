@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro.service;
+package de.beusterse.abfalllro.service.legacy;
 
 import android.content.ComponentName;
 import android.content.Context;

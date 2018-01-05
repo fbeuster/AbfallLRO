@@ -1,4 +1,4 @@
-package de.beusterse.abfalllro.service;
+package de.beusterse.abfalllro.service.legacy;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Build;
 
 import java.util.Calendar;
+
+import de.beusterse.abfalllro.BuildConfig;
+import de.beusterse.abfalllro.service.DailyCheck;
 
 /**
  * Receiver for the BOOT_COMPLETE event.
@@ -25,16 +28,21 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 for older versions.
              */
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                Calendar date = Calendar.getInstance();
-                Intent alarmIntent = new Intent(context, DailyCheckReceiver.class);
+                AlarmManager alarmManager   = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                Calendar date               = Calendar.getInstance();
+                Intent alarmIntent          = new Intent(context, DailyCheckReceiver.class);
+                long interval               = DailyCheck.INTERVAL;
 
                 date.setTimeInMillis(System.currentTimeMillis());
+
+                if (BuildConfig.DEBUG) {
+                    interval = DailyCheck.INTERVAL_DEBUG;
+                }
 
                 alarmManager.setInexactRepeating(
                         AlarmManager.RTC_WAKEUP,
                         date.getTimeInMillis(),
-                        AlarmManager.INTERVAL_DAY,
+                        interval,
                         PendingIntent.getBroadcast(context, 0, alarmIntent, 0));
             }
         }

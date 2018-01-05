@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.service.legacy.DailyAlarmClient;
 
 /**
  * Manages connections to services and service classes.
@@ -18,11 +18,9 @@ import de.beusterse.abfalllro.R;
 public class ServiceManager {
 
     private Context context;
-    public static final int SCHEDULE_IDLE   = 50;
+    private static final int SCHEDULE_IDLE = 50;
     private DailyAlarmClient dailyAlarmClient;
     private SharedPreferences pref;
-
-    private static String TAG = ServiceManager.class.getSimpleName();
 
     public ServiceManager(Context context) {
         this.context    = context;
@@ -39,7 +37,6 @@ public class ServiceManager {
     }
 
     public void run() {
-        Log.d(TAG, "run: starting jobs");
         /*
             The daily check and sync will use the JobScheduler for
             Android L and higher, and falls back to the AlarmTask
@@ -53,8 +50,6 @@ public class ServiceManager {
         } else {
             scheduleDailyAlarm();
         }
-
-        Log.d(TAG, "run: done starting jobs");
     }
 
     private void scheduleDailyAlarm() {
