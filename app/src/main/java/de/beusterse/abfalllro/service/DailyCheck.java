@@ -27,8 +27,11 @@ import de.beusterse.abfalllro.utils.TimePreference;
 
 public class DailyCheck implements SyncCallback {
 
+    public static int INTERVAL          = 86400000;
+    public static int INTERVAL_DEBUG    = 900000;
+
     private final Context mContext;
-    private final DailyCheckCallback mCallback;
+    private final DailyCheckCallback mDailyCheckCallback;
     private int[] canAlarmTimes = null;
     private int[] canAlarmTypes = { Can.BLACK, Can.BLUE,
             Can.GREEN, Can.YELLOW};
@@ -36,9 +39,9 @@ public class DailyCheck implements SyncCallback {
     private SharedPreferences pref;
     private SyncController mSyncController;
 
-    public DailyCheck(Context context, DailyCheckCallback callback) {
-        mCallback = callback;
-        mContext = context;
+    public DailyCheck(Context context, DailyCheckCallback dailyCheckCallback) {
+        mDailyCheckCallback = dailyCheckCallback;
+        mContext            = context;
     }
 
     private boolean alarmWentOff(Calendar cal, int can) {
@@ -82,7 +85,7 @@ public class DailyCheck implements SyncCallback {
             if (pref.getBoolean(
                     mContext.getString(R.string.pref_key_sync_auto),
                     mContext.getResources().getBoolean(R.bool.sync_auto))) {
-                mSyncController = new SyncController(mContext, "daily_check");
+                mSyncController = new SyncController(mContext, "daily_check", this);
                 mSyncController.run();
 
             } else {
@@ -91,7 +94,7 @@ public class DailyCheck implements SyncCallback {
                 scheduleNotification();
                 saveLastDailyCheckDate();
 
-                mCallback.dailyCheckComplete();
+                mDailyCheckCallback.dailyCheckComplete();
             }
 
         } else {
@@ -100,7 +103,7 @@ public class DailyCheck implements SyncCallback {
             scheduleNotification();
             saveLastDailyCheckDate();
 
-            mCallback.dailyCheckComplete();
+            mDailyCheckCallback.dailyCheckComplete();
         }
     }
 
@@ -155,6 +158,6 @@ public class DailyCheck implements SyncCallback {
         scheduleNotification();
         saveLastDailyCheckDate();
 
-        mCallback.dailyCheckComplete();
+        mDailyCheckCallback.dailyCheckComplete();
     }
 }

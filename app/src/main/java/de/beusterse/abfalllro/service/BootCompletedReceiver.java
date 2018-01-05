@@ -19,14 +19,12 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-
-            if (Build.VERSION.SDK_INT < 26) {
-                /**
-                 * WakefulBroadcastReceiver is deprecated since Android 8.0
-                 * Thus the daily check/notification scheduling is temporarily disabled.
-                 *
-                 * TODO implement newer version
-                 */
+            /*
+                The daily check and sync will use the JobScheduler for
+                Android L and higher, and falls back to the AlarmTask
+                for older versions.
+             */
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 Calendar date = Calendar.getInstance();
                 Intent alarmIntent = new Intent(context, DailyCheckReceiver.class);

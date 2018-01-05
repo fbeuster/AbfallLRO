@@ -164,7 +164,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
     }
 
     public void startManualSync() {
-        mSyncController = new SyncController(this, "manual_check");
+        mSyncController = new SyncController(this, "manual_check", this);
         mSyncController.run();
     }
 

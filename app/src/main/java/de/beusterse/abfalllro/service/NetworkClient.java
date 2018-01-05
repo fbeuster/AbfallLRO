@@ -23,12 +23,12 @@ import de.beusterse.abfalllro.interfaces.DownloadCallback;
  * https://github.com/googlesamples/android-NetworkConnect/blob/master/Application/src/main/java/com/example/android/networkconnect/NetworkFragment.java
  */
 public class NetworkClient {
-    private DownloadCallback mCallback;
+    private DownloadCallback mDownloadCallback;
     private DownloadTask mDownloadTask;
     private String mUrlString;
 
-    public NetworkClient(DownloadCallback callback, String url) {
-        mCallback = callback;
+    public NetworkClient(DownloadCallback downloadCallback, String url) {
+        mDownloadCallback = downloadCallback;
         mUrlString = url;
     }
 
@@ -114,13 +114,13 @@ public class NetworkClient {
          */
         @Override
         protected void onPreExecute() {
-            if (mCallback != null) {
-                NetworkInfo networkInfo = mCallback.getActiveNetworkInfo();
+            if (mDownloadCallback != null) {
+                NetworkInfo networkInfo = mDownloadCallback.getActiveNetworkInfo();
                 if (networkInfo == null || !networkInfo.isConnected() ||
                         (networkInfo.getType() != ConnectivityManager.TYPE_WIFI
                                 && networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
                     // If no connectivity, cancel task and update Callback with null data.
-                    mCallback.updateFromDownload(null);
+                    mDownloadCallback.updateFromDownload(null);
                     cancel(true);
                 }
             }
@@ -155,13 +155,13 @@ public class NetworkClient {
          */
         @Override
         protected void onPostExecute(DownloadResult result) {
-            if (result != null && mCallback != null) {
+            if (result != null && mDownloadCallback != null) {
                 if (result.mException != null) {
-                    mCallback.updateFromDownload(result.mException.getMessage());
+                    mDownloadCallback.updateFromDownload(result.mException.getMessage());
                 } else if (result.mResultValue != null) {
-                    mCallback.updateFromDownload(result.mResultValue);
+                    mDownloadCallback.updateFromDownload(result.mResultValue);
                 }
-                mCallback.finishDownloading();
+                mDownloadCallback.finishDownloading();
             }
         }
 

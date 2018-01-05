@@ -3,6 +3,7 @@ package de.beusterse.abfalllro.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
@@ -36,6 +37,7 @@ import de.beusterse.abfalllro.utils.JSONUtils;
 
 public class SyncController implements DownloadCallback {
 
+    private final SyncCallback mSyncCallback;
     private ArrayList<String> mFiles;
     private ArrayList<String> mYears;
     private boolean mDownloading = false;
@@ -46,7 +48,8 @@ public class SyncController implements DownloadCallback {
     private Resources mResources;
     private String mView;
 
-    public SyncController(Context context, String view) {
+    public SyncController(Context context, String view, SyncCallback syncCallback) {
+        mSyncCallback = syncCallback;
         mContext    = context;
         mResources  = context.getResources();
         mFiles      = new ArrayList<>();
@@ -114,6 +117,7 @@ public class SyncController implements DownloadCallback {
     /**
      * Callback when download finishes.
      */
+    @Override
     public void finishDownloading() {
         mDownloading = false;
         if (mNetworkClient != null) {
@@ -273,6 +277,7 @@ public class SyncController implements DownloadCallback {
      * @param progressCode
      * @param percentComplete
      */
+    @Override
     public void onProgressUpdate(int progressCode, int percentComplete) {
         switch(progressCode) {
             case DownloadCallback.Progress.ERROR:
@@ -366,6 +371,7 @@ public class SyncController implements DownloadCallback {
      *
      * @param result
      */
+    @Override
     public void updateFromDownload(Object result) {
         if (result != null) {
             String resultString = result.toString();
@@ -406,11 +412,17 @@ public class SyncController implements DownloadCallback {
             }
         }
 
-        ((SyncCallback) mContext).syncComplete();
+        mSyncCallback.syncComplete();
     }
 
     @Override
     public NetworkInfo getActiveNetworkInfo() {
-        return null;
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (cm == null) {
+            return null;
+        }
+
+        return cm.getActiveNetworkInfo();
     }
 }
