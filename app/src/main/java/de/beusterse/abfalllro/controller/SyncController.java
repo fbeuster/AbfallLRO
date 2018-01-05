@@ -3,6 +3,7 @@ package de.beusterse.abfalllro.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
 import com.google.gson.JsonElement;
@@ -33,7 +34,7 @@ import de.beusterse.abfalllro.utils.JSONUtils;
  * Created by Felix Beuster
  */
 
-public class SyncController {
+public class SyncController implements DownloadCallback {
 
     private ArrayList<String> mFiles;
     private ArrayList<String> mYears;
@@ -297,7 +298,7 @@ public class SyncController {
                 mResources.getBoolean(R.bool.sync_auto) );
 
         if (sync_enabled) {
-            mNetworkClient = new NetworkClient((DownloadCallback) mContext, getSyncRequestUrl());
+            mNetworkClient = new NetworkClient(this, getSyncRequestUrl());
 
             if (!mDownloading && mNetworkClient != null) {
                 mNetworkClient.startDownload();
@@ -406,5 +407,10 @@ public class SyncController {
         }
 
         ((SyncCallback) mContext).syncComplete();
+    }
+
+    @Override
+    public NetworkInfo getActiveNetworkInfo() {
+        return null;
     }
 }

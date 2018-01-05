@@ -6,7 +6,7 @@ package de.beusterse.abfalllro.interfaces;
  * Created by Felix Beuster
  */
 
-public interface SyncCallback extends DownloadCallback {
+public interface SyncCallback {
     /**
      * Indicates, that the sync is complete.
      */

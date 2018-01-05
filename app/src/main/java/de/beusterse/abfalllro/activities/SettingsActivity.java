@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -165,28 +163,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                 || SyncPreferenceFragment.class.getName().equals(fragmentName);
     }
 
-    @Override
-    public void finishDownloading() {
-        mSyncController.finishDownloading();
-    }
-
-    @Override
-    public NetworkInfo getActiveNetworkInfo() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivityManager == null) {
-            return null;
-        }
-
-        return connectivityManager.getActiveNetworkInfo();
-    }
-
-    @Override
-    public void onProgressUpdate(int progressCode, int percentComplete) {
-        mSyncController.onProgressUpdate(progressCode, percentComplete);
-    }
-
     public void startManualSync() {
         mSyncController = new SyncController(this, "manual_check");
         mSyncController.run();
@@ -205,11 +181,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                 break;
         }
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void updateFromDownload(Object result) {
-        mSyncController.updateFromDownload(result);
     }
 
     /**
