@@ -154,7 +154,7 @@ public class DataController {
     /**
      * Checks, if the current date requires checking more than one year.
      *
-     * @return
+     * @return true, if we need a second year
      */
     public static boolean needsMultipleYears() {
         SimpleDateFormat mf = new SimpleDateFormat("MM");
@@ -166,8 +166,8 @@ public class DataController {
     /**
      * Reads a schedule string line into the schedule hash map.
      *
-     * @param line
-     * @param year
+     * @param line current line in the schedule
+     * @param year current year
      */
     private void parseScheduleLine(String[] line, String year) {
         Can can;
@@ -205,9 +205,9 @@ public class DataController {
      * Reads the pickup code for the saved town
      * from stored sync data into the codes array.
      *
-     * @param year
-     * @param resourceId
-     * @param index
+     * @param year current year
+     * @param resourceId resource id for the code file of the year
+     * @param index year index
      */
     private void readCode(String year, int resourceId, int index) {
         if (mSyncData.has(year)) {
@@ -238,32 +238,34 @@ public class DataController {
      * Reads the pickup code for the saved town
      * from resources into the codes array.
      *
-     * @param resourceId
-     * @param prefKey
-     * @param index
+     * @param resourceId resource id for the code file of the year
+     * @param prefKey preference key to get codes
+     * @param index year index
      */
     private void readCodeFromResource(int resourceId, String prefKey, int index) {
-        try {
-            InputStream stream = resources.openRawResource(resourceId);
+        if (resourceId > 0) {
+            try {
+                InputStream stream = resources.openRawResource(resourceId);
 
-            int size = stream.available();
-            byte[] buffer = new byte[size];
+                int size = stream.available();
+                byte[] buffer = new byte[size];
 
-            stream.read(buffer);
-            stream.close();
+                stream.read(buffer);
+                stream.close();
 
-            JSONObject codes = new JSONObject( new String(buffer, "UTF-8") );
-            this.codes[index] = codes.getString( pref.getString(prefKey, "") );
+                JSONObject codes = new JSONObject(new String(buffer, "UTF-8"));
+                this.codes[index] = codes.getString(pref.getString(prefKey, ""));
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     /**
      * Reads the schedule file from storage or resource.
      *
-     * @param year
+     * @param year current year
      */
     private void readSchedule(String year) {
         if (mSyncData.has(year)) {
@@ -284,7 +286,7 @@ public class DataController {
     /**
      * Reads the schedule file from resources.
      *
-     * @param year
+     * @param year current year
      */
     private void readScheduleFromResource(String year) {
         InputStreamReader inputStreamReader;
@@ -292,29 +294,31 @@ public class DataController {
         try {
             int scheduleId = resources.getIdentifier("raw/schedule_" + year, "raw", context.getPackageName());
 
-            inputStreamReader = new InputStreamReader(resources.openRawResource(scheduleId));
-            Scanner inputStream = new Scanner(inputStreamReader);
+            if (scheduleId > 0) {
+                inputStreamReader = new InputStreamReader(resources.openRawResource(scheduleId));
+                Scanner inputStream = new Scanner(inputStreamReader);
 
-            inputStream.nextLine();
+                inputStream.nextLine();
 
-            while (inputStream.hasNext()) {
-                String data = inputStream.nextLine();
-                String[] line = data.split(",");
+                while (inputStream.hasNext()) {
+                    String data = inputStream.nextLine();
+                    String[] line = data.split(",");
 
-                if (hasLineSchedule(line)) {
-                    parseScheduleLine(line, year);
+                    if (hasLineSchedule(line)) {
+                        parseScheduleLine(line, year);
+                    }
                 }
+                inputStream.close();
             }
-            inputStream.close();
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     /**
      * Reads the schedule file from the storad sync data.
      *
-     * @param year
+     * @param year current year
      */
     private void readScheduleFromStorage(String year) {
         FileInputStream inputStream;
@@ -335,7 +339,7 @@ public class DataController {
 
             inputStreamReader.close();
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -343,9 +347,9 @@ public class DataController {
      * Reads the pickup code for the saved street
      * from the stored sync data into the codes array.
      *
-     * @param year
-     * @param resourceId
-     * @param index
+     * @param year current year
+     * @param resourceId resource id for street code file of the year
+     * @param index year index
      */
     private void readStreetCode(String year, int resourceId, int index) {
         if (mSyncData.has(year)) {
