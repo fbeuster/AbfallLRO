@@ -75,9 +75,38 @@
     <string name="pref_notifications_vibrate">Vibration</string>
 
     <string name="pref_header_pickup">Ort und Abfuhr</string>
-    <string name="pref_title_cans_monthly">Monatliche Abholung</string>
-    <string name="pref_title_can_black_monthly">Graue Tonne</string>
-    <string name="pref_title_can_green_monthly">Grüne Tonne</string>
+    <string name="pref_title_cans_monthly">Abfuhrrhythmus</string>
+    <string name="pref_title_can_black_schedule">Graue Tonne</string>
+    <string name="pref_title_can_blue_schedule">Blaue Tonne</string>
+    <string name="pref_title_can_green_schedule">Grüne Tonne</string>
+    <string name="pref_title_can_yellow_schedule">Gelbe Tonne</string>
+    <string-array name="pref_can_black_schedule_list">
+        <item>@string/pref_can_schedule_never</item>
+        <item>@string/pref_can_schedule_monthly</item>
+        <item>@string/pref_can_schedule_biweekly</item>
+        <item>@string/pref_can_schedule_weekly</item>
+        <item>@string/pref_can_schedule_twice_a_week</item>
+    </string-array>
+    <string-array name="pref_can_blue_schedule_list">
+        <item>@string/pref_can_schedule_never</item>
+        <item>@string/pref_can_schedule_monthly</item>
+    </string-array>
+    <string-array name="pref_can_green_schedule_list">
+        <item>@string/pref_can_schedule_never</item>
+        <item>@string/pref_can_schedule_monthly</item>
+        <item>@string/pref_can_schedule_biweekly</item>
+        <item>@string/pref_can_schedule_weekly</item>
+        <item>@string/pref_can_schedule_twice_a_week</item>
+    </string-array>
+    <string-array name="pref_can_yellow_schedule_list">
+        <item>@string/pref_can_schedule_never</item>
+        <item>@string/pref_can_schedule_monthly</item>
+    </string-array>
+    <string name="pref_can_schedule_never">Nie</string>
+    <string name="pref_can_schedule_monthly">Monatlich</string>
+    <string name="pref_can_schedule_biweekly">2-Wöchentlich</string>
+    <string name="pref_can_schedule_weekly">Wöchentlich</string>
+    <string name="pref_can_schedule_twice_a_week">2 mal pro Woche</string>
 
 
     <string name="pref_header_sync">Aktualisierungen</string>
@@ -92,7 +121,7 @@
     <string name="pref_sync_description_last_sync">Die letzte Aktualisierung wurde am %1$s durchgeführt, die aktuellsten Daten sind vom %2$s.</string>
 
 
-    <string name="pref_title_location">Abholort</string>
+    <string name="pref_title_location">Abfuhrort</string>
     <string name="pref_location">Ort</string>
     <string-array name="pref_locations">
         <item>Admannshagen</item>

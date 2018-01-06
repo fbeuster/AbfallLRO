@@ -307,6 +307,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             SharedPreferences sp = getPreferenceManager().getSharedPreferences();
             String cityName = sp.getString(getString(R.string.pref_key_pickup_town), "");
 
+            String schedule_biweekly    = getString(R.string.pref_can_schedule_biweekly);
+            String schedule_monthly     = getString(R.string.pref_can_schedule_monthly);
+
+            String scheduleBlack    = sp.getString(
+                    getString(R.string.pref_key_pickup_schedule_black), schedule_biweekly);
+
+            String scheduleBlue     = sp.getString(
+                    getString(R.string.pref_key_pickup_schedule_blue), schedule_monthly);
+
+            String scheduleGreen    = sp.getString(
+                    getString(R.string.pref_key_pickup_schedule_green), schedule_biweekly);
+
+            String scheduleYellow   = sp.getString(
+                    getString(R.string.pref_key_pickup_schedule_yellow), schedule_monthly);
+
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
@@ -314,6 +329,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_pickup_street)));
             updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_town)), cityName);
             updateStreetLocationPref(cityName);
+
+            updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_schedule_black)), scheduleBlack);
+            updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_schedule_blue)), scheduleBlue);
+            updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_schedule_green)), scheduleGreen);
+            updateStreetSummary(findPreference(getString(R.string.pref_key_pickup_schedule_yellow)), scheduleYellow);
 
             ListPreference city = (ListPreference) findPreference(getString(R.string.pref_key_pickup_town));
             city.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

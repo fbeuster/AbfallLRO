@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import de.beusterse.abfalllro.controller.MigrationController;
 import de.beusterse.abfalllro.fragments.IntroFragment;
 import de.beusterse.abfalllro.R;
 
@@ -48,6 +49,9 @@ public class IntroActivity extends AppCompatActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (pref.getBoolean(getString(R.string.pref_key_intern_setup_done), false)) {
+            MigrationController migrationController = new MigrationController(this);
+            migrationController.migrate();
+
             startActivity(new Intent(this, TrashCheckActivity.class));
             finish();
 

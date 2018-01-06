@@ -52,10 +52,10 @@ public class TrashController {
         dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
         monthly         = true;
-        monthly_black   = pref.getBoolean(  resources.getString(R.string.pref_key_pickup_schedule_black),
-                                            resources.getBoolean(R.bool.pickup_monthly_black));
-        monthly_green   = pref.getBoolean(  resources.getString(R.string.pref_key_pickup_schedule_green),
-                                            resources.getBoolean(R.bool.pickup_monthly_green));
+        monthly_black   = pref.getString(  resources.getString(R.string.pref_key_pickup_schedule_black),
+                                            resources.getString(R.string.pref_can_schedule_biweekly)).equals(resources.getString(R.string.pref_can_schedule_monthly));
+        monthly_green   = pref.getString(  resources.getString(R.string.pref_key_pickup_schedule_green),
+                                            resources.getString(R.string.pref_can_schedule_biweekly)).equals(resources.getString(R.string.pref_can_schedule_monthly));
 
         calcCurrentCans();
         cPreview = calcPreview(0);

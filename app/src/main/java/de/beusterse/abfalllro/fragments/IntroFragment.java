@@ -141,11 +141,13 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void initializeSchedulePage() {
+        // TODO check boxes should be replaced with spinner
+        // TODO all four cans need to be configured
         CheckBox black = (CheckBox) getActivity().findViewById(R.id.monthlyBlackCheckBox);
         CheckBox green = (CheckBox) getActivity().findViewById(R.id.monthlyGreenCheckBox);
 
-        black.setChecked( pref.getBoolean(getString(R.string.pref_key_pickup_schedule_black), false) );
-        green.setChecked( pref.getBoolean(getString(R.string.pref_key_pickup_schedule_green), false) );
+        black.setChecked( pref.getString(getString(R.string.pref_key_pickup_schedule_black), getString(R.string.pref_can_schedule_biweekly)).equals(getString(R.string.pref_can_schedule_monthly)) );
+        green.setChecked( pref.getString(getString(R.string.pref_key_pickup_schedule_green), getString(R.string.pref_can_schedule_biweekly)).equals(getString(R.string.pref_can_schedule_monthly)) );
 
         black.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -180,8 +182,11 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
 
         SharedPreferences.Editor editor = pref.edit();
 
-        editor.putBoolean(getString(R.string.pref_key_pickup_schedule_black), black.isChecked());
-        editor.putBoolean(getString(R.string.pref_key_pickup_schedule_green), green.isChecked());
+        int black_schedule = black.isChecked() ? R.string.pref_can_schedule_monthly : R.string.pref_can_schedule_biweekly;
+        int green_schedule = green.isChecked() ? R.string.pref_can_schedule_monthly : R.string.pref_can_schedule_biweekly;
+
+        editor.putString(getString(R.string.pref_key_pickup_schedule_black), getString(black_schedule));
+        editor.putString(getString(R.string.pref_key_pickup_schedule_green), getString(green_schedule));
 
         editor.apply();
     }
