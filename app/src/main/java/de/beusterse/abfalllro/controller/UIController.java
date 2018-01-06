@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.Display;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -80,7 +81,21 @@ public class UIController {
         prevCanGreen.setText(   cPreview[2] == -1 ? "" : "" + cPreview[2]);
         prevCanYellow.setText(  cPreview[3] == -1 ? "" : "" + cPreview[3]);
 
+        if (cPreview[0] == -1) {
+            activity.findViewById(R.id.prevCanBlackLayout).setVisibility(View.GONE);
+        }
 
+        if (cPreview[1] == -1) {
+            activity.findViewById(R.id.prevCanBlueLayout).setVisibility(View.GONE);
+        }
+
+        if (cPreview[2] == -1) {
+            activity.findViewById(R.id.prevCanGreenLayout).setVisibility(View.GONE);
+        }
+
+        if (cPreview[3] == -1) {
+            activity.findViewById(R.id.prevCanYellowLayout).setVisibility(View.GONE);
+        }
     }
 
     private void updateTrashMainDisplay() {
