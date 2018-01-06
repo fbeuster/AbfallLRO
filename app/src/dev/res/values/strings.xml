@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Abfall LRO -dev-</string>
+
+    <string name="pref_header_dev">Entwickleroptionen</string>
+    <string name="pref_dev_clear_data">Daten löschen</string>
+    <string name="pref_dev_clear_data_desc">Löscht die lokalen Daten</string>
+    <string name="pref_dev_clear_data_toast">Daten wurden gelöscht</string>
+    <string name="pref_dev_clear_settings">Einstellungen löschen</string>
 </resources>

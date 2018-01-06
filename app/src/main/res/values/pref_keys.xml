@@ -28,6 +28,9 @@
     <string name="pref_key_sync_last_check">pref_sync_last_check</string>
     <string name="pref_key_sync_last_update">pref_sync_last_update</string>
 
+    <string name="pref_key_dev_clear_data">pref_dev_clear_data</string>
+    <string name="pref_key_dev_clear_settings">pref_dev_clear_settings</string>
+
     <string name="pref_key_info_rate">pref_info_rate</string>
 
 </resources>
