@@ -174,15 +174,17 @@ public class DataController {
 
         String date         = year + "-" + line[0] + "-" + line[1];
 
-        int[] colorMap      = { -1, -1,
+        int[] colorMap      = {
+                Can.INVALID, Can.INVALID,
                 Can.BLACK, Can.GREEN,
                 Can.BLACK, Can.GREEN,
                 Can.YELLOW, Can.BLUE };
 
-        boolean[] monthlyMap = {    false, false,
-                                    true, true,
-                                    false, false,
-                                    false, true };
+        int[] monthlyMap = {
+                Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_BIWEEKLY,
+                Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY,
+                Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_BIWEEKLY,
+                Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY };
 
         if (schedule.get(date) == null) {
             schedule.put(date, new PickupDay());

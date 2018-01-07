@@ -36,7 +36,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         pref.registerOnSharedPreferenceChangeListener(this);
 
         dataController  = new DataController(this);
-        trashController = new TrashController(pref, dataController, getResources());
+        trashController = new TrashController(this, dataController);
         serviceManager  = new ServiceManager(this);
         uiController    = new UIController(this, pref);
 
@@ -110,7 +110,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
             // TODO simple reload() methods would be nice
             dataController = new DataController(this);
-            trashController = new TrashController(pref, dataController, getResources());
+            trashController = new TrashController(this, dataController);
             uiController = new UIController(this, pref);
 
             uiController.prepare(trashController.getCans(), trashController.getError(), trashController.getPreview());

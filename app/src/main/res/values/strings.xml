@@ -43,6 +43,7 @@
 
     <string name="check_invalid_city">Keine Stadt ausgewählt.</string>
     <string name="check_invalid_code">Ungültige Abholdaten gelesen.</string>
+    <string name="check_invalid_schedules">Keine Tonnen ausgewählt.</string>
     <string name="check_invalid_street">Keine Straße ausgewählt.</string>
 
     <string-array name="can_names_upper">
@@ -80,6 +81,13 @@
     <string name="pref_title_can_blue_schedule">Blaue Tonne</string>
     <string name="pref_title_can_green_schedule">Grüne Tonne</string>
     <string name="pref_title_can_yellow_schedule">Gelbe Tonne</string>
+    <string-array name="pref_general_schedule_list">
+        <item>@string/pref_can_schedule_never</item>
+        <item>@string/pref_can_schedule_monthly</item>
+        <item>@string/pref_can_schedule_biweekly</item>
+        <item>@string/pref_can_schedule_weekly</item>
+        <item>@string/pref_can_schedule_twice_a_week</item>
+    </string-array>
     <string-array name="pref_can_black_schedule_list">
         <item>@string/pref_can_schedule_never</item>
         <item>@string/pref_can_schedule_monthly</item>

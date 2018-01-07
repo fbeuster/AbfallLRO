@@ -28,9 +28,9 @@ public class PickupDay {
         return result;
     }
 
-    public boolean hasCan(boolean monthly, int color, char letter) {
+    public boolean hasCan(int schedule, int color, char letter) {
         for (Can can : cans) {
-            if (can.isMonthly() == monthly && can.getColor() == color && can.getLetter() == letter) {
+            if (can.getSchedule() == schedule && can.getColor() == color && can.getLetter() == letter) {
                 return true;
             }
         }

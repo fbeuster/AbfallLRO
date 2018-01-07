@@ -70,7 +70,7 @@ public class DailyCheck implements SyncCallback {
 
     private void getPreview() {
         DataController loader       = new DataController(mContext);
-        TrashController controller  = new TrashController(pref, loader, mContext.getResources());
+        TrashController controller  = new TrashController(mContext, loader);
 
         canAlarmTimes = controller.getPreview();
     }
