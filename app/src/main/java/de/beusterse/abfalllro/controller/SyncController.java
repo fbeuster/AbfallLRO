@@ -37,6 +37,8 @@ import de.beusterse.abfalllro.utils.JSONUtils;
 
 public class SyncController implements DownloadCallback {
 
+    private static String VIEW_MANUAL = "manual_check";
+
     private final SyncCallback mSyncCallback;
     private ArrayList<String> mFiles;
     private ArrayList<String> mYears;
@@ -172,6 +174,7 @@ public class SyncController implements DownloadCallback {
         String codes_url        = "&codes=";
         String schedule_url     = "&schedule=";
         String street_codes_url = "&street_codes=";
+        String version_url      = "&version=" + BuildConfig.VERSION_CODE;
         String view_url         = "&view=" + mView + BuildConfig.API_SUFFIX;
         String year_url         = "?year=";
 
@@ -247,7 +250,7 @@ public class SyncController implements DownloadCallback {
             }
         }
 
-        return url + year_url + codes_url + schedule_url + street_codes_url + view_url;
+        return url + year_url + codes_url + schedule_url + street_codes_url + view_url + version_url;
     }
 
     /**
@@ -302,7 +305,7 @@ public class SyncController implements DownloadCallback {
         boolean sync_enabled    = pref.getBoolean(  mResources.getString(R.string.pref_key_sync_auto),
                 mResources.getBoolean(R.bool.sync_auto) );
 
-        if (sync_enabled) {
+        if (sync_enabled || mView.equals(VIEW_MANUAL)) {
             mNetworkClient = new NetworkClient(this, getSyncRequestUrl());
 
             if (!mDownloading && mNetworkClient != null) {
@@ -407,7 +410,9 @@ public class SyncController implements DownloadCallback {
                         editor.putString(mResources.getString(R.string.pref_key_intern_sync_data), mSyncData.toString());
                         editor.apply();
 
-                    } catch (IllegalStateException e) {}
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

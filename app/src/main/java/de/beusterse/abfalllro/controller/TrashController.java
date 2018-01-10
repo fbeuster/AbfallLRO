@@ -1,9 +1,6 @@
 package de.beusterse.abfalllro.controller;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.PickupDay;
 import de.beusterse.abfalllro.utils.CanUtils;
+import de.beusterse.abfalllro.utils.DataUtils;
 
 /**
  * Processes structured data and returns results for UI
@@ -22,7 +20,6 @@ import de.beusterse.abfalllro.utils.CanUtils;
  */
 public class TrashController {
     private static final String DATE_FORMAT = "yyyy-MM-d";
-    private static final String CITY_WITH_STREETS = "0000";
 
     private Context context;
 
@@ -31,12 +28,10 @@ public class TrashController {
     private int[] cPreview;
 
     private String[] locationCans;
-    private Resources resources;
     private HashMap<String, PickupDay> schedule;
-    private SharedPreferences pref;
 
-    Calendar now;
-    SimpleDateFormat dateFormat;
+    private Calendar now;
+    private SimpleDateFormat dateFormat;
 
     private DataController loader;
 
@@ -44,8 +39,6 @@ public class TrashController {
         this.context        = context;
         this.loader         = loader;
         this.locationCans   = loader.getCodes();
-        this.pref           = PreferenceManager.getDefaultSharedPreferences(context);
-        this.resources      = context.getResources();
         this.schedule       = loader.getSchedule();
 
         cCans = new ArrayList<>();
@@ -56,16 +49,12 @@ public class TrashController {
         dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
         calcCurrentCans();
-        cPreview = calcPreview(0);
+        cPreview = calcPreview();
     }
 
     public ArrayList<int[]> getCans() { return cCans; }
 
     public int getError() { return cError; }
-
-    public int[] getNextPreview(int dayOffset) {
-        return calcPreview(dayOffset);
-    }
 
     public int[] getPreview() { return cPreview; }
 
@@ -84,10 +73,11 @@ public class TrashController {
         if (current_codes.length() == 0) {
             cError = R.string.check_invalid_city;
 
-        } else if (locationCans.equals(CITY_WITH_STREETS)) {
+        } else if (DataUtils.isCityWithStreets(current_codes)) {
             cError = R.string.check_invalid_street;
 
-        } else if (current_codes.length() != 4) {
+        } else if (current_codes.length() != 4 &&
+                current_codes.length() != 6) {
             cError = R.string.check_invalid_code;
 
         } else if (CanUtils.hasNoCanSchedulesConfigured(context)) {
@@ -101,6 +91,7 @@ public class TrashController {
                 cError = R.string.check_can_none;
 
             } else {
+                // monthly and biweekly black cans
                 if (plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(0))) {
                     cCans.add(new int[]{
                             R.string.check_can_black,
@@ -109,7 +100,28 @@ public class TrashController {
                     });
                 }
 
+                // monthly and twice-per-week black cans
+                if (current_codes.length() > 4 && current_codes.charAt(4) != '0' &&
+                        plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(4))) {
+                    cCans.add(new int[]{
+                            R.string.check_can_black,
+                            R.drawable.can_black_scale,
+                            R.style.CanBlackTheme_NoActionBar
+                    });
+                }
+
+                // monthly and biweekly green cans
                 if (plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(1))) {
+                    cCans.add(new int[]{
+                            R.string.check_can_green,
+                            R.drawable.can_green_scale,
+                            R.style.CanGreenTheme_NoActionBar
+                    });
+                }
+
+                // weekly and twice-per-week green cans
+                if (current_codes.length() > 4 && current_codes.charAt(5) != '0' &&
+                        plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
                     cCans.add(new int[]{
                             R.string.check_can_green,
                             R.drawable.can_green_scale,
@@ -140,7 +152,7 @@ public class TrashController {
         }
     }
 
-    private int[] calcPreview(int dayOffset) {
+    private int[] calcPreview() {
         int found = 0;
         int dayCount = 0;
         int[] preview = {-1, -1, -1, -1};
@@ -150,8 +162,6 @@ public class TrashController {
             Calendar pNow = (Calendar) now.clone();
             Calendar pMaxTime = (Calendar) now.clone();
 
-            pNow.add(Calendar.DATE, dayOffset);
-            pMaxTime.add(Calendar.DATE, dayOffset);
             pMaxTime.add(Calendar.MONTH, 2);
 
             if (pMaxTime.get(Calendar.YEAR) > loader.getLastYear()) {
@@ -160,6 +170,7 @@ public class TrashController {
                 pMaxTime.set(Calendar.DATE, 31);
             }
 
+            // TODO should found be checked against number of tracked cans?
             while (found < 4 && pNow.getTime().before(pMaxTime.getTime())) {
                 String today            = dateFormat.format(pNow.getTime());
                 PickupDay plan          = schedule.get(today);
@@ -183,6 +194,18 @@ public class TrashController {
 
                     if (preview[Can.BLUE] == -1 && plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLUE, context), Can.BLUE, current_codes.charAt(3))) {
                         preview[Can.BLUE] = dayCount;
+                        found++;
+                    }
+
+                    if (preview[Can.BLACK] == -1 && current_codes.length() > 4 && current_codes.charAt(4) != '0' &&
+                            plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(4))) {
+                        preview[Can.BLACK] = dayCount;
+                        found++;
+                    }
+
+                    if (preview[Can.GREEN] == -1 && current_codes.length() > 4 && current_codes.charAt(5) != '0' &&
+                            plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
+                        preview[Can.GREEN] = dayCount;
                         found++;
                     }
                 }

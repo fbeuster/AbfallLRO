@@ -62,4 +62,15 @@ public class CanUtils {
                 getSavedScheduleForCan(Can.GREEN, context) == Can.SCHEDULE_NEVER &&
                 getSavedScheduleForCan(Can.YELLOW, context) == Can.SCHEDULE_NEVER;
     }
+
+    public static String scheduleIntToString(int schedule) {
+        switch (schedule) {
+            case Can.SCHEDULE_NEVER:        return "never";
+            case Can.SCHEDULE_MONTHLY:      return "monthly";
+            case Can.SCHEDULE_BIWEEKLY:     return "biweekly";
+            case Can.SCHEDULE_WEEKLY:       return "weekly";
+            case Can.SCHEDULE_TWICA_A_WEEK: return "twice a week";
+            default:                        return "error";
+        }
+    }
 }

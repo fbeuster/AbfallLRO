@@ -22,6 +22,7 @@ import java.util.Scanner;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.PickupDay;
+import de.beusterse.abfalllro.utils.DataUtils;
 import de.beusterse.abfalllro.utils.JSONUtils;
 
 
@@ -31,8 +32,6 @@ import de.beusterse.abfalllro.utils.JSONUtils;
  * Created by Felix Beuster
  */
 public class DataController {
-
-    private static final String CITY_WITH_STREETS = "0000";
 
     private Context context;
     private Resources resources;
@@ -112,8 +111,7 @@ public class DataController {
         readCode(year, getResourceIdentifier("codes_" + year), 0);
         readSchedule(year);
 
-        if (codes[0].equals(CITY_WITH_STREETS)) {
-
+        if (DataUtils.isCityWithStreets(codes[0])) {
             readStreetCode(year, getResourceIdentifier("street_codes_" + year), 0);
         }
 
@@ -125,7 +123,7 @@ public class DataController {
             readCode(yearLater, getResourceIdentifier("codes_" + yearLater), 1);
             readSchedule(yearLater);
 
-            if (codes[1].equals(CITY_WITH_STREETS)) {
+            if (DataUtils.isCityWithStreets(codes[1])) {
                 readStreetCode(yearLater, getResourceIdentifier("street_codes_" + yearLater), 1);
             }
         }
@@ -173,18 +171,22 @@ public class DataController {
         Can can;
 
         String date         = year + "-" + line[0] + "-" + line[1];
-
         int[] colorMap      = {
                 Can.INVALID, Can.INVALID,
                 Can.BLACK, Can.GREEN,
                 Can.BLACK, Can.GREEN,
-                Can.YELLOW, Can.BLUE };
-
-        int[] monthlyMap = {
+                Can.YELLOW, Can.BLUE,
+                Can.BLACK, Can.BLACK,
+                Can.GREEN, Can.GREEN
+        };
+        int[] monthlyMap    = {
                 Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_BIWEEKLY,
                 Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY,
                 Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_BIWEEKLY,
-                Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY };
+                Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY,
+                Can.SCHEDULE_WEEKLY, Can.SCHEDULE_TWICA_A_WEEK,
+                Can.SCHEDULE_WEEKLY, Can.SCHEDULE_TWICA_A_WEEK
+        };
 
         if (schedule.get(date) == null) {
             schedule.put(date, new PickupDay());
@@ -196,8 +198,10 @@ public class DataController {
 
                 // iterating field letters
                 for (int j = 0; j < line[i].length(); j++) {
-                    can = new Can(monthlyMap[i], colorMap[i], line[i].charAt(j));
-                    schedule.get(date).addCan(can);
+                    if (i < colorMap.length && i < monthlyMap.length) {
+                        can = new Can(monthlyMap[i], colorMap[i], line[i].charAt(j));
+                        schedule.get(date).addCan(can);
+                    }
                 }
             }
         }
@@ -313,7 +317,8 @@ public class DataController {
                 inputStream.close();
             }
 
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
