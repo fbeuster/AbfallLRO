@@ -115,6 +115,7 @@
     <string name="pref_can_schedule_biweekly">2-Wöchentlich</string>
     <string name="pref_can_schedule_weekly">Wöchentlich</string>
     <string name="pref_can_schedule_twice_a_week">2 mal pro Woche</string>
+    <string name="pref_can_schedule_not_available">Abholrhythmus \"%1$s\" ist in %2$s nicht verfügbar.</string>
 
 
     <string name="pref_header_sync">Aktualisierungen</string>
@@ -816,6 +817,106 @@
         <item>Zweedorf</item>
     </string-array>
     <string name="pref_location_default">Bützow-Stadt</string>
+    <string-array name="pref_location_twice_per_week_black">
+        <item>Bad Doberan</item>
+        <item>Bützow-Stadt</item>
+        <item>Güstrow</item>
+        <item>Kühlungsborn</item>
+        <item>Nienhagen (Ostseebad)</item>
+    </string-array>
+    <string-array name="pref_location_weekly_black">
+        <item>Alt Bukow</item>
+        <item>Alt Quitzenow</item>
+        <item>Alt Sammit</item>
+        <item>Bad Doberan</item>
+        <item>Bentwisch</item>
+        <item>Börgerende</item>
+        <item>Bossow</item>
+        <item>Burg-Schlitz</item>
+        <item>Bützow-Stadt</item>
+        <item>Dehmen</item>
+        <item>Diekhof</item>
+        <item>Dummerstorf</item>
+        <item>Elmenhorst</item>
+        <item>Garden</item>
+        <item>Gelbensande</item>
+        <item>Gnoien</item>
+        <item>Graal-Müritz</item>
+        <item>Gremmelin</item>
+        <item>Groß Breesen</item>
+        <item>Groß Wokern</item>
+        <item>Güstrow</item>
+        <item>Heiligendamm</item>
+        <item>Hohen Demzin</item>
+        <item>Jennewitz</item>
+        <item>Kavelstorf</item>
+        <item>Krakow am See</item>
+        <item>Kritzkow</item>
+        <item>Kritzmow</item>
+        <item>Kröpelin</item>
+        <item>Kronskamp</item>
+        <item>Kühlungsborn</item>
+        <item>Laage</item>
+        <item>Lalendorf</item>
+        <item>Lambrechtshagen</item>
+        <item>Linstow</item>
+        <item>Lohmen</item>
+        <item>Neu Broderstorf</item>
+        <item>Neubukow</item>
+        <item>Neuendorf (Broderstorf)</item>
+        <item>Nienhagen (Ostseebad)</item>
+        <item>Papendorf</item>
+        <item>Parkentin</item>
+        <item>Poppendorf</item>
+        <item>Primerburg</item>
+        <item>Raden</item>
+        <item>Rerik</item>
+        <item>Rethwisch</item>
+        <item>Roggentin</item>
+        <item>Rövershagen</item>
+        <item>Rühn</item>
+        <item>Sanitz</item>
+        <item>Schwaan</item>
+        <item>Sievershagen</item>
+        <item>Sildemow</item>
+        <item>Steinhagen (Bützow)</item>
+        <item>Striesdorf</item>
+        <item>Tarnow</item>
+        <item>Teschow (Teterow)</item>
+        <item>Tessin</item>
+        <item>Teterow (ohne Ortsteile)</item>
+        <item>Vietgest</item>
+        <item>Weitendorf (Laage)</item>
+    </string-array>
+    <string-array name="pref_location_twice_per_week_green">
+        <item>Bad Doberan</item>
+        <item>Güstrow</item>
+        <item>Sanitz</item>
+    </string-array>
+    <string-array name="pref_location_weekly_green">
+        <item>Bad Doberan</item>
+        <item>Broderstorf</item>
+        <item>Bützow-Stadt</item>
+        <item>Elmenhorst</item>
+        <item>Graal-Müritz</item>
+        <item>Güstrow</item>
+        <item>Heiligendamm</item>
+        <item>Krakow am See</item>
+        <item>Kröpelin</item>
+        <item>Kronskamp</item>
+        <item>Kühlungsborn</item>
+        <item>Lalendorf</item>
+        <item>Lambrechtshagen</item>
+        <item>Neuendorf (Broderstorf)</item>
+        <item>Roggentin</item>
+        <item>Rövershagen</item>
+        <item>Sanitz</item>
+        <item>Schwaan</item>
+        <item>Sievershagen</item>
+        <item>Stäbelow</item>
+        <item>Tessin</item>
+        <item>Teterow (ohne Ortsteile)</item>
+    </string-array>
 
     <string name="pref_location_street">Straße</string>
     <string-array name="pref_location_streets">

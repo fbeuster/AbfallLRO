@@ -26,6 +26,7 @@ import java.util.List;
 
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.controller.SyncController;
+import de.beusterse.abfalllro.utils.CanUtils;
 import de.beusterse.abfalllro.utils.JSONUtils;
 import de.beusterse.abfalllro.utils.TimePreference;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
@@ -323,17 +324,55 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
                     updateListPreferenceSummary(preference, stringValue);
                     updateStreetLocationPref(stringValue);
+                    updateCanSchedules(getPreferenceManager().getSharedPreferences(), newValue.toString());
                     return true;
                 }
             });
 
-            updateCanSchedules(sp);
+            updateCanSchedules(sp, cityName);
         }
 
-        private void updateCanSchedules(SharedPreferences sp) {
+        private boolean hasLocationSchedule(String preferenceKey, String schedule, String location) {
+            if (schedule.equals(getString(R.string.pref_can_schedule_twice_a_week))) {
+                if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_black)) &&
+                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_black), location) == -1) {
+                    return false;
+                }
+
+                if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_green)) &&
+                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_green), location) == -1) {
+                    return false;
+                }
+            }
+
+            if (schedule.equals(getString(R.string.pref_can_schedule_weekly))) {
+                if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_black)) &&
+                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_weekly_black), location) == -1) {
+                    return false;
+                }
+
+                if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_green)) &&
+                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_weekly_green), location) == -1) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void updateCanSchedules(SharedPreferences sp, String location) {
             Preference.OnPreferenceChangeListener onCanScheduleChange = new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    SharedPreferences sp    = getPreferenceManager().getSharedPreferences();
+                    String cityName         = sp.getString(getString(R.string.pref_key_pickup_town), "");
+                    String toast            = getString(R.string.pref_can_schedule_not_available, newValue.toString(), cityName);
+
+                    if (!hasLocationSchedule(preference.getKey(), newValue.toString(), cityName)) {
+                        Toast.makeText(getActivity(), toast, Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+
                     updateListPreferenceSummary(preference, newValue.toString());
                     return true;
                 }
@@ -361,6 +400,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
 
             String scheduleYellow   = sp.getString(
                     getString(R.string.pref_key_pickup_schedule_yellow), schedule_monthly);
+
+
+            /*
+                update schedules due to availability
+             */
+            if (!hasLocationSchedule(black_can.getKey(), scheduleBlack, location)) {
+                black_can.setValue(schedule_biweekly);
+                scheduleBlack = schedule_biweekly;
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(getString(R.string.pref_key_pickup_schedule_black), schedule_biweekly);
+                editor.apply();
+            }
+
+            if (!hasLocationSchedule(green_can.getKey(), scheduleGreen, location)) {
+                green_can.setValue(schedule_biweekly);
+                scheduleGreen = schedule_biweekly;
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(getString(R.string.pref_key_pickup_schedule_green), schedule_biweekly);
+                editor.apply();
+            }
 
             /*
                 Update can schedule summaries

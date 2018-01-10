@@ -177,6 +177,7 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void saveSchedulePage() {
+        // TODO update for multiple schedules
         CheckBox black = (CheckBox) getActivity().findViewById(R.id.monthlyBlackCheckBox);
         CheckBox green = (CheckBox) getActivity().findViewById(R.id.monthlyGreenCheckBox);
 

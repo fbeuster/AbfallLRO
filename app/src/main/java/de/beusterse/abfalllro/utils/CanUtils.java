@@ -14,7 +14,7 @@ import de.beusterse.abfalllro.capsules.Can;
  */
 
 public class CanUtils {
-    private static int indexOf(String[] haystack, String needle) {
+    public static int indexOf(String[] haystack, String needle) {
         int i = -1;
 
         for (String hay : haystack) {
@@ -25,7 +25,7 @@ public class CanUtils {
             }
         }
 
-        return i;
+        return -1;
     }
 
     public static int getSavedScheduleForCan(int can, Context context) {
