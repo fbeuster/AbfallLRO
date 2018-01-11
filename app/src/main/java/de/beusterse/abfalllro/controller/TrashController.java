@@ -10,7 +10,7 @@ import java.util.HashMap;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.PickupDay;
-import de.beusterse.abfalllro.utils.CanUtils;
+import de.beusterse.abfalllro.utils.ScheduleUtils;
 import de.beusterse.abfalllro.utils.DataUtils;
 
 /**
@@ -80,7 +80,7 @@ public class TrashController {
                 current_codes.length() != 6) {
             cError = R.string.check_invalid_code;
 
-        } else if (CanUtils.hasNoCanSchedulesConfigured(context)) {
+        } else if (ScheduleUtils.hasNoCanSchedulesConfigured(context)) {
             cError = R.string.check_invalid_schedules;
 
         } else {
@@ -92,7 +92,7 @@ public class TrashController {
 
             } else {
                 // monthly and biweekly black cans
-                if (plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(0))) {
+                if (plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(0))) {
                     cCans.add(new int[]{
                             R.string.check_can_black,
                             R.drawable.can_black_scale,
@@ -102,7 +102,7 @@ public class TrashController {
 
                 // monthly and twice-per-week black cans
                 if (current_codes.length() > 4 && current_codes.charAt(4) != '0' &&
-                        plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(4))) {
+                        plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(4))) {
                     cCans.add(new int[]{
                             R.string.check_can_black,
                             R.drawable.can_black_scale,
@@ -111,7 +111,7 @@ public class TrashController {
                 }
 
                 // monthly and biweekly green cans
-                if (plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(1))) {
+                if (plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(1))) {
                     cCans.add(new int[]{
                             R.string.check_can_green,
                             R.drawable.can_green_scale,
@@ -121,7 +121,7 @@ public class TrashController {
 
                 // weekly and twice-per-week green cans
                 if (current_codes.length() > 4 && current_codes.charAt(5) != '0' &&
-                        plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
+                        plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
                     cCans.add(new int[]{
                             R.string.check_can_green,
                             R.drawable.can_green_scale,
@@ -129,7 +129,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(CanUtils.getSavedScheduleForCan(Can.YELLOW, context), Can.YELLOW, current_codes.charAt(2))) {
+                if (plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.YELLOW, context), Can.YELLOW, current_codes.charAt(2))) {
                     cCans.add(new int[]{
                             R.string.check_can_yellow,
                             R.drawable.can_yellow_scale,
@@ -137,7 +137,7 @@ public class TrashController {
                     });
                 }
 
-                if (plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLUE, context), Can.BLUE, current_codes.charAt(3))) {
+                if (plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.BLUE, context), Can.BLUE, current_codes.charAt(3))) {
                     cCans.add(new int[]{
                             R.string.check_can_blue,
                             R.drawable.can_blue_scale,
@@ -177,34 +177,34 @@ public class TrashController {
                 String current_codes    = locationCans[pNow.get(Calendar.YEAR) - loader.getFirstYear()];
 
                 if (plan != null && current_codes.length() > 0) {
-                    if (preview[Can.BLACK] == -1 && plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(0))) {
+                    if (preview[Can.BLACK] == -1 && plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(0))) {
                         preview[Can.BLACK] = dayCount;
                         found++;
                     }
 
-                    if (preview[Can.GREEN] == -1 && plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(1))) {
+                    if (preview[Can.GREEN] == -1 && plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(1))) {
                         preview[Can.GREEN] = dayCount;
                         found++;
                     }
 
-                    if (preview[Can.YELLOW] == -1 && plan.hasCan(CanUtils.getSavedScheduleForCan(Can.YELLOW, context), Can.YELLOW, current_codes.charAt(2))) {
+                    if (preview[Can.YELLOW] == -1 && plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.YELLOW, context), Can.YELLOW, current_codes.charAt(2))) {
                         preview[Can.YELLOW] = dayCount;
                         found++;
                     }
 
-                    if (preview[Can.BLUE] == -1 && plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLUE, context), Can.BLUE, current_codes.charAt(3))) {
+                    if (preview[Can.BLUE] == -1 && plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.BLUE, context), Can.BLUE, current_codes.charAt(3))) {
                         preview[Can.BLUE] = dayCount;
                         found++;
                     }
 
                     if (preview[Can.BLACK] == -1 && current_codes.length() > 4 && current_codes.charAt(4) != '0' &&
-                            plan.hasCan(CanUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(4))) {
+                            plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.BLACK, context), Can.BLACK, current_codes.charAt(4))) {
                         preview[Can.BLACK] = dayCount;
                         found++;
                     }
 
                     if (preview[Can.GREEN] == -1 && current_codes.length() > 4 && current_codes.charAt(5) != '0' &&
-                            plan.hasCan(CanUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
+                            plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
                         preview[Can.GREEN] = dayCount;
                         found++;
                     }

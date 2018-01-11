@@ -26,7 +26,7 @@ import java.util.List;
 
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.controller.SyncController;
-import de.beusterse.abfalllro.utils.CanUtils;
+import de.beusterse.abfalllro.utils.ArrayUtils;
 import de.beusterse.abfalllro.utils.JSONUtils;
 import de.beusterse.abfalllro.utils.TimePreference;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
@@ -335,24 +335,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
         private boolean hasLocationSchedule(String preferenceKey, String schedule, String location) {
             if (schedule.equals(getString(R.string.pref_can_schedule_twice_a_week))) {
                 if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_black)) &&
-                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_black), location) == -1) {
+                        ArrayUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_black), location) == -1) {
                     return false;
                 }
 
                 if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_green)) &&
-                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_green), location) == -1) {
+                        ArrayUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_green), location) == -1) {
                     return false;
                 }
             }
 
             if (schedule.equals(getString(R.string.pref_can_schedule_weekly))) {
                 if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_black)) &&
-                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_weekly_black), location) == -1) {
+                        ArrayUtils.indexOf(getResources().getStringArray(R.array.pref_location_weekly_black), location) == -1) {
                     return false;
                 }
 
                 if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_green)) &&
-                        CanUtils.indexOf(getResources().getStringArray(R.array.pref_location_weekly_green), location) == -1) {
+                        ArrayUtils.indexOf(getResources().getStringArray(R.array.pref_location_weekly_green), location) == -1) {
                     return false;
                 }
             }

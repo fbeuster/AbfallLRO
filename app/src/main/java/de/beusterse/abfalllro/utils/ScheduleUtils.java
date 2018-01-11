@@ -13,20 +13,7 @@ import de.beusterse.abfalllro.capsules.Can;
  * Created by Felix Beuster on 1/7/2018.
  */
 
-public class CanUtils {
-    public static int indexOf(String[] haystack, String needle) {
-        int i = -1;
-
-        for (String hay : haystack) {
-            i++;
-
-            if (hay.equals(needle)) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
+public class ScheduleUtils {
 
     public static int getSavedScheduleForCan(int can, Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -39,16 +26,16 @@ public class CanUtils {
         switch (can) {
             case Can.BLACK :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_black), scheduleBiweekly);
-                return indexOf(schedule_names, savedSchedule);
+                return ArrayUtils.indexOf(schedule_names, savedSchedule);
             case Can.BLUE :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_blue), scheduleMonthly);
-                return indexOf(schedule_names, savedSchedule);
+                return ArrayUtils.indexOf(schedule_names, savedSchedule);
             case Can.GREEN :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_green), scheduleBiweekly);
-                return indexOf(schedule_names, savedSchedule);
+                return ArrayUtils.indexOf(schedule_names, savedSchedule);
             case Can.YELLOW :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_yellow), scheduleMonthly);
-                return indexOf(schedule_names, savedSchedule);
+                return ArrayUtils.indexOf(schedule_names, savedSchedule);
             default:
                 break;
         }

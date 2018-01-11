@@ -1,7 +1,7 @@
 package de.beusterse.abfalllro.capsules;
 
 
-import de.beusterse.abfalllro.utils.CanUtils;
+import de.beusterse.abfalllro.utils.ScheduleUtils;
 
 /**
  * Holds a single trash can
@@ -43,6 +43,6 @@ public class Can {
     public int getSchedule() { return schedule; }
 
     public String toString() {
-        return CanUtils.scheduleIntToString(schedule) + " " + color + " " + letter;
+        return ScheduleUtils.scheduleIntToString(schedule) + " " + color + " " + letter;
     }
 }

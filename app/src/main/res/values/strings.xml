@@ -26,7 +26,7 @@
     <string name="intro_setup_location_label_street">Wähle eine Straße aus (nur Güstrow)</string>
     <string name="intro_setup_location_label_town">Wähle einen Ort aus</string>
     <string name="intro_setup_location_title">Abholort</string>
-    <string name="intro_setup_schedule_desc">Werden die Tonnen monatlich abgeholt, statt alle zwei Wochen?</string>
+    <string name="intro_setup_schedule_desc">In welchem Rhythmus werden die Tonnen abgeholt?</string>
     <string name="intro_setup_schedule_title">Abholrhythmus</string>
     <string name="intro_setup_schedule_monthly_black">graue Tonne ist monatlich</string>
     <string name="intro_setup_schedule_monthly_green">grüne Tonne ist monatlich</string>

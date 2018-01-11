@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -26,19 +26,65 @@
             android:text="@string/intro_setup_schedule_desc"
             android:id="@+id/monthlyPickupDesc" />
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <TextView
+            android:id="@+id/scheduleBlackTitle"
+            android:textColor="@color/can_black_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/intro_setup_schedule_monthly_black"
-            android:id="@+id/monthlyBlackCheckBox"
-            android:layout_marginTop="10dp"
-            android:checked="false" />
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/pref_title_can_black_schedule"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        <Spinner
+            android:id="@+id/scheduleBlackSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/pref_can_black_schedule_list"
+            android:entryValues="@array/pref_can_black_schedule_list" />
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <TextView
+            android:id="@+id/scheduleGreenTitle"
+            android:textColor="@color/can_green_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/intro_setup_schedule_monthly_green"
-            android:id="@+id/monthlyGreenCheckBox" />
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/pref_title_can_green_schedule"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        <Spinner
+            android:id="@+id/scheduleGreenSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/pref_can_green_schedule_list"
+            android:entryValues="@array/pref_can_green_schedule_list" />
+
+        <TextView
+            android:id="@+id/scheduleYellowTitle"
+            android:textColor="@color/can_yellow_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/pref_title_can_yellow_schedule"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        <Spinner
+            android:id="@+id/scheduleYellowSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/pref_can_yellow_schedule_list"
+            android:entryValues="@array/pref_can_yellow_schedule_list" />
+
+        <TextView
+            android:id="@+id/scheduleBlueTitle"
+            android:textColor="@color/can_blue_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/pref_title_can_blue_schedule"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        <Spinner
+            android:id="@+id/scheduleBlueSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/pref_can_blue_schedule_list"
+            android:entryValues="@array/pref_can_blue_schedule_list" />
 
     </LinearLayout>
 
