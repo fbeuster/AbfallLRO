@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.controller.MigrationController;
 import de.beusterse.abfalllro.fragments.IntroFragment;
 import de.beusterse.abfalllro.R;
@@ -127,6 +128,7 @@ public class IntroActivity extends AppCompatActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = pref.edit();
 
+        editor.putInt(getString(R.string.pref_key_intern_migrated_version), BuildConfig.VERSION_CODE);
         editor.putBoolean(getString(R.string.pref_key_intern_setup_done), true);
 
         editor.apply();
