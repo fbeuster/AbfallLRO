@@ -464,7 +464,7 @@
     <string name="pref_sync_title">Abfuhrdaten aktualisieren</string>
     <string name="pref_sync_auto">Automatisch aktualisieren</string>
     <string name="pref_sync_auto_desc">Sucht online nach neuen Abfuhrdaten</string>
-    <string name="pref_sync_manual">Mauell aktualisieren</string>
+    <string name="pref_sync_manual">Mamuell aktualisieren</string>
     <string name="pref_sync_manual_desc">Jetzt sofort nach neuen Abfuhrdaten suchen</string>
     <string name="pref_sync_manual_toast_no_change">Keine neuen Daten verfügbar.</string>
     <string name="pref_sync_manual_toast_success">Abfuhrdaten wurden aktualisiert.</string>
