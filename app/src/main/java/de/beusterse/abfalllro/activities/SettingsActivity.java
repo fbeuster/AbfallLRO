@@ -2,7 +2,9 @@ package de.beusterse.abfalllro.activities;
 
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -17,6 +19,8 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
@@ -539,6 +543,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                     } catch (android.content.ActivityNotFoundException e) {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + package_name)));
                     }
+
+                    return true;
+                }
+            });
+
+            /*
+              Show privacy policy
+             */
+            Preference privacyButton = findPreference(getString(R.string.pref_key_info_privacy));
+            privacyButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+                    WebView webView = new WebView(getActivity());
+                    webView.loadDataWithBaseURL(null, getString(R.string.pref_privacy_policy_text), "text/html", "UTF-8", null);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    builder.setView(            webView);
+                    builder.setTitle(           getString(R.string.pref_privacy_policy_title) );
+                    builder.setNeutralButton(   getString(R.string.dialog_button_positive),
+                                                new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                    }
+                                                });
+
+                    final AlertDialog dialog = builder.create();
+
+                    webView.setWebViewClient(new WebViewClient(){
+                        public void onPageFinished(WebView view, String url) {
+                            dialog.show();
+                        }
+                    });
 
                     return true;
                 }
