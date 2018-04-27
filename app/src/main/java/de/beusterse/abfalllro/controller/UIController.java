@@ -39,22 +39,22 @@ public class UIController {
     private int[] cPreview;
 
     public UIController(Activity activity, SharedPreferences pref) {
-        this.activity = activity;
-        this.pref = pref;
+        this.activity   = activity;
+        this.pref       = pref;
     }
 
     public void prepare(ArrayList<int[]> cans, int error, int[] preview) {
-        cCans = cans;
-        cError = error;
-        cPreview = preview;
+        cCans       = cans;
+        cError      = error;
+        cPreview    = preview;
 
-        canText = (TextView) activity.findViewById(R.id.checkInfoTextView);
-        canImage = (ImageView) activity.findViewById(R.id.trashCanImageView);
+        canText     = activity.findViewById(R.id.checkInfoTextView);
+        canImage    = activity.findViewById(R.id.trashCanImageView);
 
-        prevCanBlack = (TextView) activity.findViewById(R.id.prevCanBlackText);
-        prevCanBlue = (TextView) activity.findViewById(R.id.prevCanBlueText);
-        prevCanGreen = (TextView) activity.findViewById(R.id.prevCanGreenText);
-        prevCanYellow = (TextView) activity.findViewById(R.id.prevCanYellowText);
+        prevCanBlack    = activity.findViewById(R.id.prevCanBlackText);
+        prevCanBlue     = activity.findViewById(R.id.prevCanBlueText);
+        prevCanGreen    = activity.findViewById(R.id.prevCanGreenText);
+        prevCanYellow   = activity.findViewById(R.id.prevCanYellowText);
     }
 
     public void update() {
@@ -65,8 +65,8 @@ public class UIController {
     }
 
     private void updateLocationInfo() {
-        TextView genInfo = (TextView) activity.findViewById(R.id.curLocationTextView);
-        String location = pref.getString( activity.getString(R.string.pref_key_pickup_town), "" );
+        TextView genInfo    = activity.findViewById(R.id.curLocationTextView);
+        String location     = pref.getString( activity.getString(R.string.pref_key_pickup_town), "" );
 
         if (location.equals(SettingsActivity.CITY_WITH_STREETS)) {
             location += ", " + pref.getString( activity.getString(R.string.pref_key_pickup_street), "" );
