@@ -1510,5 +1510,5 @@
         <item>Zur Kanalbrücke</item>
         <item>Zur Molchkuhle</item>
     </string-array>
-    <string name="pref_location_street_default">Admannshagen</string>
+    <string name="pref_location_street_default">Ahornpromenade</string>
 </resources>
