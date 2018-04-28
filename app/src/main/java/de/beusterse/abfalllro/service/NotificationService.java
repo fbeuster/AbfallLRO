@@ -17,8 +17,6 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 
-import java.util.Calendar;
-
 import de.beusterse.abfalllro.activities.MainActivity;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
@@ -124,12 +122,14 @@ public class NotificationService extends Service {
             }
 
             /* notification sounds */
-            boolean soundsActive = pref.getBoolean( getString(R.string.pref_key_notifications_sound),
-                                                    getResources().getBoolean(R.bool.notifications_vibrate_default) );
+            if (Build.VERSION.SDK_INT < 26) {
+                boolean soundsActive = pref.getBoolean(getString(R.string.pref_key_notifications_sound),
+                        getResources().getBoolean(R.bool.notifications_sound_default));
 
-            if (soundsActive) {
-                Uri sound = RingtoneManager.getDefaultUri( RingtoneManager.TYPE_NOTIFICATION );
-                notificationBuilder.setSound( sound );
+                if (soundsActive) {
+                    Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    notificationBuilder.setSound(sound);
+                }
             }
 
             /* notification vibrations */
