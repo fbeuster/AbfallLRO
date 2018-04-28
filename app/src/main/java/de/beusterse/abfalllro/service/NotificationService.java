@@ -50,12 +50,6 @@ public class NotificationService extends Service {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationChannel channel = new NotificationChannel(
-                    NOTIFICATION_CHANNEL_ID,
-                    NOTIFICATION_CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_LOW);
-
-            notificationManager.createNotificationChannel(channel);
         }
     }
 
@@ -98,51 +92,68 @@ public class NotificationService extends Service {
     private void showNotification(int can, SharedPreferences pref) {
         if (can != Can.INVALID) {
             Notification notification;
+            Notification.Builder notificationBuilder;
             PendingIntent pendingIntent     = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
             RawNotification rawNotification = new RawNotification(can, pendingIntent, getResources());
 
-            Notification.Builder notificationBuilder;
+            boolean soundsActive        = pref.getBoolean(
+                    getString(R.string.pref_key_notifications_sound),
+                    getResources().getBoolean(R.bool.notifications_sound_default));
+
+            boolean vibrationsActive    = pref.getBoolean(
+                    getString(R.string.pref_key_notifications_vibrate),
+                    getResources().getBoolean(R.bool.notifications_vibrate_default) );
+
+            int vibratePermission       = ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE);
+
+            Uri sound                   = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             if (Build.VERSION.SDK_INT >= 26) {
+                NotificationChannel channel = new NotificationChannel(
+                        NOTIFICATION_CHANNEL_ID,
+                        NOTIFICATION_CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_LOW);
+
+                channel.enableLights(true);
+                channel.setLightColor(getNotificationColor(rawNotification));
+
+                if (soundsActive) {
+                    channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
+                }
+
+                channel.enableVibration(vibrationsActive);
+                if (vibrationsActive && vibratePermission == PackageManager.PERMISSION_GRANTED) {
+                    channel.setVibrationPattern(vibrate_pattern);
+                }
+
+                notificationManager.createNotificationChannel(channel);
+
                 notificationBuilder = new Notification.Builder(this, NOTIFICATION_CHANNEL_NAME);
                 notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID);
 
             } else {
+                /* SDK_INT < 26 */
                 notificationBuilder = new Notification.Builder(this);
+
+                if (Build.VERSION.SDK_INT >= 21) {
+                    notificationBuilder.setColor( getNotificationColor(rawNotification) );
+                }
+
+                if (soundsActive) {
+                    notificationBuilder.setSound(sound);
+                }
+
+                if (vibrationsActive && vibratePermission == PackageManager.PERMISSION_GRANTED) {
+                    notificationBuilder.setVibrate(vibrate_pattern);
+                }
             }
 
             notificationBuilder
+                    .setAutoCancel(true)
                     .setContentIntent(rawNotification.getIntent())
                     .setContentTitle(rawNotification.getTitle())
                     .setContentText(rawNotification.getText())
                     .setSmallIcon(getNotificationIcon(rawNotification));
-
-            if (Build.VERSION.SDK_INT >= 21) {
-                notificationBuilder.setColor( getNotificationColor(rawNotification) );
-            }
-
-            /* notification sounds */
-            if (Build.VERSION.SDK_INT < 26) {
-                boolean soundsActive = pref.getBoolean(getString(R.string.pref_key_notifications_sound),
-                        getResources().getBoolean(R.bool.notifications_sound_default));
-
-                if (soundsActive) {
-                    Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    notificationBuilder.setSound(sound);
-                }
-            }
-
-            /* notification vibrations */
-            boolean vibrationsActive = pref.getBoolean( getString(R.string.pref_key_notifications_vibrate),
-                                                        getResources().getBoolean(R.bool.notifications_vibrate_default) );
-
-            if (vibrationsActive) {
-                int vibratePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE);
-
-                if (vibratePermission == PackageManager.PERMISSION_GRANTED) {
-                    notificationBuilder.setVibrate(vibrate_pattern);
-                }
-            }
 
             if (Build.VERSION.SDK_INT >= 16) {
                 notification = notificationBuilder.build();
@@ -150,7 +161,6 @@ public class NotificationService extends Service {
                 notification = notificationBuilder.getNotification();
             }
 
-            notification.flags |= Notification.FLAG_AUTO_CANCEL;
             notificationManager.notify(rawNotification.getUniqueId(), notification);
         }
     }
