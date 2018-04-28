@@ -53,6 +53,14 @@ public class DailyCheck implements SyncCallback {
         return lastAlarm > 0 && lastCal.get(Calendar.DATE) == cal.get(Calendar.DATE) && lastCal.before(now);
     }
 
+    private void dailyRoutine() {
+        getPreview();
+        scheduleNotification();
+        saveLastDailyCheckDate();
+
+        mDailyCheckCallback.dailyCheckComplete();
+    }
+
     private long getLastAlarmTime(int can) {
         switch (can) {
             case Can.BLACK:
@@ -90,25 +98,13 @@ public class DailyCheck implements SyncCallback {
 
             } else {
                 // sync disabled, just take care of notifications
-                getPreview();
-                scheduleNotification();
-                saveLastDailyCheckDate();
-
-                mDailyCheckCallback.dailyCheckComplete();
+                dailyRoutine();
             }
-
-        } else {
-            // Daily check did run already this day, but could be running again (e.g. reboot)
-            getPreview();
-            scheduleNotification();
-            saveLastDailyCheckDate();
-
-            mDailyCheckCallback.dailyCheckComplete();
         }
     }
 
     /**
-     * Saces the current date as last checked date.
+     * Saves the current date as last checked date.
      */
     private void saveLastDailyCheckDate() {
         Calendar now                    = Calendar.getInstance();
@@ -154,10 +150,6 @@ public class DailyCheck implements SyncCallback {
      */
     @Override
     public void syncComplete() {
-        getPreview();
-        scheduleNotification();
-        saveLastDailyCheckDate();
-
-        mDailyCheckCallback.dailyCheckComplete();
+        dailyRoutine();
     }
 }
