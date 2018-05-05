@@ -45,7 +45,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_trash_check_acitivity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         serviceManager.bind();
@@ -55,8 +55,12 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
         serviceManager.run();
 
-        mSyncController = new SyncController(this, "trash_check", this);
-        mSyncController.run();
+        if (pref.getBoolean(
+                getString(R.string.pref_key_sync_auto),
+                getResources().getBoolean(R.bool.sync_auto))) {
+            mSyncController = new SyncController(this, "trash_check", this);
+            mSyncController.run();
+        }
     }
 
     @Override
