@@ -112,7 +112,15 @@ public class DataController {
         readSchedule(year);
 
         if (DataUtils.isCityWithStreets(codes[0])) {
+            String weekly_appendix = "";
+
+            if (codes[0].length() == 6) {
+                weekly_appendix = codes[0].substring(4, 6);
+            }
+
             readStreetCode(year, getResourceIdentifier("street_codes_" + year), 0);
+
+            codes[0] = codes[0] + weekly_appendix;
         }
 
         if (needsMultipleYears()) {
@@ -124,7 +132,15 @@ public class DataController {
             readSchedule(yearLater);
 
             if (DataUtils.isCityWithStreets(codes[1])) {
+                String weekly_appendix = "";
+
+                if (codes[1].length() == 6) {
+                    weekly_appendix = codes[1].substring(4, 6);
+                }
+
                 readStreetCode(yearLater, getResourceIdentifier("street_codes_" + yearLater), 1);
+
+                codes[1] = codes[1] + weekly_appendix;
             }
         }
     }
