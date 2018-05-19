@@ -27,7 +27,7 @@ android {
             applicationId = theApplicationId + ".dev" + debugSuffix
         }
         full {
-            buildConfigField "String", "API_SUFFIX", ""
+            buildConfigField "String", "API_SUFFIX", "\"\""
         }
     }
     buildTypes {
