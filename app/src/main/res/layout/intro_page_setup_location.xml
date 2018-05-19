@@ -4,53 +4,54 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
+            android:id="@+id/pickupLocationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:text="@string/intro_setup_location_title"
-            android:id="@+id/pickupLocationTitle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/setupPrimary" />
 
         <TextView
+            android:id="@+id/pickupLocationDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/intro_setup_location_desc"
-            android:id="@+id/pickupLocationDesc" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
+            android:id="@+id/locationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="25dp"
             android:text="@string/intro_setup_location_label_town"
-            android:id="@+id/locationTitle"
-            android:layout_marginTop="25dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Spinner
+            android:id="@+id/locationDropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/locationDropdown"
             android:spinnerMode="dialog" />
 
         <TextView
+            android:id="@+id/locationStreetTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="10dp"
             android:text="@string/intro_setup_location_label_street"
-            android:id="@+id/locationStreetTitle"
-            android:layout_marginTop="10dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Spinner
+            android:id="@+id/locationStreetDropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/locationStreetDropdown"
             android:spinnerMode="dialog" />
 
     </LinearLayout>

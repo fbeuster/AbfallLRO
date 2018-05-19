@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 /**
  * basic settings to have different flavors
  */
-def debugsuffix = System.getProperty('debugsuffix', project.getProperties().get('debugsuffix', null))
+def debugSuffix = System.getProperty('debugSuffix', project.getProperties().get('debugSuffix', ''))
 def final theApplicationId = "de.beusterse.abfallkalenderlandkreisrostock"
 
 android {
@@ -11,13 +11,24 @@ android {
         release
     }
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId theApplicationId
         minSdkVersion 14
         targetSdkVersion 26
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         versionCode 17
         versionName "1.6"
+    }
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            buildConfigField "String", "API_SUFFIX", "\"_dev\""
+            applicationId = theApplicationId + ".dev" + debugSuffix
+        }
+        full {
+            buildConfigField "String", "API_SUFFIX", "\"\""
+        }
     }
     buildTypes {
         release {
@@ -26,31 +37,32 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    flavorDimensions "app"
-    productFlavors {
-        dev {
-            applicationId = theApplicationId + ".dev" + debugsuffix
-        }
-        full {
 
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
         }
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.0.0'
-    compile 'com.android.support:design:26.0.0'
-    compile 'com.android.support:support-v4:26.0.0'
-    compile 'com.google.code.gson:gson:2.8.2'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
 }
 
 /**
  * loading signing data (keystore, passwords, alias) if the
  * keystore.properties file in the root directory can be read
  */
-def Properties props = new Properties()
+Properties props = new Properties()
 
 if (file('../keystore.properties').exists()) {
     props.load(new FileInputStream(file('../keystore.properties')))

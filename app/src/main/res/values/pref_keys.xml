@@ -8,6 +8,7 @@
     <string name="pref_key_intern_last_daily_check">pref_last_daily_check</string>
     <string name="pref_key_intern_setup_done">pref_setup_done</string>
     <string name="pref_key_intern_sync_data">pref_sync_data</string>
+    <string name="pref_key_intern_migrated_version">pref_intern_migrated_version</string>
 
     <string name="pref_key_notifications">pref_notifications</string>
     <string name="pref_key_notifications_active">pref_notifications_active</string>
@@ -20,7 +21,9 @@
     <string name="pref_key_pickup_street">pref_location_street</string>
     <string name="pref_key_pickup_schedule">pref_cans_monthly</string>
     <string name="pref_key_pickup_schedule_black">pref_can_black_monthly</string>
+    <string name="pref_key_pickup_schedule_blue">pref_can_blue_monthly</string>
     <string name="pref_key_pickup_schedule_green">pref_can_green_monthly</string>
+    <string name="pref_key_pickup_schedule_yellow">pref_can_yellow_monthly</string>
 
     <string name="pref_key_sync">pref_sync</string>
     <string name="pref_key_sync_auto">pref_sync_auto</string>
@@ -28,6 +31,10 @@
     <string name="pref_key_sync_last_check">pref_sync_last_check</string>
     <string name="pref_key_sync_last_update">pref_sync_last_update</string>
 
+    <string name="pref_key_dev_clear_data">pref_dev_clear_data</string>
+    <string name="pref_key_dev_clear_settings">pref_dev_clear_settings</string>
+
+    <string name="pref_key_info_privacy">pref_info_privacy</string>
     <string name="pref_key_info_rate">pref_info_rate</string>
 
 </resources>

@@ -1,11 +1,14 @@
 package de.beusterse.abfalllro.service;
 
+import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.service.legacy.DailyAlarmClient;
 
 /**
  * Manages connections to services and service classes.
@@ -15,7 +18,7 @@ import de.beusterse.abfalllro.R;
 public class ServiceManager {
 
     private Context context;
-    public static final int SCHEDULE_IDLE   = 50;
+    private static final int SCHEDULE_IDLE = 50;
     private DailyAlarmClient dailyAlarmClient;
     private SharedPreferences pref;
 
@@ -34,7 +37,19 @@ public class ServiceManager {
     }
 
     public void run() {
-        scheduleDailyAlarm();
+        /*
+            The daily check and sync will use the JobScheduler for
+            Android L and higher, and falls back to the AlarmTask
+            for older versions.
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            DailyCheckJobScheduler.schedule(
+                    (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE),
+                    context.getPackageName());
+
+        } else {
+            scheduleDailyAlarm();
+        }
     }
 
     private void scheduleDailyAlarm() {

@@ -3,17 +3,22 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="de.beusterse.abfalllro.SettingsActivity$PickupPreferenceFragment"
-        android:icon="@drawable/ic_sync_black_24dp"
-        android:title="@string/pref_header_general" />
+        android:fragment="de.beusterse.abfalllro.activities.SettingsActivity$PickupPreferenceFragment"
+        android:icon="@drawable/ic_local_shipping_black_24dp"
+        android:title="@string/pref_header_pickup" />
 
     <header
-        android:fragment="de.beusterse.abfalllro.SettingsActivity$NotificationsPreferenceFragment"
+        android:fragment="de.beusterse.abfalllro.activities.SettingsActivity$NotificationsPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="de.beusterse.abfalllro.SettingsActivity$InfoPreferenceFragment"
+        android:fragment="de.beusterse.abfalllro.activities.SettingsActivity$SyncPreferenceFragment"
+        android:icon="@drawable/ic_sync_black_24dp"
+        android:title="@string/pref_header_sync" />
+
+    <header
+        android:fragment="de.beusterse.abfalllro.activities.SettingsActivity$InfoPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_infos" />
 

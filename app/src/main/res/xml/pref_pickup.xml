@@ -25,32 +25,46 @@
     <PreferenceCategory
         android:title="@string/pref_title_cans_monthly"
         android:key="@string/pref_key_pickup_schedule">
-        <SwitchPreference
-            android:defaultValue="@bool/pickup_monthly_black"
-            android:key="@string/pref_key_pickup_schedule_black"
-            android:title="@string/pref_title_can_black_monthly" />
-        <SwitchPreference
-            android:defaultValue="@bool/pickup_monthly_green"
-            android:key="@string/pref_key_pickup_schedule_green"
-            android:title="@string/pref_title_can_green_monthly" />
-    </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/pref_sync_title"
-        android:key="@string/pref_key_sync">
-        <SwitchPreference
-            android:defaultValue="@bool/sync_auto"
-            android:key="@string/pref_key_sync_auto"
-            android:title="@string/pref_sync_auto"
-            android:summary="@string/pref_sync_auto_desc"/>
-        <Preference
-            android:title="@string/pref_sync_manual"
-            android:key="@string/pref_key_sync_manual"
-            android:summary="@string/pref_sync_manual_desc"/>
-        <Preference
-            android:title="@string/pref_sync_title_last_sync"
-            android:key="@string/pref_key_sync_last_check"
-            android:summary="@string/pref_sync_description_last_sync" />
+        <ListPreference
+            android:key="@string/pref_key_pickup_schedule_black"
+            android:title="@string/pref_title_can_black_schedule"
+            android:dialogTitle="@string/pref_title_can_black_schedule"
+            android:entries="@array/pref_can_black_schedule_list"
+            android:entryValues="@array/pref_can_black_schedule_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:defaultValue="@string/pref_can_schedule_biweekly"/>
+
+        <ListPreference
+            android:key="@string/pref_key_pickup_schedule_green"
+            android:title="@string/pref_title_can_green_schedule"
+            android:dialogTitle="@string/pref_title_can_green_schedule"
+            android:entries="@array/pref_can_green_schedule_list"
+            android:entryValues="@array/pref_can_green_schedule_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:defaultValue="@string/pref_can_schedule_biweekly"/>
+
+        <ListPreference
+            android:key="@string/pref_key_pickup_schedule_yellow"
+            android:title="@string/pref_title_can_yellow_schedule"
+            android:dialogTitle="@string/pref_title_can_yellow_schedule"
+            android:entries="@array/pref_can_yellow_schedule_list"
+            android:entryValues="@array/pref_can_yellow_schedule_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:defaultValue="@string/pref_can_schedule_monthly"/>
+
+        <ListPreference
+            android:key="@string/pref_key_pickup_schedule_blue"
+            android:title="@string/pref_title_can_blue_schedule"
+            android:dialogTitle="@string/pref_title_can_blue_schedule"
+            android:entries="@array/pref_can_blue_schedule_list"
+            android:entryValues="@array/pref_can_blue_schedule_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:defaultValue="@string/pref_can_schedule_monthly"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

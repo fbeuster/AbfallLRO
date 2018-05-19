@@ -1,6 +1,8 @@
 package de.beusterse.abfalllro.capsules;
 
 
+import de.beusterse.abfalllro.utils.ScheduleUtils;
+
 /**
  * Holds a single trash can
  *
@@ -14,12 +16,18 @@ public class Can {
     public static final int GREEN   = 2;
     public static final int YELLOW  = 3;
 
-    private boolean monthly;
+    public static final int SCHEDULE_NEVER          = 0;
+    public static final int SCHEDULE_MONTHLY        = 1;
+    public static final int SCHEDULE_BIWEEKLY       = 2;
+    public static final int SCHEDULE_WEEKLY         = 3;
+    public static final int SCHEDULE_TWICA_A_WEEK   = 4;
+
     private char letter;
     private int color;
+    private int schedule;
 
-    public Can(boolean monthly, int color, char letter) {
-        this.monthly = monthly;
+    public Can(int schedule, int color, char letter) {
+        this.schedule = schedule;
         this.color = color;
         this.letter = letter;
     }
@@ -32,9 +40,9 @@ public class Can {
         return letter;
     }
 
-    public boolean isMonthly() { return monthly; }
+    public int getSchedule() { return schedule; }
 
     public String toString() {
-        return (monthly ? "2w" : "4w") + " " + color + " " + letter;
+        return ScheduleUtils.scheduleIntToString(schedule) + " " + color + " " + letter;
     }
 }

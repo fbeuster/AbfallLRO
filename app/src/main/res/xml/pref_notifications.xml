@@ -19,7 +19,7 @@
             android:key="@string/pref_key_notifications_vibrate"
             android:title="@string/pref_notifications_vibrate" />
 
-        <de.beusterse.abfalllro.TimePreference
+        <de.beusterse.abfalllro.utils.TimePreference
             android:key="@string/pref_key_notifications_time"
             android:title="@string/pref_notifications_time"
             android:positiveButtonText="@string/dialog_button_positive"

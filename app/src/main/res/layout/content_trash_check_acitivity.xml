@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".TrashCheckActivity"
+    tools:context=".activities.TrashCheckActivity"
     tools:showIn="@layout/activity_trash_check_acitivity"
     android:background="@color/background">
 
@@ -48,89 +48,16 @@
         android:layout_weight="4" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="25"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prevCanBlackImage"
-                android:src="@drawable/can_black_scale"
-                android:maxHeight="50dp"
-                android:maxWidth="50dp"
-                android:longClickable="false"
-                android:scaleType="fitCenter"
-                android:layout_gravity="bottom"
-                android:layout_alignParentBottom="false"
-                android:layout_alignParentTop="false"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="28"
-                android:id="@+id/prevCanBlackText"
-                android:layout_gravity="bottom"
-                android:maxHeight="50dp"
-                android:maxWidth="50dp"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:paddingTop="10dp"
-                android:textColor="@color/colorPrimary"
-                android:shadowColor="@color/background"
-                android:layout_alignParentBottom="false" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="25"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_gravity="bottom">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prevCanGreenImage"
-                android:src="@drawable/can_green_scale"
-                android:maxWidth="50dp"
-                android:maxHeight="50dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="bottom"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="28"
-                android:id="@+id/prevCanGreenText"
-                android:layout_gravity="bottom"
-                android:maxHeight="50dp"
-                android:maxWidth="50dp"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:paddingTop="10dp"
-                android:textColor="@color/colorPrimary"
-                android:shadowColor="@color/background" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
+            android:id="@+id/prevCanBlackLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -139,65 +66,143 @@
             android:layout_weight="25">
 
             <ImageView
+                android:id="@+id/prevCanBlackImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/prevCanYellowImage"
-                android:src="@drawable/can_yellow_scale"
-                android:scaleType="fitCenter"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentTop="false"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom"
-                android:maxWidth="50dp"
+                android:longClickable="false"
                 android:maxHeight="50dp"
-                android:layout_centerHorizontal="true" />
+                android:maxWidth="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/can_black_scale" />
 
             <TextView
+                android:id="@+id/prevCanBlackText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="28"
-                android:id="@+id/prevCanYellowText"
+                android:layout_alignParentBottom="false"
+                android:layout_centerInParent="true"
                 android:layout_gravity="bottom"
+                android:gravity="center"
                 android:maxHeight="50dp"
                 android:maxWidth="50dp"
-                android:gravity="center"
-                android:layout_centerInParent="true"
                 android:paddingTop="10dp"
-                android:textColor="@color/colorPrimary"
-                android:shadowColor="@color/background" />
+                android:shadowColor="@color/background"
+                android:text="28"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/prevCanGreenLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="25"
             android:layout_gravity="bottom"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:layout_weight="25">
 
             <ImageView
+                android:id="@+id/prevCanGreenImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/prevCanBlueImage"
-                android:src="@drawable/can_blue_scale"
-                android:scaleType="fitCenter"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom"
                 android:maxHeight="50dp"
                 android:maxWidth="50dp"
-                android:layout_centerHorizontal="true" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/can_green_scale" />
 
             <TextView
+                android:id="@+id/prevCanGreenText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_centerInParent="true"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:paddingTop="10dp"
+                android:shadowColor="@color/background"
                 android:text="28"
-                android:id="@+id/prevCanBlueText"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/prevCanYellowLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="25">
+
+            <ImageView
+                android:id="@+id/prevCanYellowImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom"
                 android:maxHeight="50dp"
                 android:maxWidth="50dp"
-                android:gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/can_yellow_scale" />
+
+            <TextView
+                android:id="@+id/prevCanYellowText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
                 android:paddingTop="10dp"
-                android:textColor="@color/colorPrimary"
-                android:shadowColor="@color/background" />
+                android:shadowColor="@color/background"
+                android:text="28"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/prevCanBlueLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="25">
+
+            <ImageView
+                android:id="@+id/prevCanBlueImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/can_blue_scale" />
+
+            <TextView
+                android:id="@+id/prevCanBlueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:paddingTop="10dp"
+                android:shadowColor="@color/background"
+                android:text="28"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary" />
         </RelativeLayout>
 
     </LinearLayout>

@@ -6,6 +6,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BIN_JOB_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -17,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,28 +28,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroActivity"
+            android:name=".activities.IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TrashCheckActivity"
+            android:name=".activities.TrashCheckActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
-        <receiver android:name=".service.BootCompletedReceiver">
+        <receiver android:name=".service.legacy.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".service.DailyCheckReceiver" />
+        <receiver android:name=".service.legacy.DailyCheckReceiver" />
 
-        <service android:name=".service.DailyCheckService" />
+        <service android:name=".service.legacy.DailyCheckService" />
         <service android:name=".service.NotificationService" />
-        <service android:name=".service.DailyAlarmService" />
+        <service android:name=".service.legacy.DailyAlarmService" />
+        <service android:name=".service.DailyCheckJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>

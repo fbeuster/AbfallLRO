@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".TrashCheckActivity"
+    tools:context=".activities.TrashCheckActivity"
     tools:showIn="@layout/activity_trash_check_acitivity"
     android:background="@color/background">
 
@@ -30,8 +30,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/check_can_none"
         android:id="@+id/checkInfoTextView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_weight=".5"
         android:textAlignment="center" />
@@ -40,19 +38,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/trashCanImageView"
-        android:layout_alignWithParentIfMissing="false"
         android:src="@drawable/can_none_scale"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_centerInParent="true"
         android:layout_weight="4" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
         android:layout_weight="2">
 
@@ -71,7 +65,6 @@
                 android:src="@drawable/can_black_scale"
                 android:maxHeight="50dp"
                 android:maxWidth="50dp"
-                android:longClickable="false"
                 android:layout_gravity="bottom"
                 android:layout_centerInParent="true" />
 
@@ -86,7 +79,6 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:paddingTop="10dp"
                 android:textColor="@color/colorPrimary"
                 android:shadowColor="@color/background"
                 android:textSize="34sp" />
@@ -121,7 +113,6 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:paddingTop="10dp"
                 android:textColor="@color/colorPrimary"
                 android:shadowColor="@color/background"
                 android:textSize="34sp" />
@@ -157,7 +148,6 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:paddingTop="10dp"
                 android:textColor="@color/colorPrimary"
                 android:shadowColor="@color/background"
                 android:textSize="34sp" />
@@ -192,7 +182,6 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:paddingTop="10dp"
                 android:textColor="@color/colorPrimary"
                 android:shadowColor="@color/background"
                 android:textSize="34sp" />
