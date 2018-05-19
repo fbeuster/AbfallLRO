@@ -34,7 +34,7 @@ public class ScheduleUtils {
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_green), scheduleBiweekly);
                 return ArrayUtils.indexOf(schedule_names, savedSchedule);
             case Can.YELLOW :
-                savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_yellow), scheduleMonthly);
+                savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_yellow), scheduleBiweekly);
                 return ArrayUtils.indexOf(schedule_names, savedSchedule);
             default:
                 break;

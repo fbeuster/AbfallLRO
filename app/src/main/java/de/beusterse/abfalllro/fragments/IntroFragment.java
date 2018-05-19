@@ -189,6 +189,7 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void initializeSpinner(Spinner spinner, int can) {
+        String monthly      = getString(R.string.pref_can_schedule_monthly);
         String biweekly     = getString(R.string.pref_can_schedule_biweekly);
         String location     = pref.getString(getString(R.string.pref_key_pickup_town), getString(R.string.pref_location_default));
         String twicePerWeek = getString(R.string.pref_can_schedule_twice_a_week);
@@ -199,8 +200,13 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
         final List<String> list = new ArrayList<>(Arrays.asList(schedules));
 
         // update biweekly, weekly and twice per week schedules
-        if (can == Can.BLUE || can == Can.YELLOW) {
+        if (can == Can.BLUE) {
             list.remove(list.indexOf(biweekly));
+            list.remove(list.indexOf(weekly));
+            list.remove(list.indexOf(twicePerWeek));
+
+        } else if(can == Can.YELLOW) {
+            list.remove(list.indexOf(monthly));
             list.remove(list.indexOf(weekly));
             list.remove(list.indexOf(twicePerWeek));
 
@@ -222,7 +228,12 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
         adapter.notifyDataSetChanged();
 
         // set default selection
-        spinner.setSelection( SpinnerUtils.indexOf(spinner, getString(R.string.pref_can_schedule_monthly)));
+        if (can == Can.YELLOW) {
+            spinner.setSelection(SpinnerUtils.indexOf(spinner, getString(R.string.pref_can_schedule_biweekly)));
+
+        } else {
+            spinner.setSelection(SpinnerUtils.indexOf(spinner, getString(R.string.pref_can_schedule_monthly)));
+        }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

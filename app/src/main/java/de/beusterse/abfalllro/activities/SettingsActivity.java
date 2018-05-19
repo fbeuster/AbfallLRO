@@ -403,7 +403,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                     getString(R.string.pref_key_pickup_schedule_green), schedule_biweekly);
 
             String scheduleYellow   = sp.getString(
-                    getString(R.string.pref_key_pickup_schedule_yellow), schedule_monthly);
+                    getString(R.string.pref_key_pickup_schedule_yellow), schedule_biweekly);
 
 
             /*

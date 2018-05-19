@@ -183,7 +183,7 @@ public class DataController {
                 Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_BIWEEKLY,
                 Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY,
                 Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_BIWEEKLY,
-                Can.SCHEDULE_MONTHLY, Can.SCHEDULE_MONTHLY,
+                Can.SCHEDULE_BIWEEKLY, Can.SCHEDULE_MONTHLY,
                 Can.SCHEDULE_WEEKLY, Can.SCHEDULE_TWICA_A_WEEK,
                 Can.SCHEDULE_WEEKLY, Can.SCHEDULE_TWICA_A_WEEK
         };

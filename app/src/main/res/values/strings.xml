@@ -450,7 +450,7 @@
     </string-array>
     <string-array name="pref_can_yellow_schedule_list">
         <item>@string/pref_can_schedule_never</item>
-        <item>@string/pref_can_schedule_monthly</item>
+        <item>@string/pref_can_schedule_biweekly</item>
     </string-array>
     <string name="pref_can_schedule_never">Nie</string>
     <string name="pref_can_schedule_monthly">Monatlich</string>
