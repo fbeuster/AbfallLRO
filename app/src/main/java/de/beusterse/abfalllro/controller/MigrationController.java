@@ -36,6 +36,11 @@ public class MigrationController {
                 if (migratedVersion == 16) {
                     migrateTo17();
                 }
+
+                if (migratedVersion == 17) {
+                    migrateTo18();
+                }
+
                 migratedVersion++;
             }
         }
@@ -59,5 +64,11 @@ public class MigrationController {
 
         mEditor.putString(mContext.getString(R.string.pref_key_pickup_schedule_black), string_schedule_black);
         mEditor.putString(mContext.getString(R.string.pref_key_pickup_schedule_green), string_schedule_green);
+        mEditor.putString(mContext.getString(R.string.pref_key_pickup_schedule_yellow), schedule_biweekly);
+    }
+
+    private void migrateTo18() {
+        String schedule_biweekly = mContext.getString(R.string.pref_can_schedule_biweekly);
+        mEditor.putString(mContext.getString(R.string.pref_key_pickup_schedule_yellow), schedule_biweekly);
     }
 }
