@@ -26,8 +26,10 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.lang.annotation.Target;
 import java.util.List;
 
+import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.controller.SyncController;
 import de.beusterse.abfalllro.utils.ArrayUtils;
@@ -166,7 +168,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || DevPreferenceFragment.class.getName().equals(fragmentName)
                 || InfoPreferenceFragment.class.getName().equals(fragmentName)
                 || NotificationsPreferenceFragment.class.getName().equals(fragmentName)
                 || PickupPreferenceFragment.class.getName().equals(fragmentName)
@@ -191,109 +192,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                 break;
         }
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * This fragment shows sync preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class DevPreferenceFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_dev);
-            setHasOptionsMenu(true);
-
-            /*
-                Clearing locally stored data such as codes and schedule.
-             */
-            Preference clearDataButton = findPreference(getString(R.string.pref_key_dev_clear_data));
-            clearDataButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    JsonObject syncData;
-                    SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-                    SharedPreferences.Editor editor     = sharedPreferences.edit();
-
-
-                    String syncDataString = sharedPreferences.getString(getString(R.string.pref_key_intern_sync_data), "");
-
-                    try {
-                        if (syncDataString.equals("") || !JSONUtils.isValidJSON(syncDataString)) {
-                            syncData = new JsonObject();
-
-                        } else {
-                            JsonParser parser = new JsonParser();
-                            syncData = parser.parse(syncDataString).getAsJsonObject();
-                        }
-
-                    } catch (Exception e) {
-                        return true;
-                    }
-
-                    for (String year : syncData.keySet()) {
-                        if (year.matches("\\d{4}") && syncData.get(year).isJsonObject()) {
-                            for (String file : syncData.getAsJsonObject(year).keySet()) {
-                                String fileName = file + "_" + year + ".";
-
-                                if (file.equals("schedule")) {
-                                    fileName += "csv";
-                                } else {
-                                    fileName += "json";
-                                }
-
-                                preference.getContext().deleteFile(fileName);
-                            }
-                        }
-                    }
-
-                    editor.remove(getString(R.string.pref_key_sync_last_check));
-                    editor.remove(getString(R.string.pref_key_sync_last_update));
-                    editor.remove(getString(R.string.pref_key_intern_sync_data));
-                    editor.apply();
-
-                    Toast.makeText(
-                            preference.getContext(),
-                            getString(R.string.pref_dev_clear_data_toast),
-                            Toast.LENGTH_LONG
-                    ).show();
-
-                    return true;
-                }
-            });
-
-            /*
-                clearing ALL preferences and send user back to intro activity for reconfiguration
-             */
-            Preference clearSettingsButton = findPreference(getString(R.string.pref_key_dev_clear_settings));
-            clearSettingsButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    SharedPreferences.Editor editor = getPreferenceManager().getSharedPreferences().edit();
-                    editor.clear();
-                    editor.apply();
-
-                    Intent intent = new Intent(preference.getContext(), IntroActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                    startActivity(intent);
-
-                    return false;
-                }
-            });
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     /**
