@@ -54,6 +54,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/prevCanBlackLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -84,6 +85,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/prevCanGreenLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -113,6 +115,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/prevCanYellowLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -140,6 +143,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/prevCanBlueLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
