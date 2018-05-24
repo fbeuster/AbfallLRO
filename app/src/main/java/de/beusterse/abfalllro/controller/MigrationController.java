@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.Map;
+
 import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
 
@@ -41,6 +43,10 @@ public class MigrationController {
                     migrateTo18();
                 }
 
+                if (migratedVersion == 18) {
+                    migrateTo19();
+                }
+
                 migratedVersion++;
             }
         }
@@ -70,5 +76,37 @@ public class MigrationController {
     private void migrateTo18() {
         String schedule_biweekly = mContext.getString(R.string.pref_can_schedule_biweekly);
         mEditor.putString(mContext.getString(R.string.pref_key_pickup_schedule_yellow), schedule_biweekly);
+    }
+
+    private void migrateTo19() {
+        String schedule_biweekly    = mContext.getString(R.string.pref_can_schedule_biweekly);
+        String schedule_monthly     = mContext.getString(R.string.pref_can_schedule_monthly);
+
+        String key_black            = mContext.getString(R.string.pref_key_pickup_schedule_black);
+        String key_green            = mContext.getString(R.string.pref_key_pickup_schedule_black);
+
+        Map<String, ?> prefs        = mSharedPreferences.getAll();
+
+        for (Map.Entry<String, ?> entry : prefs.entrySet()) {
+            if (entry.getKey().equals(key_black) && entry.getValue().getClass().equals(Boolean.class)) {
+                boolean monthly = mSharedPreferences.getBoolean(key_black, false);
+
+                mEditor.putString(key_black, monthly ? schedule_monthly : schedule_biweekly);
+            }
+
+            if (entry.getKey().equals(key_green) && entry.getValue().getClass().equals(Boolean.class)) {
+                boolean monthly = mSharedPreferences.getBoolean(key_green, false);
+
+                mEditor.putString(key_black, monthly ? schedule_monthly : schedule_biweekly);
+            }
+
+            if (entry.getKey().equals(key_black) && entry.getValue().getClass().equals(Integer.class)) {
+                mEditor.putString(key_black, schedule_monthly);
+            }
+
+            if (entry.getKey().equals(key_green) && entry.getValue().getClass().equals(Integer.class)) {
+                mEditor.putString(key_black, schedule_monthly);
+            }
+        }
     }
 }
