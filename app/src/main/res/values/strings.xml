@@ -556,6 +556,7 @@
         <item>Brusow</item>
         <item>Buchenhof</item>
         <item>Buchholz</item>
+        <item>Buchholz-Heide</item>
         <item>Bukow</item>
         <item>Bülow (Gutow)</item>
         <item>Bülow (Schorssow)</item>
@@ -610,6 +611,7 @@
         <item>Forsthof</item>
         <item>Fresendorf</item>
         <item>Friedrichshagen</item>
+        <item>Friedrichshof (Behren-Lübchin)</item>
         <item>Friedrichshof (Dolgen)</item>
         <item>Friedrichshof (Klein Belitz)</item>
         <item>Friedrichshof (Wasdow)</item>
@@ -706,7 +708,7 @@
         <item>Hinzenhagen</item>
         <item>Hof Jörnstorf</item>
         <item>Hof Rühn</item>
-        <item>Hof Tatschow  </item>
+        <item>Hof Tatschow</item>
         <item>Hohen Demzin</item>
         <item>Hohen Gubkow</item>
         <item>Hohen Luckow</item>
@@ -726,13 +728,16 @@
         <item>Horst (Satow)</item>
         <item>Huckstorf</item>
         <item>Hundehagen</item>
+        <item>Hütten</item>
         <item>Hüttenkoppel</item>
         <item>Ikendorf</item>
-        <item>Ivendorf      </item>
+        <item>Ivendorf</item>
         <item>Jabelitz</item>
+        <item>Jägerhof</item>
         <item>Jahmen</item>
         <item>Jennewitz</item>
         <item>Jördenstorf</item>
+        <item>Jörnstorf</item>
         <item>Jürgenshagen</item>
         <item>Kägsdorf</item>
         <item>Kambs</item>
@@ -777,6 +782,7 @@
         <item>Klein Ridsenow</item>
         <item>Klein Roge</item>
         <item>Klein Schwaß</item>
+        <item>Klein Schwarfs</item>
         <item>Klein Schwiesow</item>
         <item>Klein Siemen</item>
         <item>Klein Sien</item>
@@ -795,6 +801,7 @@
         <item>Klueß</item>
         <item>Knegendorf</item>
         <item>Kobrow</item>
+        <item>Koitendorf</item>
         <item>Kölln</item>
         <item>Koppelow</item>
         <item>Körchow</item>
@@ -816,6 +823,7 @@
         <item>Kuhs</item>
         <item>Kurzen Trechow</item>
         <item>Küsserow</item>
+        <item>Küsserow-Hof</item>
         <item>Kussow</item>
         <item>Laage</item>
         <item>Laase</item>
@@ -835,6 +843,7 @@
         <item>Liessow</item>
         <item>Linstow</item>
         <item>Lissow</item>
+        <item>Lissow-Bau</item>
         <item>Lohmen</item>
         <item>Lübsee</item>
         <item>Lübzin</item>
@@ -865,6 +874,7 @@
         <item>Moltenow</item>
         <item>Mühl Rosin</item>
         <item>Mühlengeez</item>
+        <item>Mühlenhof</item>
         <item>Neu Bartelstorf</item>
         <item>Neu Bernitt</item>
         <item>Neu Boddin</item>
@@ -904,7 +914,7 @@
         <item>Neu Wokern</item>
         <item>Neu Zierhagen</item>
         <item>Neu Ziddorf</item>
-        <item>Neubukow       </item>
+        <item>Neubukow</item>
         <item>Neuendorf (Steinhagen)</item>
         <item>Neuendorf (Broderstorf)</item>
         <item>Neuhof (Zehna)</item>
@@ -983,6 +993,7 @@
         <item>Reinshagen (Lalendorf)</item>
         <item>Reinshagen (Satow)</item>
         <item>Reinstorf</item>
+        <item>Reisaus</item>
         <item>Remlin</item>
         <item>Rensow</item>
         <item>Repnitz</item>
@@ -1013,7 +1024,7 @@
         <item>Sarmstorf (Güstrow)</item>
         <item>Sarmstorf (Lelkendorf)</item>
         <item>Satow</item>
-        <item>Scharstorf     </item>
+        <item>Scharstorf</item>
         <item>Schependorf</item>
         <item>Schlage</item>
         <item>Schlemmin</item>
@@ -1103,10 +1114,11 @@
         <item>Volkenshagen</item>
         <item>Vorbeck</item>
         <item>Vorder Bollhagen</item>
+        <item>Vorweden-Mönkweden</item>
         <item>Wahrstorf</item>
         <item>Waldeck</item>
         <item>Waldschmidt</item>
-        <item>Walkendorf     </item>
+        <item>Walkendorf</item>
         <item>Warbelow</item>
         <item>Wardow</item>
         <item>Warnkenhagen</item>
@@ -1118,6 +1130,7 @@
         <item>Wendelstorf</item>
         <item>Wendfeld</item>
         <item>Wendorf (Baumgarten)</item>
+        <item>Wendorf (Dummerstorf)</item>
         <item>Wendorf (Plaaz)</item>
         <item>Wendorf (Sanitz)</item>
         <item>Wendorf (Groß Potrems)</item>
@@ -1165,10 +1178,10 @@
         <item>Güstrow</item>
         <item>Kühlungsborn</item>
         <item>Nienhagen (Ostseebad)</item>
+        <item>Wittenbeck</item>
     </string-array>
     <string-array name="pref_location_weekly_black">
         <item>Alt Bukow</item>
-        <item>Alt Quitzenow</item>
         <item>Alt Sammit</item>
         <item>Bad Doberan</item>
         <item>Bentwisch</item>
@@ -1188,6 +1201,7 @@
         <item>Groß Breesen</item>
         <item>Groß Wokern</item>
         <item>Güstrow</item>
+        <item>Harmstorf</item>
         <item>Heiligendamm</item>
         <item>Hohen Demzin</item>
         <item>Jennewitz</item>
@@ -1211,24 +1225,30 @@
         <item>Parkentin</item>
         <item>Poppendorf</item>
         <item>Primerburg</item>
-        <item>Raden</item>
         <item>Rerik</item>
         <item>Rethwisch</item>
         <item>Roggentin</item>
         <item>Rövershagen</item>
         <item>Rühn</item>
         <item>Sanitz</item>
+        <item>Schlage</item>
         <item>Schwaan</item>
+        <item>Schwarzenpfost</item>
         <item>Sievershagen</item>
         <item>Sildemow</item>
+        <item>Stäbelow</item>
         <item>Steinhagen (Bützow)</item>
         <item>Striesdorf</item>
+        <item>Suckow</item>
         <item>Tarnow</item>
+        <item>Teschendorf</item>
         <item>Teschow (Teterow)</item>
         <item>Tessin</item>
         <item>Teterow (ohne Ortsteile)</item>
         <item>Vietgest</item>
+        <item>Waldeck</item>
         <item>Weitendorf (Laage)</item>
+        <item>Wittenbeck</item>
     </string-array>
     <string-array name="pref_location_twice_per_week_green">
         <item>Bad Doberan</item>
@@ -1237,6 +1257,7 @@
     </string-array>
     <string-array name="pref_location_weekly_green">
         <item>Bad Doberan</item>
+        <item>Börgerende</item>
         <item>Broderstorf</item>
         <item>Bützow-Stadt</item>
         <item>Elmenhorst</item>
@@ -1263,7 +1284,9 @@
     <string name="pref_location_street">Straße</string>
     <string-array name="pref_location_streets">
         <item>Ahornpromenade</item>
-        <item>Alt - Güstrower - Straße</item>
+        <item>Albanstraße</item>
+        <item>Alt-Devwinkel</item>
+        <item>Alt-Güstrower-Straße</item>
         <item>Am Augraben</item>
         <item>Am Berge</item>
         <item>Am Brink</item>
@@ -1310,6 +1333,7 @@
         <item>Clara-Zetkin-Straße</item>
         <item>Dachssteig</item>
         <item>Demmlerstraße</item>
+        <item>Distelberg</item>
         <item>Distelweg</item>
         <item>Domplatz</item>
         <item>Domstraße</item>
@@ -1337,6 +1361,7 @@
         <item>Gartenstraße</item>
         <item>Gartenweg</item>
         <item>Gertrudenstraße</item>
+        <item>Gewerbegebiet</item>
         <item>Glasewitzer Burg</item>
         <item>Glasewitzer Chaussee</item>
         <item>Glasewitzer Straße</item>
@@ -1375,10 +1400,13 @@
         <item>Hopfenweg</item>
         <item>Igelweg</item>
         <item>Industriegelände</item>
+        <item>Inselseeblick</item>
         <item>John-Brinckman-Straße</item>
         <item>Kapellenstraße</item>
         <item>Karl-Liebknecht-Str.</item>
         <item>Kastanienstraße</item>
+        <item>Kattrepel</item>
+        <item>Katzenstraße</item>
         <item>Kerstingstraße</item>
         <item>Kessiner Straße</item>
         <item>Kiebitzweg</item>
@@ -1425,6 +1453,7 @@
         <item>Pferdemarkt</item>
         <item>Philipp-Brandin-Str.</item>
         <item>Platanenstraße</item>
+        <item>Platz an der Bleiche</item>
         <item>Platz der Freundschaft</item>
         <item>Plauer Chaussee</item>
         <item>Plauer Straße</item>
@@ -1451,6 +1480,7 @@
         <item>Schloßstraße</item>
         <item>Schnoienstraße</item>
         <item>Schondorfstraße</item>
+        <item>Schöninsel</item>
         <item>Schöninseler Weg</item>
         <item>Schulstraße</item>
         <item>Schwaaner Chaussee</item>
