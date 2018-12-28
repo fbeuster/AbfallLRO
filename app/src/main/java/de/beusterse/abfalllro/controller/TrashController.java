@@ -203,7 +203,7 @@ public class TrashController {
                         found++;
                     }
 
-                    if (preview[Can.GREEN] == -1 && current_codes.length() > 4 && current_codes.charAt(5) != '0' &&
+                    if (preview[Can.GREEN] == -1 && current_codes.length() > 5 && current_codes.charAt(5) != '0' &&
                             plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
                         preview[Can.GREEN] = dayCount;
                         found++;
