@@ -34,7 +34,7 @@ public class NotificationService extends Service {
     public static final String EXTRA_INTENT_NOTIFY  = "de.beusterse.abfalllro.EXTRA_INTENT_NOTIFY";
     public static final String EXTRA_NOTIFY_CAN     = "de.beusterse.abfalllro.EXTRA_NOTIFY_CAN";
     public static final String NOTIFICATION_CHANNEL_ID      = "de.beusterse.abfalllro.notifications.id";
-    public static final String NOTIFICATION_CHANNEL_NAME    = "de.beusterse.abfalllro.notifications.name";
+    public static final String NOTIFICATION_CHANNEL_NAME    = "Erinnerungen";
 
     private long[] vibrate_pattern = new long[]{ 31, 415, 92, 653 };
 
