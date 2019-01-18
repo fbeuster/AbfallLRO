@@ -153,7 +153,12 @@ public class NotificationService extends Service {
                     .setContentIntent(rawNotification.getIntent())
                     .setContentTitle(rawNotification.getTitle())
                     .setContentText(rawNotification.getText())
-                    .setSmallIcon(getNotificationIcon(rawNotification));
+                    .setSmallIcon(getNotificationIcon(rawNotification))
+                    .setWhen(System.currentTimeMillis());
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                notificationBuilder.setShowWhen(true);
+            }
 
             if (Build.VERSION.SDK_INT >= 16) {
                 notification = notificationBuilder.build();
