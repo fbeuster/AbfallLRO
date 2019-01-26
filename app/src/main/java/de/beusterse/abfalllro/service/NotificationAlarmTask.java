@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import java.util.Calendar;
 
@@ -37,15 +38,19 @@ public class NotificationAlarmTask implements Runnable {
     }
 
     private PendingIntent getPendingIntent(int flags) {
-        Intent intent = new Intent(context, NotificationService.class);
+        Intent intent = new Intent(context, NotificationAlarmReceiver.class);
         intent.putExtra(NotificationService.EXTRA_INTENT_NOTIFY, true);
         intent.putExtra(NotificationService.EXTRA_NOTIFY_CAN, can);
 
-        return PendingIntent.getService(context, can, intent, flags);
+        return PendingIntent.getBroadcast(context, can, intent, flags);
     }
 
     @Override
     public void run() {
-        alarmManager.set(AlarmManager.RTC, date.getTimeInMillis(), getPendingIntent(0));
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(0));
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(0));
+        }
     }
 }

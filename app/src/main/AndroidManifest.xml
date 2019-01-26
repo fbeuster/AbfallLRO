@@ -46,6 +46,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".service.legacy.DailyCheckReceiver" />
+        <receiver android:name=".service.NotificationAlarmReceiver" />
 
         <service android:name=".service.legacy.DailyCheckService" />
         <service android:name=".service.NotificationService" />

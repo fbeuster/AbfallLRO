@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.controller.DataController;
@@ -89,7 +90,7 @@ public class DailyCheck implements SyncCallback {
         SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
         String lastDailyCheck   = pref.getString(mContext.getResources().getString(R.string.pref_key_intern_last_daily_check), "");
 
-        if (!df.format(now.getTime()).equals(lastDailyCheck)) {
+        if (BuildConfig.DEBUG || !df.format(now.getTime()).equals(lastDailyCheck)) {
             if (pref.getBoolean(
                     mContext.getString(R.string.pref_key_sync_auto),
                     mContext.getResources().getBoolean(R.bool.sync_auto))) {
