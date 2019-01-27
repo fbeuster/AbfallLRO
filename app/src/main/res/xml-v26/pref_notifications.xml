@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_notifications_title"
+        android:key="@string/pref_key_notifications" >
+
+        <SwitchPreference
+            android:defaultValue="@bool/notifications_active_default"
+            android:key="@string/pref_key_notifications_active"
+            android:title="@string/pref_notifications_active" />
+
+        <de.beusterse.abfalllro.utils.TimePreference
+            android:key="@string/pref_key_notifications_time"
+            android:title="@string/pref_notifications_time"
+            android:positiveButtonText="@string/dialog_button_positive"
+            android:negativeButtonText="@string/dialog_button_negative"
+            android:defaultValue="@string/pref_notifications_default_time" />
+
+        <Preference
+            android:key="@string/pref_key_notifications_channel_settings"
+            android:title="@string/pref_notification_channel_settings_title"
+            android:summary="@string/pref_notification_channel_settings_summary" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

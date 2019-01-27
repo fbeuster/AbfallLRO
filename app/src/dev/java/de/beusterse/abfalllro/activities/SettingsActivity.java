@@ -17,6 +17,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -26,12 +27,11 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.lang.annotation.Target;
 import java.util.List;
 
-import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.controller.SyncController;
+import de.beusterse.abfalllro.service.NotificationService;
 import de.beusterse.abfalllro.utils.ArrayUtils;
 import de.beusterse.abfalllro.utils.JSONUtils;
 import de.beusterse.abfalllro.utils.TimePreference;
@@ -196,7 +196,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
     }
 
     /**
-     * This fragment shows sync preferences only. It is used when the
+     * This fragment shows dev preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -628,6 +628,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                     return true;
                 }
             });
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Preference link = findPreference(getString(R.string.pref_key_notifications_channel_settings));
+                link.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, preference.getContext().getPackageName());
+                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotificationService.NOTIFICATION_CHANNEL_ID);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+            }
         }
 
         @Override
@@ -644,11 +658,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             Preference preference = findPreference(getString(R.string.pref_key_notifications_time));
             preference.setEnabled(enabled);
 
-            preference = findPreference(getString(R.string.pref_key_notifications_sound));
-            preference.setEnabled(enabled);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                preference = findPreference(getString(R.string.pref_key_notifications_channel_settings));
+                preference.setEnabled(enabled);
 
-            preference = findPreference(getString(R.string.pref_key_notifications_vibrate));
-            preference.setEnabled(enabled);
+            } else {
+                preference = findPreference(getString(R.string.pref_key_notifications_sound));
+                preference.setEnabled(enabled);
+
+                preference = findPreference(getString(R.string.pref_key_notifications_vibrate));
+                preference.setEnabled(enabled);
+            }
         }
 
         private void updateTimePreferenceSummary(Preference preference) {
