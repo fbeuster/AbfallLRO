@@ -8,6 +8,7 @@ import java.util.Map;
 
 import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.utils.NotificationUtils;
 
 /**
  * Migrates user settings across versions
@@ -45,6 +46,10 @@ public class MigrationController {
 
                 if (migratedVersion == 18) {
                     migrateTo19();
+                }
+
+                if (migratedVersion == 20) {
+                    migrateTo21();
                 }
 
                 migratedVersion++;
@@ -108,5 +113,9 @@ public class MigrationController {
                 mEditor.putString(key_black, schedule_monthly);
             }
         }
+    }
+
+    private void migrateTo21() {
+        NotificationUtils.createNotificationChannel(mContext);
     }
 }

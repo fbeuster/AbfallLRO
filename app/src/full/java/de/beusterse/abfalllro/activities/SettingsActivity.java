@@ -28,8 +28,8 @@ import java.util.List;
 
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.controller.SyncController;
-import de.beusterse.abfalllro.service.NotificationService;
 import de.beusterse.abfalllro.utils.ArrayUtils;
+import de.beusterse.abfalllro.utils.NotificationUtils;
 import de.beusterse.abfalllro.utils.TimePreference;
 import de.beusterse.abfalllro.interfaces.SyncCallback;
 
@@ -528,7 +528,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
                     public boolean onPreferenceClick(Preference preference) {
                         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                         intent.putExtra(Settings.EXTRA_APP_PACKAGE, preference.getContext().getPackageName());
-                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotificationService.NOTIFICATION_CHANNEL_ID);
+                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, getString(R.string.notification_channel_id));
                         startActivity(intent);
                         return true;
                     }
@@ -553,6 +553,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Syn
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 preference = findPreference(getString(R.string.pref_key_notifications_channel_settings));
                 preference.setEnabled(enabled);
+
+                if (enabled) {
+                    NotificationUtils.createNotificationChannel(getContext());
+                }
 
             } else {
                 preference = findPreference(getString(R.string.pref_key_notifications_sound));

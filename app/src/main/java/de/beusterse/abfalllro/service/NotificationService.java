@@ -2,7 +2,6 @@ package de.beusterse.abfalllro.service;
 
 import android.Manifest;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -21,6 +20,7 @@ import de.beusterse.abfalllro.activities.MainActivity;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.capsules.RawNotification;
+import de.beusterse.abfalllro.utils.NotificationUtils;
 
 /**
  * Creates an notification based on passed in parameters
@@ -33,10 +33,6 @@ public class NotificationService extends Service {
 
     public static final String EXTRA_INTENT_NOTIFY  = "de.beusterse.abfalllro.EXTRA_INTENT_NOTIFY";
     public static final String EXTRA_NOTIFY_CAN     = "de.beusterse.abfalllro.EXTRA_NOTIFY_CAN";
-    public static final String NOTIFICATION_CHANNEL_ID      = "de.beusterse.abfalllro.notifications.id";
-    public static final String NOTIFICATION_CHANNEL_NAME    = "Erinnerungen";
-
-    private long[] vibrate_pattern = new long[]{ 31, 415, 92, 653 };
 
     public class ServiceBinder extends Binder {
         NotificationService getService() {
@@ -48,9 +44,6 @@ public class NotificationService extends Service {
     @Override
     public void onCreate() {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= 26) {
-        }
     }
 
     @Override
@@ -109,27 +102,7 @@ public class NotificationService extends Service {
             Uri sound                   = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             if (Build.VERSION.SDK_INT >= 26) {
-                NotificationChannel channel = new NotificationChannel(
-                        NOTIFICATION_CHANNEL_ID,
-                        NOTIFICATION_CHANNEL_NAME,
-                        NotificationManager.IMPORTANCE_LOW);
-
-                channel.enableLights(true);
-                channel.setLightColor(getNotificationColor(rawNotification));
-
-                if (soundsActive) {
-                    channel.setImportance(NotificationManager.IMPORTANCE_DEFAULT);
-                }
-
-                channel.enableVibration(vibrationsActive);
-                if (vibrationsActive && vibratePermission == PackageManager.PERMISSION_GRANTED) {
-                    channel.setVibrationPattern(vibrate_pattern);
-                }
-
-                notificationManager.createNotificationChannel(channel);
-
-                notificationBuilder = new Notification.Builder(this, NOTIFICATION_CHANNEL_NAME);
-                notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID);
+                notificationBuilder = new Notification.Builder(this, getString(R.string.notification_channel_id));
 
             } else {
                 /* SDK_INT < 26 */
@@ -144,7 +117,7 @@ public class NotificationService extends Service {
                 }
 
                 if (vibrationsActive && vibratePermission == PackageManager.PERMISSION_GRANTED) {
-                    notificationBuilder.setVibrate(vibrate_pattern);
+                    notificationBuilder.setVibrate(NotificationUtils.vibrate_pattern);
                 }
             }
 

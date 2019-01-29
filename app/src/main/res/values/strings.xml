@@ -409,6 +409,8 @@
     </string>
     <string name="pref_privacy_policy_title">Datenschutzerklärung</string>
 
+    <string name="notification_channel_id">de.beusterse.abfalllro.notifications.id</string>
+    <string name="notification_channel_name">Erinnerungen</string>
     <string name="pref_header_notifications">Erinnerungen</string>
     <string name="pref_notifications_active">Erinnerungen</string>
     <string name="pref_notifications_default_time">18:00</string>

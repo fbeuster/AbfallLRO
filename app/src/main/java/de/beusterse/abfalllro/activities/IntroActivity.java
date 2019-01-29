@@ -24,6 +24,7 @@ import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.controller.MigrationController;
 import de.beusterse.abfalllro.fragments.IntroFragment;
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.utils.NotificationUtils;
 
 /**
  * Intro pages activity, communicates with the view pager.
@@ -57,7 +58,7 @@ public class IntroActivity extends AppCompatActivity {
             finish();
 
         } else {
-
+            NotificationUtils.createNotificationChannel(this);
             updateOverlay(0);
 
             PagerAdapter pagerAdapter = new IntroPagerAdapter(getSupportFragmentManager());
