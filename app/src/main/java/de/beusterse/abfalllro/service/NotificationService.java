@@ -66,7 +66,7 @@ public class NotificationService extends Service {
     private final IBinder binder = new ServiceBinder();
 
     private int getNotificationColor(RawNotification rawNotification) {
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return getResources().getColor(rawNotification.getColor(), getTheme());
 
         } else {
@@ -75,7 +75,7 @@ public class NotificationService extends Service {
     }
 
     private int getNotificationIcon(RawNotification rawNotification) {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return rawNotification.getIcon();
         } else {
             return rawNotification.getColoredIcon();
@@ -101,14 +101,15 @@ public class NotificationService extends Service {
 
             Uri sound                   = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-            if (Build.VERSION.SDK_INT >= 26) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 notificationBuilder = new Notification.Builder(this, getString(R.string.notification_channel_id));
+                notificationBuilder.setColor( getNotificationColor(rawNotification) );
 
             } else {
                 /* SDK_INT < 26 */
                 notificationBuilder = new Notification.Builder(this);
 
-                if (Build.VERSION.SDK_INT >= 21) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     notificationBuilder.setColor( getNotificationColor(rawNotification) );
                 }
 
@@ -133,7 +134,7 @@ public class NotificationService extends Service {
                 notificationBuilder.setShowWhen(true);
             }
 
-            if (Build.VERSION.SDK_INT >= 16) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 notification = notificationBuilder.build();
             } else {
                 notification = notificationBuilder.getNotification();
