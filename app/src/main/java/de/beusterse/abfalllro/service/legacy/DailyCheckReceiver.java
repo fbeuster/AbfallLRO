@@ -2,7 +2,7 @@ package de.beusterse.abfalllro.service.legacy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 /**
  * Receives the daily alarm and invokes the check service

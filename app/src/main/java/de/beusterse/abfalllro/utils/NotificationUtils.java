@@ -6,7 +6,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
