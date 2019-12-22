@@ -1,25 +1,25 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="@string/pref_notifications_title"
-        android:key="@string/pref_key_notifications" >
+        app:title="@string/pref_notifications_title"
+        app:key="@string/pref_key_notifications" >
 
-        <SwitchPreference
-            android:defaultValue="@bool/notifications_active_default"
-            android:key="@string/pref_key_notifications_active"
-            android:title="@string/pref_notifications_active" />
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/notifications_active_default"
+            app:key="@string/pref_key_notifications_active"
+            app:title="@string/pref_notifications_active" />
 
         <de.beusterse.abfalllro.utils.TimePreference
-            android:key="@string/pref_key_notifications_time"
-            android:title="@string/pref_notifications_time"
-            android:positiveButtonText="@string/dialog_button_positive"
-            android:negativeButtonText="@string/dialog_button_negative"
-            android:defaultValue="@string/pref_notifications_default_time" />
+            app:key="@string/pref_key_notifications_time"
+            app:title="@string/pref_notifications_time"
+            app:positiveButtonText="@string/dialog_button_positive"
+            app:negativeButtonText="@string/dialog_button_negative"
+            app:defaultValue="@string/pref_notifications_default_time" />
 
         <Preference
-            android:key="@string/pref_key_notifications_channel_settings"
-            android:title="@string/pref_notification_channel_settings_title"
-            android:summary="@string/pref_notification_channel_settings_summary" />
+            app:key="@string/pref_key_notifications_channel_settings"
+            app:title="@string/pref_notification_channel_settings_title"
+            app:summary="@string/pref_notification_channel_settings_summary" />
 
     </PreferenceCategory>
 

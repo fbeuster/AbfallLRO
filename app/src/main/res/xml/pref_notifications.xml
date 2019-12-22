@@ -1,30 +1,30 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="@string/pref_notifications_title"
-        android:key="@string/pref_key_notifications" >
+        app:title="@string/pref_notifications_title"
+        app:key="@string/pref_key_notifications" >
 
-        <SwitchPreference
-            android:defaultValue="@bool/notifications_active_default"
-            android:key="@string/pref_key_notifications_active"
-            android:title="@string/pref_notifications_active" />
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/notifications_active_default"
+            app:key="@string/pref_key_notifications_active"
+            app:title="@string/pref_notifications_active" />
 
-        <SwitchPreference
-            android:defaultValue="@bool/notifications_sound_default"
-            android:key="@string/pref_key_notifications_sound"
-            android:title="@string/pref_notifications_sound" />
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/notifications_sound_default"
+            app:key="@string/pref_key_notifications_sound"
+            app:title="@string/pref_notifications_sound" />
 
-        <SwitchPreference
-            android:defaultValue="@bool/notifications_vibrate_default"
-            android:key="@string/pref_key_notifications_vibrate"
-            android:title="@string/pref_notifications_vibrate" />
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/notifications_vibrate_default"
+            app:key="@string/pref_key_notifications_vibrate"
+            app:title="@string/pref_notifications_vibrate" />
 
         <de.beusterse.abfalllro.utils.TimePreference
-            android:key="@string/pref_key_notifications_time"
-            android:title="@string/pref_notifications_time"
-            android:positiveButtonText="@string/dialog_button_positive"
-            android:negativeButtonText="@string/dialog_button_negative"
-            android:defaultValue="@string/pref_notifications_default_time" />
+            app:key="@string/pref_key_notifications_time"
+            app:title="@string/pref_notifications_time"
+            app:positiveButtonText="@string/dialog_button_positive"
+            app:negativeButtonText="@string/dialog_button_negative"
+            app:defaultValue="@string/pref_notifications_default_time" />
 
     </PreferenceCategory>
 

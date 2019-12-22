@@ -1,21 +1,21 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="@string/pref_sync_title"
-        android:key="@string/pref_key_sync">
-        <SwitchPreference
-            android:defaultValue="@bool/sync_auto"
-            android:key="@string/pref_key_sync_auto"
-            android:title="@string/pref_sync_auto"
-            android:summary="@string/pref_sync_auto_desc"/>
+        app:title="@string/pref_sync_title"
+        app:key="@string/pref_key_sync">
+        <SwitchPreferenceCompat
+            app:defaultValue="@bool/sync_auto"
+            app:key="@string/pref_key_sync_auto"
+            app:title="@string/pref_sync_auto"
+            app:summary="@string/pref_sync_auto_desc"/>
         <Preference
-            android:title="@string/pref_sync_manual"
-            android:key="@string/pref_key_sync_manual"
-            android:summary="@string/pref_sync_manual_desc"/>
+            app:title="@string/pref_sync_manual"
+            app:key="@string/pref_key_sync_manual"
+            app:summary="@string/pref_sync_manual_desc"/>
         <Preference
-            android:title="@string/pref_sync_title_last_sync"
-            android:key="@string/pref_key_sync_last_check"
-            android:summary="@string/pref_sync_description_last_sync" />
+            app:title="@string/pref_sync_title_last_sync"
+            app:key="@string/pref_key_sync_last_check"
+            app:summary="@string/pref_sync_description_last_sync" />
     </PreferenceCategory>
 
 </PreferenceScreen>
