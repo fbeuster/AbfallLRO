@@ -2,7 +2,8 @@
 
     <PreferenceCategory
         app:title="@string/pref_title_location"
-        app:key="@string/pref_key_pickup">
+        app:key="@string/pref_key_pickup"
+        app:iconSpaceReserved="false">
         <ListPreference
             app:key="@string/pref_key_pickup_town"
             app:title="@string/pref_location"
@@ -10,7 +11,8 @@
             app:entries="@array/pref_locations"
             app:entryValues="@array/pref_locations"
             app:negativeButtonText="@null"
-            app:positiveButtonText="@null" />
+            app:positiveButtonText="@null"
+            app:iconSpaceReserved="false" />
         <ListPreference
             app:enabled="false"
             app:key="@string/pref_key_pickup_street"
@@ -19,12 +21,14 @@
             app:entries="@array/pref_location_streets"
             app:entryValues="@array/pref_location_streets"
             app:negativeButtonText="@null"
-            app:positiveButtonText="@null" />
+            app:positiveButtonText="@null"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
         app:title="@string/pref_title_cans_monthly"
-        app:key="@string/pref_key_pickup_schedule">
+        app:key="@string/pref_key_pickup_schedule"
+        app:iconSpaceReserved="false">
 
         <ListPreference
             app:key="@string/pref_key_pickup_schedule_black"
@@ -34,7 +38,8 @@
             app:entryValues="@array/pref_can_black_schedule_list"
             app:negativeButtonText="@null"
             app:positiveButtonText="@null"
-            app:defaultValue="@string/pref_can_schedule_biweekly"/>
+            app:defaultValue="@string/pref_can_schedule_biweekly"
+            app:iconSpaceReserved="false" />
 
         <ListPreference
             app:key="@string/pref_key_pickup_schedule_green"
@@ -44,7 +49,8 @@
             app:entryValues="@array/pref_can_green_schedule_list"
             app:negativeButtonText="@null"
             app:positiveButtonText="@null"
-            app:defaultValue="@string/pref_can_schedule_biweekly"/>
+            app:defaultValue="@string/pref_can_schedule_biweekly"
+            app:iconSpaceReserved="false" />
 
         <ListPreference
             app:key="@string/pref_key_pickup_schedule_yellow"
@@ -54,7 +60,8 @@
             app:entryValues="@array/pref_can_yellow_schedule_list"
             app:negativeButtonText="@null"
             app:positiveButtonText="@null"
-            app:defaultValue="@string/pref_can_schedule_monthly"/>
+            app:defaultValue="@string/pref_can_schedule_monthly"
+            app:iconSpaceReserved="false" />
 
         <ListPreference
             app:key="@string/pref_key_pickup_schedule_blue"
@@ -64,7 +71,8 @@
             app:entryValues="@array/pref_can_blue_schedule_list"
             app:negativeButtonText="@null"
             app:positiveButtonText="@null"
-            app:defaultValue="@string/pref_can_schedule_monthly"/>
+            app:defaultValue="@string/pref_can_schedule_monthly"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>

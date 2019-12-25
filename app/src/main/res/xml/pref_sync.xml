@@ -2,20 +2,24 @@
 
     <PreferenceCategory
         app:title="@string/pref_sync_title"
-        app:key="@string/pref_key_sync">
+        app:key="@string/pref_key_sync"
+        app:iconSpaceReserved="false">
         <SwitchPreferenceCompat
             app:defaultValue="@bool/sync_auto"
             app:key="@string/pref_key_sync_auto"
             app:title="@string/pref_sync_auto"
-            app:summary="@string/pref_sync_auto_desc"/>
+            app:summary="@string/pref_sync_auto_desc"
+            app:iconSpaceReserved="false" />
         <Preference
             app:title="@string/pref_sync_manual"
             app:key="@string/pref_key_sync_manual"
-            app:summary="@string/pref_sync_manual_desc"/>
+            app:summary="@string/pref_sync_manual_desc"
+            app:iconSpaceReserved="false" />
         <Preference
             app:title="@string/pref_sync_title_last_sync"
             app:key="@string/pref_key_sync_last_check"
-            app:summary="@string/pref_sync_description_last_sync" />
+            app:summary="@string/pref_sync_description_last_sync"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>

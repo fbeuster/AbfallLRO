@@ -2,29 +2,34 @@
 
     <PreferenceCategory
         app:title="@string/pref_notifications_title"
-        app:key="@string/pref_key_notifications" >
+        app:key="@string/pref_key_notifications"
+        app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
             app:defaultValue="@bool/notifications_active_default"
             app:key="@string/pref_key_notifications_active"
-            app:title="@string/pref_notifications_active" />
+            app:title="@string/pref_notifications_active"
+            app:iconSpaceReserved="false" />
 
         <SwitchPreferenceCompat
             app:defaultValue="@bool/notifications_sound_default"
             app:key="@string/pref_key_notifications_sound"
-            app:title="@string/pref_notifications_sound" />
+            app:title="@string/pref_notifications_sound"
+            app:iconSpaceReserved="false" />
 
         <SwitchPreferenceCompat
             app:defaultValue="@bool/notifications_vibrate_default"
             app:key="@string/pref_key_notifications_vibrate"
-            app:title="@string/pref_notifications_vibrate" />
+            app:title="@string/pref_notifications_vibrate"
+            app:iconSpaceReserved="false" />
 
         <de.beusterse.abfalllro.utils.TimePreference
             app:key="@string/pref_key_notifications_time"
             app:title="@string/pref_notifications_time"
             app:positiveButtonText="@string/dialog_button_positive"
             app:negativeButtonText="@string/dialog_button_negative"
-            app:defaultValue="@string/pref_notifications_default_time" />
+            app:defaultValue="@string/pref_notifications_default_time"
+            app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 
