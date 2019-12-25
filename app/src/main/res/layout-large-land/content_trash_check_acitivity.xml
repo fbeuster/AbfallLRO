@@ -28,7 +28,7 @@
             android:id="@+id/curLocationTextView"
             android:layout_gravity="top|left"
             android:layout_marginBottom="25dp"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/textColorSecondary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:layout_marginBottom="15dp"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/textColorPrimary" />
 
         <ImageView
             android:layout_width="match_parent"
