@@ -2,7 +2,7 @@
     <Preference
         app:title="@string/pref_dev_clear_data"
         app:key="@string/pref_key_dev_clear_data"
-        app:summary="@string/pref_dev_clear_data_desc"/>
+        app:summary="@string/pref_dev_clear_data_desc" />
 
     <Preference
         app:title="@string/pref_dev_clear_settings"

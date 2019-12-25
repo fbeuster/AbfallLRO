@@ -173,7 +173,7 @@ public class IntroActivity extends AppCompatActivity {
         View view               = findViewById(R.id.intro_indicator);
         LayerDrawable indicator = (LayerDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.intro_indicator, null);
         Drawable layer          = indicator.getDrawable(position);
-        layer.setColorFilter( getIndicatorColor(R.color.setupBackground), PorterDuff.Mode.SRC );
+        layer.setColorFilter( getIndicatorColor(R.color.white), PorterDuff.Mode.SRC );
         indicator.setDrawableByLayerId(position, layer);
 
         setIndicator(view, indicator);

@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/scheduleBlackTitle"
-            android:textColor="@color/can_black_dark"
+            android:textColor="?attr/setupCanBlackHeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/scheduleGreenTitle"
-            android:textColor="@color/can_green_dark"
+            android:textColor="?attr/setupCanGreenHeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/scheduleYellowTitle"
-            android:textColor="@color/can_yellow_dark"
+            android:textColor="?attr/setupCanYellowHeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -73,7 +73,7 @@
 
         <TextView
             android:id="@+id/scheduleBlueTitle"
-            android:textColor="@color/can_blue_dark"
+            android:textColor="?attr/setupCanBlueHeadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"

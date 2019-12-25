@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.utils.AppUtils;
 
 /**
  * Opening activity of the app
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppUtils.setDayNightModeFromPreference(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

@@ -1,0 +1,23 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="canNoneLight">@color/can_none_light</item>
+        <item name="canNoneMedium">@color/can_none_medium</item>
+        <item name="canNoneDark">@color/can_none_dark</item>
+        <item name="actionBarTheme">@style/abfalllroPreferenceActionBar</item>
+    </style>
+
+    <style name="SetupTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/setupPrimary</item>
+        <item name="colorPrimaryDark">@color/setupPrimaryDark</item>
+        <item name="setupCanBlackHeadline">@color/can_black</item>
+        <item name="setupCanBlueHeadline">@color/can_blue</item>
+        <item name="setupCanGreenHeadline">@color/can_green</item>
+        <item name="setupCanYellowHeadline">@color/can_yellow</item>
+    </style>
+</resources>

@@ -64,6 +64,18 @@
     <string name="pref_url_website_long">https://beusterse.de</string>
     <string name="pref_title_note">Hinweis</string>
     <string name="pref_description_note">Der Eigenbetrieb Abfallwirtschaft kann weitere Abfuhrtermine festlegen, die unter Umständen nicht in der App enthalten sind. Diese sind dann online oder im Gebührenbescheid zu finden.</string>
+    <string name="pref_theme_title">Design</string>
+    <string-array name="pref_theme_entries">
+        <item>Hell</item>
+        <item>Dunkel</item>
+        <item>Systemeinstellung</item>
+    </string-array>
+    <string-array name="pref_theme_values">
+        <item>1</item>
+        <item>2</item>
+        <item>-1</item>
+    </string-array>
+    <string name="pref_theme_default">-1</string>
     <string name="pref_rate_title">App bewerten</string>
     <string name="pref_rate_description">Ist die App hilfreich? Dann klick hier um sie kurz zu bewerten.</string>
 

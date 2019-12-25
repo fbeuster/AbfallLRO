@@ -27,7 +27,8 @@
             android:text="Aktueller Ort"
             android:id="@+id/curLocationTextView"
             android:layout_gravity="top|left"
-            android:layout_marginBottom="25dp" />
+            android:layout_marginBottom="25dp"
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +38,8 @@
             android:id="@+id/checkInfoTextView"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/colorPrimary" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -80,7 +82,8 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textColor="@color/can_text" />
         </RelativeLayout>
 
 
@@ -110,7 +113,8 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textColor="@color/can_text" />
         </RelativeLayout>
 
 
@@ -138,7 +142,8 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textColor="@color/can_text" />
         </RelativeLayout>
 
 
@@ -166,7 +171,8 @@
                 android:maxWidth="50dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textColor="@color/can_text" />
         </RelativeLayout>
     </LinearLayout>
 

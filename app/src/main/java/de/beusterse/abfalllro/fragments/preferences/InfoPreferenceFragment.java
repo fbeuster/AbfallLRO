@@ -9,12 +9,15 @@ import android.webkit.WebViewClient;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.utils.AppUtils;
 
 public class InfoPreferenceFragment extends ReturnPreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
         setPreferencesFromResource(R.xml.pref_info, rootKey);
         setHasOptionsMenu(true);
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_info_theme)));
 
         Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
         websiteIntent.setData(Uri.parse(getString(R.string.pref_url_website_long)));
@@ -67,6 +70,20 @@ public class InfoPreferenceFragment extends ReturnPreferenceFragmentCompat {
                         dialog.show();
                     }
                 });
+
+                return true;
+            }
+        });
+
+        Preference nightModePreference = findPreference(getString(R.string.pref_key_info_theme));
+        nightModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                try {
+                    int nightMode = Integer.parseInt(newValue.toString());
+                    AppUtils.setDayNightMode(nightMode);
+                } catch (Exception e) {
+                }
 
                 return true;
             }

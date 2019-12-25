@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">#F3F9F9</color>
-    <color name="colorPrimary">#191F1F</color>
-    <color name="colorPrimaryDark">#0e1212</color>
-    <color name="colorAccent">#0ea86c</color>
+    <color name="colorPrimary">#C3C7C7</color>
+    <color name="colorPrimaryDark">#919494</color>
+    <color name="colorAccent">#0EA86C</color>
+    <color name="textColorPrimary">#191F1F</color>
+    <color name="textColorSecondary">#2D3838</color>
+    <color name="textColorActionBar">#F3F9F9</color>
+
+    <color name="can_text">#191F1F</color>
     <color name="can_black">#9E9E9E</color>
     <color name="can_black_dark">#616161</color>
     <color name="can_blue">#2196F3</color>
@@ -12,11 +17,13 @@
     <color name="can_green_dark">#388E3C</color>
     <color name="can_yellow">#FFC107</color>
     <color name="can_yellow_dark">#FFA000</color>
-    <color name="white">#ffffff</color>
+    <color name="can_none_light">#FFDCE0E0</color>
+    <color name="can_none_medium">#FFCFD4D4</color>
+    <color name="can_none_dark">#FFC3C7C7</color>
+
+    <color name="white">#F3F9F9</color>
     <color name="disabledButtonText">#90CAF9</color>
     <color name="setupAccent">#0ea86c</color>
-    <color name="setupBackground">#F3F9F9</color>
     <color name="setupPrimary">#2196f3</color>
     <color name="setupPrimaryDark">#1976D2</color>
-    <color name="setupTextColor">#000000</color>
 </resources>

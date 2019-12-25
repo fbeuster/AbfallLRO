@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="iconPreferenceColor" format="reference|color" />
+    <attr name="canNoneLight" format="reference|color" />
+    <attr name="canNoneMedium" format="reference|color" />
+    <attr name="canNoneDark" format="reference|color" />
+    <attr name="setupCanBlackHeadline" format="reference|color" />
+    <attr name="setupCanBlueHeadline" format="reference|color" />
+    <attr name="setupCanGreenHeadline" format="reference|color" />
+    <attr name="setupCanYellowHeadline" format="reference|color" />
+</resources>

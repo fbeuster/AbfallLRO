@@ -1,11 +1,15 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="canNoneLight">@color/can_none_light</item>
+        <item name="canNoneMedium">@color/can_none_medium</item>
+        <item name="canNoneDark">@color/can_none_dark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,17 +17,23 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="SettingsTheme" parent="AppTheme">
+        <item name="iconPreferenceColor">@color/textColorPrimary</item>
+        <item name="actionBarTheme">@style/abfalllroPreferenceActionBar</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="abfalllroPreferenceActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/textColorSecondary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+    </style>
 
-
-    <style name="SetupTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SetupTheme" parent="AppTheme">
         <item name="colorPrimary">@color/setupPrimary</item>
         <item name="colorPrimaryDark">@color/setupPrimaryDark</item>
-        <item name="colorAccent">@color/setupAccent</item>
-        <item name="android:textColor">@color/setupTextColor</item>
-        <item name="android:windowBackground">@color/setupBackground</item>
+        <item name="setupCanBlackHeadline">@color/can_black_dark</item>
+        <item name="setupCanBlueHeadline">@color/can_blue_dark</item>
+        <item name="setupCanGreenHeadline">@color/can_green_dark</item>
+        <item name="setupCanYellowHeadline">@color/can_yellow_dark</item>
     </style>
 
     <style name="SetupTheme.NoActionBar">
@@ -36,11 +46,9 @@
         <item name="android:windowBackground">@color/setupPrimary</item>
     </style>
 
-    <style name="CanBlackTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="CanBlackTheme" parent="AppTheme">
         <item name="colorPrimary">@color/can_black</item>
         <item name="colorPrimaryDark">@color/can_black_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="CanBlackTheme.NoActionBar">
@@ -48,11 +56,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="CanBlueTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="CanBlueTheme" parent="AppTheme">
         <item name="colorPrimary">@color/can_blue</item>
         <item name="colorPrimaryDark">@color/can_blue_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="CanBlueTheme.NoActionBar">
@@ -60,11 +66,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="CanGreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="CanGreenTheme" parent="AppTheme">
         <item name="colorPrimary">@color/can_green</item>
         <item name="colorPrimaryDark">@color/can_green_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="CanGreenTheme.NoActionBar">
@@ -72,11 +76,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="CanYellowTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="CanYellowTheme" parent="AppTheme">
         <item name="colorPrimary">@color/can_yellow</item>
         <item name="colorPrimaryDark">@color/can_yellow_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="CanYellowTheme.NoActionBar">

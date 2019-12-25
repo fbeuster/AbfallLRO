@@ -2,17 +2,14 @@ package de.beusterse.abfalllro.fragments.preferences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.activities.SettingsActivity;
 import de.beusterse.abfalllro.utils.ArrayUtils;
-import de.beusterse.abfalllro.utils.TimePreference;
 
-public class PickupPreferenceFragment extends PreferenceFragmentCompat {
+public class PickupPreferenceFragment extends ReturnPreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -162,38 +159,4 @@ public class PickupPreferenceFragment extends PreferenceFragmentCompat {
         boolean needsStreet = cityName.equals(SettingsActivity.CITY_WITH_STREETS);
         street.setEnabled(needsStreet);
     }
-
-    private static void bindPreferenceSummaryToValue(Preference preference) {
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
-
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
-    }
-
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object value) {
-            String stringValue = value.toString();
-
-            if (preference instanceof ListPreference) {
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
-
-            } else if (preference instanceof TimePreference) {
-                TimePreference timePreference = (TimePreference) preference;
-                preference.setSummary(timePreference.getSummary());
-
-            } else {
-                preference.setSummary(stringValue);
-            }
-            return true;
-        }
-    };
 }

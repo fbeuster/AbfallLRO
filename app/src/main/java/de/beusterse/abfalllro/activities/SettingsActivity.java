@@ -34,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity implements SyncCallback,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.SettingsTheme);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.settings_main);

@@ -38,5 +38,6 @@
     <string name="pref_key_info_privacy">pref_info_privacy</string>
     <string name="pref_key_info_rate">pref_info_rate</string>
     <string name="pref_key_info_website">pref_info_website</string>
+    <string name="pref_key_info_theme">pref_info_theme</string>
 
 </resources>
