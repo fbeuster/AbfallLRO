@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Abfall LRO -dev-</string>
+    <string name="app_name" translatable="false">Abfall LRO -dev-</string>
 
     <string name="pref_header_dev">Entwickleroptionen</string>
     <string name="pref_dev_clear_data">Daten löschen</string>

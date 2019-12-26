@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_header_dev">Developer options</string>
+    <string name="pref_dev_clear_data">Delete data</string>
+    <string name="pref_dev_clear_data_desc">Delete local data</string>
+    <string name="pref_dev_clear_data_toast">Data have been deleted.</string>
+    <string name="pref_dev_clear_settings">Delete settings</string>
+</resources>

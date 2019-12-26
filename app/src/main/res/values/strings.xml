@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Abfall LRO</string>
-    <string name="author">Felix Beuster</string>
-    <string name="version">1.6.5</string>
+    <string name="app_name" translatable="false">Abfall LRO</string>
+    <string name="author" translatable="false">Felix Beuster</string>
+    <string name="version" translatable="false">1.6.5</string>
 
     <string name="dialog_button_positive">OK</string>
     <string name="dialog_button_negative">Abbrechen</string>
@@ -1187,7 +1187,7 @@
         <item>Zietlitz</item>
         <item>Zweedorf</item>
     </string-array>
-    <string name="pref_location_default">Bützow-Stadt</string>
+    <string name="pref_location_default" translatable="false">Bützow-Stadt</string>
     <string-array name="pref_location_twice_per_week_black">
         <item>Bad Doberan</item>
         <item>Bützow-Stadt</item>
@@ -1556,5 +1556,5 @@
         <item>Zur Kanalbrücke</item>
         <item>Zur Molchkuhle</item>
     </string-array>
-    <string name="pref_location_street_default">Ahornpromenade</string>
+    <string name="pref_location_street_default" translatable="false">Ahornpromenade</string>
 </resources>
