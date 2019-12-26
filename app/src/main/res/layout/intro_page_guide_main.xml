@@ -26,15 +26,25 @@
             android:text="@string/intro_guide_main_desc"
             android:id="@+id/monthlyPickupDesc" />
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/check_can_none"
+            android:id="@+id/checkInfoTextView"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:src="@drawable/setup_main"
-            android:maxHeight="256dp"
-            android:maxWidth="256dp" />
+            android:textAlignment="center"
+            android:layout_marginTop="25dp"/>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/trashCanImageView"
+            android:src="@drawable/can_none_scale"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp"/>
 
     </LinearLayout>
 
