@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Abfall LRO</string>
     <string name="author" translatable="false">Felix Beuster</string>
-    <string name="version" translatable="false">1.6.5</string>
+    <string name="version" translatable="false">1.7</string>
 
     <string name="dialog_button_positive">OK</string>
     <string name="dialog_button_negative">Abbrechen</string>
