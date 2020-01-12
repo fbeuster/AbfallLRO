@@ -5,4 +5,6 @@
     <string name="pref_dev_clear_data_desc">Delete local data</string>
     <string name="pref_dev_clear_data_toast">Data have been deleted.</string>
     <string name="pref_dev_clear_settings">Delete settings</string>
+    <string name="pref_dev_show_settings">Show stored data</string>
+    <string name="pref_dev_show_settings_title">Stored data</string>
 </resources>

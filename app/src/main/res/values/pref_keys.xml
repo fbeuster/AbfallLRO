@@ -34,6 +34,7 @@
 
     <string name="pref_key_dev_clear_data">pref_dev_clear_data</string>
     <string name="pref_key_dev_clear_settings">pref_dev_clear_settings</string>
+    <string name="pref_key_dev_show_settings">pref_dev_show_settings</string>
 
     <string name="pref_key_info_privacy">pref_info_privacy</string>
     <string name="pref_key_info_rate">pref_info_rate</string>

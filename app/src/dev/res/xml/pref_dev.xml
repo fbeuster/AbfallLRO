@@ -9,4 +9,10 @@
         app:title="@string/pref_dev_clear_settings"
         app:key="@string/pref_key_dev_clear_settings"
         app:iconSpaceReserved="false" />
+
+    <Preference
+        app:title="@string/pref_dev_show_settings"
+        app:key="@string/pref_key_dev_show_settings"
+        app:iconSpaceReserved="false" />
+
 </PreferenceScreen>

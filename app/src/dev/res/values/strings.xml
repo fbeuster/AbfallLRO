@@ -7,4 +7,6 @@
     <string name="pref_dev_clear_data_desc">Löscht die lokalen Daten</string>
     <string name="pref_dev_clear_data_toast">Daten wurden gelöscht</string>
     <string name="pref_dev_clear_settings">Einstellungen löschen</string>
+    <string name="pref_dev_show_settings">Gespeicherte Daten anzeigen</string>
+    <string name="pref_dev_show_settings_title">Gespeicherte Daten</string>
 </resources>
