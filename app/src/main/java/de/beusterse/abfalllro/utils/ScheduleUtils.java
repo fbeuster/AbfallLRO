@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
+import de.beusterse.abfalllro.capsules.Schedule;
 
 /**
  * Utility functions related to cans
@@ -18,24 +19,23 @@ public class ScheduleUtils {
     public static int getSavedScheduleForCan(int can, Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        String[] schedule_names = context.getResources().getStringArray(R.array.pref_general_schedule_list);
         String savedSchedule;
-        String scheduleBiweekly = context.getString(R.string.pref_can_schedule_biweekly);
-        String scheduleMonthly = context.getString(R.string.pref_can_schedule_monthly);
+        String scheduleBiweekly = Schedule.BIWEEKLY.name();
+        String scheduleMonthly = Schedule.MONTHLY.name();
 
         switch (can) {
             case Can.BLACK :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_black), scheduleBiweekly);
-                return ArrayUtils.indexOf(schedule_names, savedSchedule);
+                return mapScheduleToInt(savedSchedule);
             case Can.BLUE :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_blue), scheduleMonthly);
-                return ArrayUtils.indexOf(schedule_names, savedSchedule);
+                return mapScheduleToInt(savedSchedule);
             case Can.GREEN :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_green), scheduleBiweekly);
-                return ArrayUtils.indexOf(schedule_names, savedSchedule);
+                return mapScheduleToInt(savedSchedule);
             case Can.YELLOW :
                 savedSchedule = sharedPreferences.getString(context.getString(R.string.pref_key_pickup_schedule_yellow), scheduleBiweekly);
-                return ArrayUtils.indexOf(schedule_names, savedSchedule);
+                return mapScheduleToInt(savedSchedule);
             default:
                 break;
         }
@@ -50,14 +50,26 @@ public class ScheduleUtils {
                 getSavedScheduleForCan(Can.YELLOW, context) == Can.SCHEDULE_NEVER;
     }
 
-    public static String scheduleIntToString(int schedule) {
+    public static Schedule mapIntToSchedule(int schedule) {
         switch (schedule) {
-            case Can.SCHEDULE_NEVER:        return "never";
-            case Can.SCHEDULE_MONTHLY:      return "monthly";
-            case Can.SCHEDULE_BIWEEKLY:     return "biweekly";
-            case Can.SCHEDULE_WEEKLY:       return "weekly";
-            case Can.SCHEDULE_TWICA_A_WEEK: return "twice a week";
-            default:                        return "error";
+            case Can.SCHEDULE_NEVER:        return Schedule.NEVER;
+            case Can.SCHEDULE_MONTHLY:      return Schedule.MONTHLY;
+            case Can.SCHEDULE_BIWEEKLY:     return Schedule.BIWEEKLY;
+            case Can.SCHEDULE_WEEKLY:       return Schedule.WEEKLY;
+            case Can.SCHEDULE_TWICE_A_WEEK: return Schedule.TWICE_A_WEEK;
+            default:                        return Schedule.NEVER;
+        }
+    }
+
+    private static int mapScheduleToInt(String schedule)
+    {
+        switch (Schedule.valueOf(schedule)) {
+            case NEVER:         return Can.SCHEDULE_NEVER;
+            case MONTHLY:       return Can.SCHEDULE_MONTHLY;
+            case BIWEEKLY:      return Can.SCHEDULE_BIWEEKLY;
+            case WEEKLY:        return Can.SCHEDULE_WEEKLY;
+            case TWICE_A_WEEK:  return Can.SCHEDULE_TWICE_A_WEEK;
+            default:            return 0;
         }
     }
 }

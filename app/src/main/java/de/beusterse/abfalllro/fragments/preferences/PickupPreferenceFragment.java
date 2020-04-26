@@ -3,10 +3,12 @@ package de.beusterse.abfalllro.fragments.preferences;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
+
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.activities.SettingsActivity;
+import de.beusterse.abfalllro.capsules.Schedule;
 import de.beusterse.abfalllro.utils.ArrayUtils;
 
 public class PickupPreferenceFragment extends ReturnPreferenceFragmentCompat {
@@ -95,8 +97,8 @@ public class PickupPreferenceFragment extends ReturnPreferenceFragmentCompat {
         ListPreference green_can    = findPreference(getString(R.string.pref_key_pickup_schedule_green));
         ListPreference yellow_can   = findPreference(getString(R.string.pref_key_pickup_schedule_yellow));
 
-        String schedule_biweekly    = getString(R.string.pref_can_schedule_biweekly);
-        String schedule_monthly     = getString(R.string.pref_can_schedule_monthly);
+        String schedule_biweekly    = Schedule.BIWEEKLY.name();
+        String schedule_monthly     = Schedule.MONTHLY.name();
 
         // Reading values / defaults
         String scheduleBlack    = sp.getString(

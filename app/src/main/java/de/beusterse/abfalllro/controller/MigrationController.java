@@ -8,6 +8,7 @@ import java.util.Map;
 
 import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
+import de.beusterse.abfalllro.capsules.Schedule;
 import de.beusterse.abfalllro.utils.NotificationUtils;
 
 /**
@@ -50,6 +51,10 @@ public class MigrationController {
 
                 if (migratedVersion == 20) {
                     migrateTo21();
+                }
+
+                if (migratedVersion == 21) {
+                    migrateTo22();
                 }
 
                 migratedVersion++;
@@ -117,5 +122,40 @@ public class MigrationController {
 
     private void migrateTo21() {
         NotificationUtils.createNotificationChannel(mContext);
+    }
+
+    private void migrateTo22() {
+        String key_black    = mContext.getString(R.string.pref_key_pickup_schedule_black);
+        String key_blue     = mContext.getString(R.string.pref_key_pickup_schedule_blue);
+        String key_green    = mContext.getString(R.string.pref_key_pickup_schedule_green);
+        String key_yellow   = mContext.getString(R.string.pref_key_pickup_schedule_yellow);
+
+        Schedule schedule = mapScheduleStringToCadence(mSharedPreferences.getString(key_black, ""));
+        mEditor.putString(key_black, schedule.name());
+
+        schedule = mapScheduleStringToCadence(mSharedPreferences.getString(key_blue, ""));
+        mEditor.putString(key_blue, schedule.name());
+
+        schedule = mapScheduleStringToCadence(mSharedPreferences.getString(key_green, ""));
+        mEditor.putString(key_green, schedule.name());
+
+        schedule = mapScheduleStringToCadence(mSharedPreferences.getString(key_yellow, ""));
+        mEditor.putString(key_yellow, schedule.name());
+    }
+
+    private Schedule mapScheduleStringToCadence(String schedule) {
+        switch (schedule) {
+            case "2 mal pro Woche" :
+                return Schedule.TWICE_A_WEEK;
+            case "Wöchentlich" :
+                return Schedule.WEEKLY;
+            case "2-Wöchentlich" :
+                return Schedule.BIWEEKLY;
+            case "Monatlich" :
+                return Schedule.MONTHLY;
+            case "Nie" :
+            default :
+                return Schedule.NEVER;
+        }
     }
 }

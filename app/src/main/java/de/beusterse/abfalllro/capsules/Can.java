@@ -20,7 +20,7 @@ public class Can {
     public static final int SCHEDULE_MONTHLY        = 1;
     public static final int SCHEDULE_BIWEEKLY       = 2;
     public static final int SCHEDULE_WEEKLY         = 3;
-    public static final int SCHEDULE_TWICA_A_WEEK   = 4;
+    public static final int SCHEDULE_TWICE_A_WEEK   = 4;
 
     private char letter;
     private int color;
@@ -43,6 +43,6 @@ public class Can {
     public int getSchedule() { return schedule; }
 
     public String toString() {
-        return ScheduleUtils.scheduleIntToString(schedule) + " " + color + " " + letter;
+        return ScheduleUtils.mapIntToSchedule(schedule) + " " + color + " " + letter;
     }
 }

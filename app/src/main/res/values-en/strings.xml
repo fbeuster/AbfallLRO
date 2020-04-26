@@ -94,6 +94,13 @@
     <string name="pref_title_can_green_schedule">Green can</string>
     <string name="pref_title_can_yellow_schedule">Yellow can</string>
 
+    <string name="pref_can_schedule_never">Never</string>
+    <string name="pref_can_schedule_monthly">Monthly</string>
+    <string name="pref_can_schedule_biweekly">Biweekly</string>
+    <string name="pref_can_schedule_weekly">Weekly</string>
+    <string name="pref_can_schedule_twice_a_week">Twice per week</string>
+    <string name="pref_can_schedule_not_available">Cadence \"%1$s\" is not available in %2$s.</string>
+
 
     <string name="pref_header_sync">Updates</string>
     <string name="pref_sync_title">Update pickup schedule data</string>

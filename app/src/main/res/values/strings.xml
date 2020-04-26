@@ -453,9 +453,20 @@
         <item>@string/pref_can_schedule_weekly</item>
         <item>@string/pref_can_schedule_twice_a_week</item>
     </string-array>
+    <string-array name="pref_can_black_schedule_values">
+        <item>@string/pref_can_schedule_never_value</item>
+        <item>@string/pref_can_schedule_monthly_value</item>
+        <item>@string/pref_can_schedule_biweekly_value</item>
+        <item>@string/pref_can_schedule_weekly_value</item>
+        <item>@string/pref_can_schedule_twice_a_week_value</item>
+    </string-array>
     <string-array name="pref_can_blue_schedule_list">
         <item>@string/pref_can_schedule_never</item>
         <item>@string/pref_can_schedule_monthly</item>
+    </string-array>
+    <string-array name="pref_can_blue_schedule_values">
+        <item>@string/pref_can_schedule_never_value</item>
+        <item>@string/pref_can_schedule_monthly_value</item>
     </string-array>
     <string-array name="pref_can_green_schedule_list">
         <item>@string/pref_can_schedule_never</item>
@@ -464,9 +475,20 @@
         <item>@string/pref_can_schedule_weekly</item>
         <item>@string/pref_can_schedule_twice_a_week</item>
     </string-array>
+    <string-array name="pref_can_green_schedule_values">
+        <item>@string/pref_can_schedule_never_value</item>
+        <item>@string/pref_can_schedule_monthly_value</item>
+        <item>@string/pref_can_schedule_biweekly_value</item>
+        <item>@string/pref_can_schedule_weekly_value</item>
+        <item>@string/pref_can_schedule_twice_a_week_value</item>
+    </string-array>
     <string-array name="pref_can_yellow_schedule_list">
         <item>@string/pref_can_schedule_never</item>
         <item>@string/pref_can_schedule_biweekly</item>
+    </string-array>
+    <string-array name="pref_can_yellow_schedule_values">
+        <item>@string/pref_can_schedule_never_value</item>
+        <item>@string/pref_can_schedule_biweekly_value</item>
     </string-array>
     <string name="pref_can_schedule_never">Nie</string>
     <string name="pref_can_schedule_monthly">Monatlich</string>
@@ -474,6 +496,11 @@
     <string name="pref_can_schedule_weekly">Wöchentlich</string>
     <string name="pref_can_schedule_twice_a_week">2 mal pro Woche</string>
     <string name="pref_can_schedule_not_available">Abholrhythmus \"%1$s\" ist in %2$s nicht verfügbar.</string>
+    <string name="pref_can_schedule_never_value" translatable="false">NEVER</string>
+    <string name="pref_can_schedule_monthly_value" translatable="false">MONTHLY</string>
+    <string name="pref_can_schedule_biweekly_value" translatable="false">BIWEEKLY</string>
+    <string name="pref_can_schedule_weekly_value" translatable="false">WEEKLY</string>
+    <string name="pref_can_schedule_twice_a_week_value" translatable="false">TWICE_PER_WEEK</string>
 
 
     <string name="pref_header_sync">Aktualisierungen</string>
