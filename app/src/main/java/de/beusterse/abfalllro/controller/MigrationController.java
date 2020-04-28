@@ -57,6 +57,10 @@ public class MigrationController {
                     migrateTo22();
                 }
 
+                if (migratedVersion == 23) {
+                    migrateTo24();
+                }
+
                 migratedVersion++;
             }
         }
@@ -141,6 +145,25 @@ public class MigrationController {
 
         schedule = mapScheduleStringToCadence(mSharedPreferences.getString(key_yellow, ""));
         mEditor.putString(key_yellow, schedule.name());
+    }
+
+    private void migrateTo24() {
+        String def_value = "MONTHLY";
+        String old_value = "TWICE_PER_WEEK";
+        String key_black = mContext.getString(R.string.pref_key_pickup_schedule_black);
+        String key_green = mContext.getString(R.string.pref_key_pickup_schedule_green);
+
+        String schedule = mSharedPreferences.getString(key_black, def_value);
+
+        if (schedule.equals(old_value)) {
+            mEditor.putString(key_black, Schedule.TWICE_A_WEEK.name());
+        }
+
+        schedule = mSharedPreferences.getString(key_green, def_value);
+
+        if (schedule.equals(old_value)) {
+            mEditor.putString(key_green, Schedule.TWICE_A_WEEK.name());
+        }
     }
 
     private Schedule mapScheduleStringToCadence(String schedule) {

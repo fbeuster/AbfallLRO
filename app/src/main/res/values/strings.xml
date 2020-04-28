@@ -500,7 +500,7 @@
     <string name="pref_can_schedule_monthly_value" translatable="false">MONTHLY</string>
     <string name="pref_can_schedule_biweekly_value" translatable="false">BIWEEKLY</string>
     <string name="pref_can_schedule_weekly_value" translatable="false">WEEKLY</string>
-    <string name="pref_can_schedule_twice_a_week_value" translatable="false">TWICE_PER_WEEK</string>
+    <string name="pref_can_schedule_twice_a_week_value" translatable="false">TWICE_A_WEEK</string>
 
 
     <string name="pref_header_sync">Aktualisierungen</string>
