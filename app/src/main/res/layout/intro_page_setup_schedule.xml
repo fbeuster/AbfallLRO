@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/pref_can_black_schedule_list"
-            android:entryValues="@array/pref_can_black_schedule_list" />
+            android:entryValues="@array/pref_can_black_schedule_values" />
 
         <TextView
             android:id="@+id/scheduleGreenTitle"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/pref_can_green_schedule_list"
-            android:entryValues="@array/pref_can_green_schedule_list" />
+            android:entryValues="@array/pref_can_green_schedule_values" />
 
         <TextView
             android:id="@+id/scheduleYellowTitle"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/pref_can_yellow_schedule_list"
-            android:entryValues="@array/pref_can_yellow_schedule_list" />
+            android:entryValues="@array/pref_can_yellow_schedule_values" />
 
         <TextView
             android:id="@+id/scheduleBlueTitle"
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/pref_can_blue_schedule_list"
-            android:entryValues="@array/pref_can_blue_schedule_list" />
+            android:entryValues="@array/pref_can_blue_schedule_values" />
 
     </LinearLayout>
 

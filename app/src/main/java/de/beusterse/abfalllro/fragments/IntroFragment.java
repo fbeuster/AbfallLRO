@@ -266,12 +266,17 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
         Spinner greenSpinner = getActivity().findViewById(R.id.scheduleGreenSpinner);
         Spinner yellowSpinner = getActivity().findViewById(R.id.scheduleYellowSpinner);
 
+        String[] blackValues = getResources().getStringArray(R.array.pref_can_black_schedule_values);
+        String[] blueValues = getResources().getStringArray(R.array.pref_can_blue_schedule_values);
+        String[] greenValues = getResources().getStringArray(R.array.pref_can_green_schedule_values);
+        String[] yellowValues = getResources().getStringArray(R.array.pref_can_yellow_schedule_values);
+
         SharedPreferences.Editor editor = pref.edit();
 
-        editor.putString(getString(R.string.pref_key_pickup_schedule_black), blackSpinner.getSelectedItem().toString());
-        editor.putString(getString(R.string.pref_key_pickup_schedule_blue), blueSpinner.getSelectedItem().toString());
-        editor.putString(getString(R.string.pref_key_pickup_schedule_green), greenSpinner.getSelectedItem().toString());
-        editor.putString(getString(R.string.pref_key_pickup_schedule_yellow), yellowSpinner.getSelectedItem().toString());
+        editor.putString(getString(R.string.pref_key_pickup_schedule_black), blackValues[blackSpinner.getSelectedItemPosition()]);
+        editor.putString(getString(R.string.pref_key_pickup_schedule_blue), blueValues[blueSpinner.getSelectedItemPosition()]);
+        editor.putString(getString(R.string.pref_key_pickup_schedule_green), greenValues[greenSpinner.getSelectedItemPosition()]);
+        editor.putString(getString(R.string.pref_key_pickup_schedule_yellow), yellowValues[yellowSpinner.getSelectedItemPosition()]);
 
         editor.apply();
     }
