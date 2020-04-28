@@ -11,6 +11,7 @@ import de.beusterse.abfalllro.BuildConfig;
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.capsules.Can;
 import de.beusterse.abfalllro.controller.DataController;
+import de.beusterse.abfalllro.controller.MigrationController;
 import de.beusterse.abfalllro.controller.SyncController;
 import de.beusterse.abfalllro.controller.TrashController;
 import de.beusterse.abfalllro.interfaces.DailyCheckCallback;
@@ -84,7 +85,14 @@ public class DailyCheck implements SyncCallback {
         canAlarmTimes = controller.getPreview();
     }
 
+    private void migrate() {
+        MigrationController migrationController = new MigrationController(mContext);
+        migrationController.migrate();
+    }
+
     public void run() {
+        migrate();
+
         pref                    = PreferenceManager.getDefaultSharedPreferences(mContext);
         Calendar now            = Calendar.getInstance();
         SimpleDateFormat df     = new SimpleDateFormat("yyyy-MM-dd");
