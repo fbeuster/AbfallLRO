@@ -26,4 +26,6 @@
     <color name="setupAccent">#0ea86c</color>
     <color name="setupPrimary">#2196f3</color>
     <color name="setupPrimaryDark">#1976D2</color>
+
+    <color name="black">#000000</color>
 </resources>
