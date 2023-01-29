@@ -86,7 +86,8 @@ public class NotificationService extends Service {
         if (can != Can.INVALID) {
             Notification notification;
             Notification.Builder notificationBuilder;
-            PendingIntent pendingIntent     = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
+            PendingIntent pendingIntent     = PendingIntent.getActivity(this, 0,
+                    new Intent(this, MainActivity.class), getPendingIntentFlagForVersionS(0));
             RawNotification rawNotification = new RawNotification(can, pendingIntent, getResources());
 
             boolean soundsActive        = pref.getBoolean(
@@ -142,5 +143,13 @@ public class NotificationService extends Service {
 
             notificationManager.notify(rawNotification.getUniqueId(), notification);
         }
+    }
+
+    private int getPendingIntentFlagForVersionS(int flags) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return PendingIntent.FLAG_IMMUTABLE | flags;
+        }
+
+        return flags;
     }
 }

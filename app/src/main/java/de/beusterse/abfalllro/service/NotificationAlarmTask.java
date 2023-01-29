@@ -28,13 +28,13 @@ public class NotificationAlarmTask implements Runnable {
     }
 
     public void cancel() {
-        PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = getPendingIntent(getPendingIntentFlagForVersionS(PendingIntent.FLAG_UPDATE_CURRENT));
         alarmManager.cancel(pendingIntent);
         pendingIntent.cancel();
     }
 
     public boolean exists() {
-        return getPendingIntent(PendingIntent.FLAG_NO_CREATE) != null;
+        return getPendingIntent(getPendingIntentFlagForVersionS(PendingIntent.FLAG_NO_CREATE)) != null;
     }
 
     private PendingIntent getPendingIntent(int flags) {
@@ -48,9 +48,18 @@ public class NotificationAlarmTask implements Runnable {
     @Override
     public void run() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(0));
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(getPendingIntentFlagForVersionS(0)));
         } else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(0));
         }
+    }
+
+    private int getPendingIntentFlagForVersionS(int flags) {
+        // as per https://stackoverflow.com/a/72079329/4151333
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return PendingIntent.FLAG_IMMUTABLE | flags;
+        }
+
+        return flags;
     }
 }
