@@ -61,6 +61,10 @@ public class MigrationController {
                     migrateTo24();
                 }
 
+                if (migratedVersion == 25) {
+                    migrateTo26();
+                }
+
                 migratedVersion++;
             }
         }
@@ -163,6 +167,30 @@ public class MigrationController {
 
         if (schedule.equals(old_value)) {
             mEditor.putString(key_green, Schedule.TWICE_A_WEEK.name());
+        }
+    }
+
+    private void migrateTo26() {
+        // twice-a-week is not offered for green any longer
+        String def_value = "MONTHLY";
+        String invalid_value = "TWICE_PER_WEEK";
+        String key_green = mContext.getString(R.string.pref_key_pickup_schedule_green);
+        String schedule = mSharedPreferences.getString(key_green, def_value);
+
+        if (schedule.equals(invalid_value)) {
+            mEditor.putString(key_green, "WEEKLY");
+        }
+
+        // Börgerende and Tessin no longer have weekly green pickup
+        String key_city = mContext.getString(R.string.pref_key_pickup_town);
+        String[] invalid_cities = {"Börgerende", "tessin"};
+        String location = mSharedPreferences.getString(key_city, "Bützow-Stadt");
+
+        for (String invalid_city : invalid_cities) {
+            if (location.equals(invalid_city)) {
+                mEditor.putString(key_green, def_value);
+                break;
+            }
         }
     }
 

@@ -48,11 +48,6 @@ public class PickupPreferenceFragment extends ReturnPreferenceFragmentCompat {
                     isNotWeeklyOrBiweekly(R.array.pref_location_twice_per_week_black, location)) {
                 return true;
             }
-
-            if (preferenceKey.equals(getString(R.string.pref_key_pickup_schedule_green)) &&
-                    isNotWeeklyOrBiweekly(R.array.pref_location_twice_per_week_green, location)) {
-                return true;
-            }
         }
 
         if (schedule.equals(getString(R.string.pref_can_schedule_weekly))) {

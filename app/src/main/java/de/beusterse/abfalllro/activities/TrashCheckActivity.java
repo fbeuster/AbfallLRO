@@ -93,7 +93,7 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if( !(  key.equals(getString(R.string.pref_key_intern_last_alarm_black)) ||
+        if( key != null && !(  key.equals(getString(R.string.pref_key_intern_last_alarm_black)) ||
                 key.equals(getString(R.string.pref_key_intern_last_alarm_blue))  ||
                 key.equals(getString(R.string.pref_key_intern_last_alarm_green)) ||
                 key.equals(getString(R.string.pref_key_intern_last_alarm_yellow)) ) ) {

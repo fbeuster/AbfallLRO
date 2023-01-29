@@ -119,7 +119,7 @@ public class TrashController {
                     });
                 }
 
-                // weekly and twice-per-week green cans
+                // weekly green cans
                 if (current_codes.length() > 4 && current_codes.charAt(5) != '0' &&
                         plan.hasCan(ScheduleUtils.getSavedScheduleForCan(Can.GREEN, context), Can.GREEN, current_codes.charAt(5))) {
                     cCans.add(new int[]{
