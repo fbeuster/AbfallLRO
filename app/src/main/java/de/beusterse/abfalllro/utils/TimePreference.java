@@ -13,7 +13,7 @@ import androidx.preference.DialogPreference;
 import de.beusterse.abfalllro.R;
 
 /**
- * Custom prefrence for a time picker dialog
+ * Custom preference for a time picker dialog
  * Created by Felix Beuster
  *
  * Kudos for this goes to commonsguy as well.
@@ -28,7 +28,7 @@ public class TimePreference extends DialogPreference {
     }
 
     public TimePreference(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.preferenceStyle);
+        this(context, attrs, 0);
     }
 
     public TimePreference(Context context, AttributeSet attrs, int defStyleAttr) {
