@@ -11,11 +11,11 @@ android {
     signingConfigs {
         release
     }
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId theApplicationId
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode 26
         versionName "1.8"
