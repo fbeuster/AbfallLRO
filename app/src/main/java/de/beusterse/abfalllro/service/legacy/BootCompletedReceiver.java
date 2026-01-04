@@ -1,5 +1,7 @@
 package de.beusterse.abfalllro.service.legacy;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -43,7 +45,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                         AlarmManager.RTC_WAKEUP,
                         date.getTimeInMillis(),
                         interval,
-                        PendingIntent.getBroadcast(context, 0, alarmIntent, 0));
+                        PendingIntent.getBroadcast(context, 0, alarmIntent, FLAG_IMMUTABLE));
             }
         }
     }
