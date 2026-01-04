@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Abfall LRO</string>
     <string name="author" translatable="false">Felix Beuster</string>
-    <string name="version" translatable="false">1.7.3</string>
+    <string name="version" translatable="false">1.8.1</string>
 
     <string name="dialog_button_positive">OK</string>
     <string name="dialog_button_negative">Abbrechen</string>
@@ -473,14 +473,12 @@
         <item>@string/pref_can_schedule_monthly</item>
         <item>@string/pref_can_schedule_biweekly</item>
         <item>@string/pref_can_schedule_weekly</item>
-        <item>@string/pref_can_schedule_twice_a_week</item>
     </string-array>
     <string-array name="pref_can_green_schedule_values">
         <item>@string/pref_can_schedule_never_value</item>
         <item>@string/pref_can_schedule_monthly_value</item>
         <item>@string/pref_can_schedule_biweekly_value</item>
         <item>@string/pref_can_schedule_weekly_value</item>
-        <item>@string/pref_can_schedule_twice_a_week_value</item>
     </string-array>
     <string-array name="pref_can_yellow_schedule_list">
         <item>@string/pref_can_schedule_never</item>
@@ -1293,14 +1291,8 @@
         <item>Weitendorf (Laage)</item>
         <item>Wittenbeck</item>
     </string-array>
-    <string-array name="pref_location_twice_per_week_green">
-        <item>Bad Doberan</item>
-        <item>Güstrow</item>
-        <item>Sanitz</item>
-    </string-array>
     <string-array name="pref_location_weekly_green">
         <item>Bad Doberan</item>
-        <item>Börgerende</item>
         <item>Broderstorf</item>
         <item>Bützow-Stadt</item>
         <item>Elmenhorst</item>
@@ -1320,7 +1312,6 @@
         <item>Schwaan</item>
         <item>Sievershagen</item>
         <item>Stäbelow</item>
-        <item>Tessin</item>
         <item>Teterow (ohne Ortsteile)</item>
     </string-array>
 

@@ -130,10 +130,10 @@ public class IntroFragment extends Fragment implements AdapterView.OnItemSelecte
             if (can == Can.BLACK && ArrayUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_black), location) == -1) {
                 return false;
             }
+        }
 
-            if (can == Can.GREEN && ArrayUtils.indexOf(getResources().getStringArray(R.array.pref_location_twice_per_week_green), location) == -1) {
-                return false;
-            }
+        if (schedule.equals(getString(R.string.pref_can_schedule_twice_a_week)) && can == Can.GREEN) {
+            return false;
         }
 
         if (schedule.equals(getString(R.string.pref_can_schedule_weekly))) {
