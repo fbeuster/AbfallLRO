@@ -66,20 +66,11 @@ public class NotificationService extends Service {
     private final IBinder binder = new ServiceBinder();
 
     private int getNotificationColor(RawNotification rawNotification) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getResources().getColor(rawNotification.getColor(), getTheme());
-
-        } else {
-            return getResources().getColor(rawNotification.getColor());
-        }
+        return getResources().getColor(rawNotification.getColor(), getTheme());
     }
 
     private int getNotificationIcon(RawNotification rawNotification) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return rawNotification.getIcon();
-        } else {
-            return rawNotification.getColoredIcon();
-        }
+        return rawNotification.getIcon();
     }
 
     private void showNotification(int can, SharedPreferences pref) {
@@ -110,9 +101,7 @@ public class NotificationService extends Service {
                 /* SDK_INT < 26 */
                 notificationBuilder = new Notification.Builder(this);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    notificationBuilder.setColor( getNotificationColor(rawNotification) );
-                }
+                notificationBuilder.setColor( getNotificationColor(rawNotification) );
 
                 if (soundsActive) {
                     notificationBuilder.setSound(sound);
@@ -135,11 +124,7 @@ public class NotificationService extends Service {
                 notificationBuilder.setShowWhen(true);
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                notification = notificationBuilder.build();
-            } else {
-                notification = notificationBuilder.getNotification();
-            }
+            notification = notificationBuilder.build();
 
             notificationManager.notify(rawNotification.getUniqueId(), notification);
         }
