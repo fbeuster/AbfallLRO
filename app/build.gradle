@@ -17,8 +17,8 @@ android {
         minSdkVersion 23
         targetSdkVersion 35
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionCode 27
-        versionName "1.8.1"
+        versionCode 28
+        versionName "1.8.2"
     }
     flavorDimensions "app"
     productFlavors {
