@@ -20,6 +20,12 @@
             app:iconSpaceReserved="false" />
 
         <Preference
+            app:key="@string/pref_key_notifications_all_settings"
+            app:title="@string/pref_notification_all_settings_title"
+            app:summary="@string/pref_notification_all_settings_summary"
+            app:iconSpaceReserved="false" />
+
+        <Preference
             app:key="@string/pref_key_notifications_channel_settings"
             app:title="@string/pref_notification_channel_settings_title"
             app:summary="@string/pref_notification_channel_settings_summary"

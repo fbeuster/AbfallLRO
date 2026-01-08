@@ -40,8 +40,19 @@ public class NotificationPreferenceFragment extends ReturnPreferenceFragmentComp
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Preference link = findPreference(getString(R.string.pref_key_notifications_channel_settings));
-            link.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            Preference linkAllSettings = findPreference(getString(R.string.pref_key_notifications_all_settings));
+            linkAllSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, preference.getContext().getPackageName());
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
+            Preference linkChannelSettings = findPreference(getString(R.string.pref_key_notifications_channel_settings));
+            linkChannelSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
