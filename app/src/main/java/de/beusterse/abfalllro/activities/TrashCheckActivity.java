@@ -48,8 +48,6 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        serviceManager.bind();
-
         uiController.prepare(trashController.getCans(), trashController.getError(), trashController.getPreview());
         uiController.update();
 
@@ -103,7 +101,6 @@ public class TrashCheckActivity extends AppCompatActivity implements SharedPrefe
 
     @Override
     protected void onStop() {
-        serviceManager.unbind();
         super.onStop();
     }
 

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -40,18 +41,8 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
-        <receiver android:name=".service.legacy.BootCompletedReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".service.legacy.DailyCheckReceiver" />
         <receiver android:name=".service.NotificationAlarmReceiver" />
 
-        <service android:name=".service.legacy.DailyCheckService" />
-        <service android:name=".service.NotificationService" />
-        <service android:name=".service.legacy.DailyAlarmService" />
         <service
             android:name=".service.DailyCheckJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />

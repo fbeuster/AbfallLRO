@@ -3,22 +3,17 @@ package de.beusterse.abfalllro.service;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
-import android.os.Build;
-import androidx.annotation.RequiresApi;
 import android.util.Log;
 
 import de.beusterse.abfalllro.BuildConfig;
 
 /**
  * Daily Check JobScheduler
- *
  * Schedules the daily check for updates and the need for notifications.
- *
  * Created by Felix Beuster on 1/4/2018.
  */
 
 public class DailyCheckJobScheduler {
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void schedule(JobScheduler jobScheduler, String packageName) {
         ComponentName name      = new ComponentName(packageName, DailyCheckJobService.class.getName());
         JobInfo.Builder builder = new JobInfo.Builder(1, name);

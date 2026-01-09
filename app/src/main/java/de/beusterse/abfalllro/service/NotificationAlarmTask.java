@@ -39,18 +39,37 @@ public class NotificationAlarmTask implements Runnable {
 
     private PendingIntent getPendingIntent(int flags) {
         Intent intent = new Intent(context, NotificationAlarmReceiver.class);
-        intent.putExtra(NotificationService.EXTRA_INTENT_NOTIFY, true);
-        intent.putExtra(NotificationService.EXTRA_NOTIFY_CAN, can);
+        intent.putExtra(NotificationAlarmReceiver.EXTRA_NOTIFY_CAN, can);
 
         return PendingIntent.getBroadcast(context, can, intent, flags);
     }
 
     @Override
     public void run() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(getPendingIntentFlagForVersionS(0)));
+        int flag = getPendingIntentFlagForVersionS(0);
+        int type = AlarmManager.RTC_WAKEUP;
+        long time = date.getTimeInMillis();
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExactAndAllowWhileIdle(type, time, getPendingIntent(flag));
+            } else {
+                alarmManager.setAndAllowWhileIdle(type, time, getPendingIntent(flag));
+            }
+
+        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            try {
+                alarmManager.setExactAndAllowWhileIdle(type, time, getPendingIntent(flag));
+            } catch (SecurityException e) {
+                alarmManager.setAndAllowWhileIdle(type, time, getPendingIntent(flag));
+            }
+
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), getPendingIntent(0));
+            try {
+                alarmManager.setExact(type, time, getPendingIntent(0));
+            } catch (SecurityException e) {
+                alarmManager.set(type, time, getPendingIntent(0));
+            }
         }
     }
 

@@ -20,10 +20,8 @@ import de.beusterse.abfalllro.utils.TimePreference;
 
 /**
  * Daily Check
- *
  * Starts the sync to check for new data, and also checks
  * if any reminders need to be set.
- *
  * Created by Felix Beuster on 1/4/2018.
  */
 
@@ -125,7 +123,6 @@ public class DailyCheck implements SyncCallback {
     }
 
     private void scheduleNotification() {
-
         String alarmTime    = pref.getString(
                 mContext.getString(R.string.pref_key_notifications_time),
                 mContext.getString(R.string.pref_notifications_default_time));
@@ -133,7 +130,6 @@ public class DailyCheck implements SyncCallback {
         int alarmMinute     = TimePreference.getMinute(alarmTime);
 
         for (int i = 0; i < canAlarmTypes.length; i++) {
-
             if (canAlarmTimes[i] > 0 && canAlarmTimes[i] <= 2) {
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.DATE, canAlarmTimes[i] - 1);
@@ -142,7 +138,7 @@ public class DailyCheck implements SyncCallback {
 
                 Calendar now = Calendar.getInstance();
 
-                if (now.before(cal) || cal.before(now) && !alarmWentOff(cal, i)) {
+                if (now.before(cal) || (cal.before(now) && !alarmWentOff(cal, i))) {
                     /* cancel alarm to make sure all current settings are applied */
                     if (new NotificationAlarmTask(mContext, Calendar.getInstance(), canAlarmTypes[i]).exists()) {
                         new NotificationAlarmTask(mContext, Calendar.getInstance(), canAlarmTypes[i]).cancel();
