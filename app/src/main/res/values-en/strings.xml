@@ -58,6 +58,7 @@
     <string name="pref_url_website_long">https://beusterse.de</string>
     <string name="pref_title_note">Note</string>
     <string name="pref_description_note">The Eigenbetrieb Abfallwirtschaft can schedule additional pickup dates, which are not necessarily included in this app. Those dates can be found online or in your service fee notification.</string>
+    <string name="pref_description_note_reminders">Besides the shown settings, systems settings from Android (like battery saver or unused app management) can influence the reminder feature.</string>
     <string name="pref_theme_title">Theme</string>
     <string-array name="pref_theme_entries">
         <item>Light</item>

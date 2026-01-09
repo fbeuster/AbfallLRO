@@ -64,6 +64,7 @@
     <string name="pref_url_website_long">https://beusterse.de</string>
     <string name="pref_title_note">Hinweis</string>
     <string name="pref_description_note">Der Eigenbetrieb Abfallwirtschaft kann weitere Abfuhrtermine festlegen, die unter Umständen nicht in der App enthalten sind. Diese sind dann online oder im Gebührenbescheid zu finden.</string>
+    <string name="pref_description_note_reminders">Neben den gelisteten Einstellungen können Systemeinstellungen von Android (bspw. Energiesparmodus, ungenutzte App Verwaltung) die Erinnerungen beeinträchtigen.</string>
     <string name="pref_theme_title">Design</string>
     <string-array name="pref_theme_entries">
         <item>Hell</item>

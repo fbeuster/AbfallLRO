@@ -1,6 +1,9 @@
 package de.beusterse.abfalllro.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
@@ -59,6 +62,21 @@ public class SettingsActivity extends AppCompatActivity implements SyncCallback,
         });
 
         setupActionBar();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if (context != null) {
+            editor.putString(context.getResources().getString(R.string.pref_key_intern_last_daily_check), "");
+        }
+
+        editor.apply();
+
+        super.onDestroy();
     }
 
     @Override

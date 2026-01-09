@@ -12,7 +12,7 @@ public class ServiceManager {
     private Context context;
 
     public ServiceManager(Context context) {
-        this.context    = context;
+        this.context = context;
     }
 
     public void run() {

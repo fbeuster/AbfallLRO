@@ -50,26 +50,11 @@ public class NotificationAlarmTask implements Runnable {
         int type = AlarmManager.RTC_WAKEUP;
         long time = date.getTimeInMillis();
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S) {
-            if (alarmManager.canScheduleExactAlarms()) {
-                alarmManager.setExactAndAllowWhileIdle(type, time, getPendingIntent(flag));
-            } else {
-                alarmManager.setAndAllowWhileIdle(type, time, getPendingIntent(flag));
-            }
-
-        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            try {
-                alarmManager.setExactAndAllowWhileIdle(type, time, getPendingIntent(flag));
-            } catch (SecurityException e) {
-                alarmManager.setAndAllowWhileIdle(type, time, getPendingIntent(flag));
-            }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            alarmManager.setAndAllowWhileIdle(type, time, getPendingIntent(flag));
 
         } else {
-            try {
-                alarmManager.setExact(type, time, getPendingIntent(0));
-            } catch (SecurityException e) {
-                alarmManager.set(type, time, getPendingIntent(0));
-            }
+            alarmManager.set(type, time, getPendingIntent(0));
         }
     }
 

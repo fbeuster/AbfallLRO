@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
+
 import de.beusterse.abfalllro.R;
 import de.beusterse.abfalllro.utils.NotificationUtils;
 import de.beusterse.abfalllro.utils.TimePreference;
@@ -19,7 +21,7 @@ public class NotificationPreferenceFragment extends ReturnPreferenceFragmentComp
         setHasOptionsMenu(true);
 
         SwitchPreferenceCompat active = findPreference(getString(R.string.pref_key_notifications_active));
-        TimePreference time     = findPreference(getString(R.string.pref_key_notifications_time));
+        TimePreference time = findPreference(getString(R.string.pref_key_notifications_time));
 
         updatePreferencesEnabled(active.isChecked());
         updateTimePreferenceSummary(time);
